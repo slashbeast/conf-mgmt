@@ -1,0 +1,80 @@
+- name: check if connman is installed
+  stat:
+    path: /usr/sbin/connmand
+  register: connmand_binary
+
+- name: fail if no connman installed
+  when: connmand_binary.stat.exists == false
+  fail:
+    msg: /usr/sbin/connmand missing
+
+- name: /etc/connman directory
+  file:
+    path: /etc/connman
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: /var/lib/connman directory
+  file:
+    path: /var/lib/connman
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: disable dns proxy
+  notify: restart connman
+  lineinfile:
+    path: /etc/conf.d/connman
+    regexp: '^CONNMAN_OPTS='
+    line: 'CONNMAN_OPTS="--nodnsproxy"'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: disable hostname updates via dhcp
+  notify: restart connman
+  ini_file:
+    path: /etc/connman/main.conf
+    owner: root
+    group: root
+    mode: 0600
+    section: 'General'
+    option: 'AllowHostnameUpdates'
+    value: 'false'
+    no_extra_spaces: true
+
+- name: disable NTP client
+  notify: restart connman
+  ini_file:
+    path: /var/lib/connman/settings
+    owner: root
+    group: root
+    mode: 0600
+    section: 'global'
+    option: 'TimeUpdates'
+    value: 'manual'
+    no_extra_spaces: true
+
+- name: disable timezone updates
+  notify: restart connman
+  ini_file:
+    path: /var/lib/connman/settings
+    owner: root
+    group: root
+    mode: 0600
+    section: 'global'
+    option: 'TimezoneUpdates'
+    value: 'manual'
+    no_extra_spaces: true
+
+- name: allow wheel group to use connmanctl
+  notify: reload dbus
+  copy:
+    src:  etc_dbus-1_system.d_connman_allow_wheel_group.conf
+    dest: /etc/dbus-1/system.d/connman_allow_wheel_group.conf
+    owner: root
+    group: root
+    mode: 0644

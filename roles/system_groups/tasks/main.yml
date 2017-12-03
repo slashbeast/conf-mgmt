@@ -1,0 +1,35 @@
+- name: view_proc
+  group:
+    name: view_proc
+    gid: 50001
+    state: present
+
+- name: with_symlinksifownermatch
+  group:
+    name: with_symlinksifownermatch
+    gid: 50002
+    state: present
+
+- name: with_audit
+  group:
+    name: with_audit
+    gid: 50003
+    state: present
+
+- name: without_tpe
+  group:
+    name: without_tpe
+    gid: 50004
+    state: present
+
+- name: deny_client_socket
+  group:
+    name: deny_client_socket
+    gid: 50005
+    state: present
+
+- name: deny_server_socket
+  group:
+    name: deny_server_socket
+    gid: 50006
+    state: present

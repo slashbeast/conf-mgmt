@@ -1,0 +1,11 @@
+# Python 2.7
+ansible
+flake8
+flake8-comprehensions
+flake8-tidy-imports
+isort
+multilint
+pip-tools
+tox
+yamllint
+pip-lock

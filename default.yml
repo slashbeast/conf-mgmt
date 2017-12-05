@@ -13,5 +13,6 @@
   connection: local
   hosts: localhost
   roles:
-  - default
+  - system_groups
+  - connman
 

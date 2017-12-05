@@ -1,5 +1,0 @@
-- include_role:
-    name: system_groups
-
-- include_role:
-    name: connman

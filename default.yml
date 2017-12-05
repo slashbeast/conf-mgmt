@@ -2,6 +2,7 @@
 
 - name: set global variables
   gather_facts: false
+  no_log: true
   connection: local
   hosts: localhost
   tasks:
@@ -10,6 +11,7 @@
 
 - name: apply default role
   gather_facts: false
+  no_log: true
   connection: local
   hosts: localhost
   roles:

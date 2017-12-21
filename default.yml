@@ -2,7 +2,6 @@
 
 - name: set global variables
   gather_facts: false
-  no_log: true
   connection: local
   hosts: localhost
   tasks:
@@ -11,10 +10,10 @@
 
 - name: apply default role
   gather_facts: false
-  no_log: true
   connection: local
   hosts: localhost
   roles:
   - system_groups
   - connman
+  - resolve_dns_via_localhost
 

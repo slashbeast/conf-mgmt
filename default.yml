@@ -16,4 +16,6 @@
   - system_groups
   - connman
   - resolve_dns_via_localhost
+  - role: sshd
+    no_password_login: true
 

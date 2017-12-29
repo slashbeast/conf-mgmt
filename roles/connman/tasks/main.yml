@@ -24,6 +24,15 @@
     group: root
     mode: 0700
 
+- name: /var/run/connman directory
+  notify: restart connman
+  file:
+    path: /var/run/connman
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: disable dns proxy
   notify: restart connman
   lineinfile:

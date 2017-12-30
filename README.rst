@@ -31,7 +31,7 @@ connman
 dnsmasq
 -------
 
-- Get ``dnsmasq.conf`` that either uses connman's ``/var/run/connman/resolv.conf``, direcly Google DNS servers or OpenDNS, depending on ``upstream`` set to either ``connman``, ``google``, or ``opendns``.
+- Get ``dnsmasq.conf`` that either uses connman's ``/var/run/connman/resolv.conf``, directly Google DNS servers or OpenDNS, depending on ``upstream`` set to either ``connman``, ``google``, or ``opendns``.
 
 resolve_dns_via_localhost
 -------------------------

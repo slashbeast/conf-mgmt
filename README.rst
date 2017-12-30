@@ -22,9 +22,9 @@ connman
 -------
 
 - Disables DNS proxy. I prefer to use dnsmasq.
-- Disables NTP client. Ii prefer to use chrony.
+- Disables NTP client. I prefer to use chrony.
 - Disables chostname changes via DHCP.
-- Disables timezone updates. It uses DBus, nothing listen here for the timezone changes.
+- Disables timezone updates. It uses DBus, nothing listen here for the timezone changes. ¯\_(ツ)_/¯
 - Allow whell group to use `connmanctl` and in general talk with connman via DBus.
 - ensure `/var/run/connman` exists, opentmpfiles creates it, but unless triggered (like, reboot) it won't.
 

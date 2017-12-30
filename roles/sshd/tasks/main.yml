@@ -8,7 +8,7 @@
   notify: restart sshd
 
 - name: set PasswordAuthentication to no
-  when: no_password_login|default(false) == true
+  when: no_password_login|default(false)
   lineinfile: 
     dest: /etc/ssh/sshd_config
     regexp: '^#?PasswordAuthentication'
@@ -17,7 +17,7 @@
   notify: restart sshd
 
 - name: set ChallengeResponseAuthentication to no
-  when: no_password_login|default(false) == true
+  when: no_password_login|default(false)
   lineinfile: 
     dest: /etc/ssh/sshd_config
     regexp: '^#?ChallengeResponseAuthentication'

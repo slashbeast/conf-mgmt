@@ -17,7 +17,7 @@
   - connman
   - resolve_dns_via_localhost
   - role: sshd
-    no_password_login: true
+    no_password_login: True
   - role: dnsmasq
     upstream: connman
 

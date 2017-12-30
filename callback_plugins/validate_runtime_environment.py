@@ -20,8 +20,12 @@ except ImportError:
 
 class CallbackModule(CallbackBase):
     def __init__(self):
-        if sys.version_info[:2] != (2, 7):
-            print('Your runtime Python environment is supported. Check README.rst for more information how to set it up', file=sys.stderr)
+        if not ( 
+            sys.version_info[:2] == (2, 7) or
+            sys.version_info[:2] == (3, 5) or
+            sys.version_info[:2] == (3, 6)
+        ):
+            print('Your runtime Python environment is not supported. Check README.rst for more information how to set it up', file=sys.stderr)
             sys.exit(1)
 
         if not HAVE_PIP_LOCK:

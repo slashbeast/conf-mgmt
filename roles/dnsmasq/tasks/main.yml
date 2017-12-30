@@ -1,0 +1,23 @@
+- name: check if is installed
+  stat:
+    path: /usr/sbin/dnsmasq
+  register: dnsmasq_binary
+
+- name: fail if not installed
+  when: not dnsmasq_binary.stat.exists
+  fail:
+    msg: /usr/sbin/dnsmasq missing
+
+- name: validate upstream variable
+  assert:
+    that:
+    - upstream in ['connman', 'google', 'opendns']
+
+- name: dnsmasq.conf
+  notify: restart dnsmasq
+  template:
+    src: etc_dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+    owner: root
+    group: root
+    mode: 0644

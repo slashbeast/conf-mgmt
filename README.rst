@@ -15,6 +15,11 @@ To apply *defaults* one can run ``default.yml`` script.
     pip install -r requirements.txt
     ./default.yml
 
+Secrets
+=======
+
+Secrets handling via separated repository is supported by the ``merge`` script. Check it's header comments for more information.
+
 Roles
 =====
 

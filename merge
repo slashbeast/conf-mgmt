@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This script is supposed to simplify merging the public 'conf-mgmt-like-a-sir'
+# with private 'conf-mgmt-like-a-sir-private' that can be simply used as it all
+# were within the same repository 'conf-mgmt-like-a-sir-merged'
+
+# Usage:
+#   cd /root/src
+#   git clone https://github.com/slashbeast/conf-mgmt-like-a-sir
+#   git clone git@host:url/to/conf-mgmt-like-a-sir-private.git
+#   ./conf-mgmt-like-a-sir/merge
+
+set -e
+set -u
+
+eerror() {
+    echo "$*" >&2
+}
+
+trap 'eerror "Error in $0 on line ${LINENO}."' ERR
+
+script_path="$(readlink -f "$0")"
+work_dir="${script_path%/*}"
+
+script_dir_name="${work_dir##*/}"
+
+public_dir="${work_dir}"
+private_dir="${work_dir}/../${script_dir_name}-private"
+merged_dir="${work_dir}/../${script_dir_name}-merged"
+
+rm -rf "${merged_dir}"
+mkdir "${merged_dir}"
+
+test -d "${public_dir}"
+test -d "${private_dir}"
+
+cp -ans "${public_dir}"/* "${merged_dir}"/
+cp -ans "${private_dir}"/* "${merged_dir}"/
+
+cat <<END
+Done.
+
+    cd $(readlink -f "${merged_dir}")
+    ./foo.yml
+
+END

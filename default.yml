@@ -1,13 +1,5 @@
 #!/usr/bin/env ansible-playbook
 
-- name: set global variables
-  gather_facts: false
-  connection: local
-  hosts: localhost
-  tasks:
-  - set_fact:
-      foo: bar
-
 - name: apply default role
   gather_facts: false
   connection: local

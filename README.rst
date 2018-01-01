@@ -1,5 +1,5 @@
-ansible-like-a-sir
-==================
+conf-mgmt-like-a-sir
+====================
 
 Set of Ansible tasks to configure Gentoo-based workstations.
 

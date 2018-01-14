@@ -58,3 +58,8 @@ system_groups
 - ``without_tpe`` gid ``50004``
 - ``deny_client_socket`` gid ``50006``
 - ``deny_server_socket`` gid ``50006``
+
+zsh
+---
+
+Deploy .zshrc to user of choice and set the user's shell to /bin/zsh.

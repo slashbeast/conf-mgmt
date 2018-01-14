@@ -1,0 +1,25 @@
+- assert:
+    that:
+    - hostname is defined
+
+- name: set hostname in /etc/conf.d/hostname
+  lineinfile:
+    dest: /etc/conf.d/hostname
+    regexp: '^hostname='
+    line: 'hostname="{{ hostname }}"'
+    state: present
+  notify: restart hostname
+
+- name: set hostname in /etc/hosts for 127.0.0.1
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127\.0\.0\.1[ \t]'
+    line: '127.0.0.1 {{ hostname }} localhost'
+    state: present
+
+- name: set hostname in /etc/hosts for ::1
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^::1[ \t]'
+    line: '::1 {{ hostname }} localhost'
+    state: present

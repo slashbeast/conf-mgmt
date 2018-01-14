@@ -5,6 +5,8 @@
   connection: local
   hosts: localhost
   roles:
+  - role: hostname
+    hostname: localhost
   - system_groups
   - connman
   - resolve_dns_via_localhost

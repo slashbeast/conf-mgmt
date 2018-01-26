@@ -1,5 +1,7 @@
 #!/usr/bin/env ansible-playbook
 
+# This is example of per-host playbook.
+
 - name: apply default role
   gather_facts: false
   connection: local

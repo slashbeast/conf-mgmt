@@ -59,6 +59,11 @@ system_groups
 - ``deny_client_socket`` gid ``50006``
 - ``deny_server_socket`` gid ``50006``
 
+system_user
+-----------
+
+Create user with name as ``user`` and group as ``group``. Optionally can get ``additional_groups`` parameter with colon separated additional groups.
+
 zsh
 ---
 

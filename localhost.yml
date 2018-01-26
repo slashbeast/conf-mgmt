@@ -17,5 +17,9 @@
     no_password_login: True
   - role: dnsmasq
     upstream: connman
+  - role: system_user
+    user: foo
+    group: users
+    additional_groups: audio,video
   - role: zsh
     user: root

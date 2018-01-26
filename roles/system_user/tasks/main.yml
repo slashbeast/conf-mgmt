@@ -1,0 +1,11 @@
+- assert:
+    that:
+    - user is defined
+    - group is defined
+
+- name: add user
+  user:
+    name: '{{ user }}'
+    group: '{{ group }}'
+    groups: '{{ additional_groups | default(omit) }}'
+    append: yes

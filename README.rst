@@ -68,3 +68,8 @@ hostname
 --------
 
 Set hostname.
+
+locale
+------
+
+Set English UTF-8 locales with ISO date format.

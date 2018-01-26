@@ -1,0 +1,32 @@
+- name: set en_US+pl_PL locales in /etc/locale.gen
+  register: etc_locale_gen
+  copy:
+    dest: /etc/locale.gen
+    owner: root
+    group: root
+    mode: 0600
+    content: |
+      en_US ISO-8859-1
+      en_US.UTF-8 UTF-8
+      pl_PL ISO-8859-2
+      pl_PL.UTF-8 UTF-8
+
+- name: regenerate locales
+  when: etc_locale_gen.changed
+  command: locale-gen
+
+- name: set English UTF-8 locales with ISO date format
+  register: etc_env_d_02locale
+  copy:
+    dest: /etc/env.d/02locale
+    owner: root
+    group: root
+    mode: 0600
+    content: |
+      LC_COLLATE="C"
+      LANG="en_US.UTF-8"
+      LC_TIME="pl_PL.UTF-8"
+
+- name: updates environment settings
+  when: etc_env_d_02locale.changed
+  command: env-update

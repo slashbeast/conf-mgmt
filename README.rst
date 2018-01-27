@@ -72,9 +72,9 @@ Deploy .zshrc to user of choice and set the user's shell to /bin/zsh.
 hostname
 --------
 
-Set hostname.
+Set hostname to ``hostname`` variable.
 
 locale
 ------
 
-Set English UTF-8 locales with ISO date format.
+Set English UTF-8 locales with ISO-ish date format and Coreutils's long-iso time style.

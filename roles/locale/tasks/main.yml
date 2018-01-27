@@ -1,4 +1,4 @@
-- name: set //etc/locale.gen to en_DK and en_US (UTF-8)
+- name: set /etc/locale.gen to en_DK and en_US (UTF-8)
   register: etc_locale_gen
   copy:
     dest: /etc/locale.gen

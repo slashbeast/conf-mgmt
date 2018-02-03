@@ -9,3 +9,15 @@
     group: '{{ group }}'
     groups: '{{ additional_groups | default(omit) }}'
     append: yes
+
+- name: query for home dir of user 
+  getent:
+    database: passwd
+    key: '{{ user }}'
+
+- name: ensure home dir is not world readable
+  file:
+    path: '{{ getent_passwd[user][4] }}'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: 0700

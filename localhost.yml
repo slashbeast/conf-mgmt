@@ -1,6 +1,7 @@
 #!/usr/bin/env ansible-playbook
 
 # This is example of per-host playbook.
+# Create '<hostname>.yml' with host specific configuration.
 
 - name: apply default role
   gather_facts: false

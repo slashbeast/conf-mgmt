@@ -1,5 +1,5 @@
 - name: set sshd port
-  when: port is definied
+  when: port is defined
   lineinfile: 
     dest: /etc/ssh/sshd_config
     regexp: '^#?Port '

@@ -4,21 +4,18 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-ansible==2.4.2.0
+ansible==2.4.3.0
 asn1crypto==0.24.0        # via cryptography
 bcrypt==3.1.4             # via paramiko
-cffi==1.11.2              # via bcrypt, cryptography, pynacl
+cffi==1.11.4              # via bcrypt, cryptography, pynacl
 click==6.7                # via pip-tools
-configparser==3.5.0       # via flake8
 cryptography==2.1.4       # via ansible, paramiko
-enum34==1.1.6             # via cryptography, flake8
 first==2.0.1              # via pip-tools
 flake8-comprehensions==1.4.1
 flake8-tidy-imports==1.1.0
 flake8==3.5.0
 idna==2.6                 # via cryptography
-ipaddress==1.0.19         # via cryptography
-isort==4.2.15
+isort==4.3.3
 jinja2==2.10              # via ansible
 markupsafe==1.0           # via jinja2
 mccabe==0.6.1             # via flake8

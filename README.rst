@@ -48,7 +48,7 @@ sshd
 
 - Allow root login with key-only auth.
 - Disable password login all together, when ``no_password_login`` set to ``True``.
-- Change default port if ``port`` is set.
+- Change default port if ``sshd_port`` is set.
 
 system_groups
 -------------

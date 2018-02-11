@@ -8,18 +8,23 @@
   hosts: localhost
   roles:
   - role: hostname
-    hostname: localhost
+    vars:
+      hostname: localhost
   - role: locale
   - role: system_groups
   - role: connman
   - role: resolve_dns_via_localhost
   - role: sshd
-    no_password_login: True
+    vars:
+      no_password_login: True
   - role: dnsmasq
-    upstream: connman
+    vars:
+      upstream: connman
   - role: system_user
-    user: foo
-    group: users
-    additional_groups: audio,video
+    vars:
+      user: foo
+      group: users
+      additional_groups: audio,video
   - role: zsh
-    user: root
+    vars:
+      user: root

@@ -1,0 +1,17 @@
+- name: check if tmpreaper is installed
+  stat:
+    path: /usr/sbin/tmpreaper
+  register: tmpreaper_binary
+
+- name: fail if tmpreaper is not installed
+  when: tmpreaper_binary.stat.exists == false
+  fail:
+    msg: /usr/sbin/tmpreaper is missing
+
+- name: script
+  copy:
+    src: etc_cron.hourly_clean-tmp-dirs
+    dest: /etc/cron.hourly/clean-tmp-dirs
+    owner: root
+    group: root
+    mode: 0755

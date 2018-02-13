@@ -29,3 +29,4 @@
   - role: zsh
     vars:
       user: root
+  - role: clean-tmp-dirs

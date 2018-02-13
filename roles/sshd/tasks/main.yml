@@ -3,7 +3,7 @@
   lineinfile: 
     dest: /etc/ssh/sshd_config
     regexp: '^#?Port '
-    line: 'Port {{ port }}'
+    line: 'Port {{ sshd_port }}'
     state: present
   notify: restart sshd
 

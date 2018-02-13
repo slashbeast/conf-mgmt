@@ -79,3 +79,14 @@ locale
 ------
 
 Set English UTF-8 locales with ISO-ish date format and Coreutils's long-iso time style.
+
+clean-tmp-dirs
+--------------
+
+Install script that is executed every hour by cron that Clean /tmp, /var/tmp as well as users' temporary directories. Users can exclude themselves by creating ``.skip-cleaning`` file in ``$HOME/tmp``. Files and directories with mtime >= 24h will be removed from the temporary directories. Some excludes are added in script to not break Xorg etc.
+
+Requires:
+
+- ``bash`` in version 4
+- ``chpst`` from ``busybox``
+- ``tmpreaper``

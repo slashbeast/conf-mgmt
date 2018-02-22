@@ -1,3 +1,13 @@
+- name: check if iwconfig is installed
+  stat:
+    path: /sbin/iwconfig
+  register: iwconfig_binary
+
+- name: fail if no connman installed
+  when: iwconfig_binary.stat.exists == false
+  fail:
+    msg: /sbin/iwconfig missing
+
 - name: script
   copy:
     src: etc_local.d_disable_wireless_power_saving.start

@@ -9,4 +9,4 @@
 
 - name: execute script
   when: disable_wireless_power_saving_script.changed
-  cmd: /etc/local.d/disable_wireless_power_saving.start
+  command: /etc/local.d/disable_wireless_power_saving.start

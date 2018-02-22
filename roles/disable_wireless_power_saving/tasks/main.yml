@@ -3,7 +3,7 @@
     path: /sbin/iwconfig
   register: iwconfig_binary
 
-- name: fail if no connman installed
+- name: fail if no iwconfig installed
   when: iwconfig_binary.stat.exists == false
   fail:
     msg: /sbin/iwconfig missing

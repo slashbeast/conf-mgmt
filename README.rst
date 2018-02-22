@@ -90,3 +90,8 @@ Requires:
 - ``bash`` in version 4
 - ``chpst`` from ``busybox``
 - ``tmpreaper``
+
+disable_wireless_power_saving
+-----------------------------
+
+Disable 'power saving' for Wireless network interfaces. Useful for hosts that have WAN as wireless, to prevent inbound SSH connections from being lagish.

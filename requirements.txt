@@ -15,7 +15,7 @@ flake8-comprehensions==1.4.1
 flake8-tidy-imports==1.1.0
 flake8==3.5.0
 idna==2.6                 # via cryptography
-isort==4.3.3
+isort==4.3.4
 jinja2==2.10              # via ansible
 markupsafe==1.0           # via jinja2
 mccabe==0.6.1             # via flake8
@@ -35,4 +35,4 @@ pyyaml==3.12              # via ansible, yamllint
 six==1.11.0               # via bcrypt, cryptography, pip-tools, pynacl, tox
 tox==2.9.1
 virtualenv==15.1.0        # via tox
-yamllint==1.10.0
+yamllint==1.11.0

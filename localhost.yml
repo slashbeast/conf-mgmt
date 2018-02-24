@@ -8,32 +8,44 @@
   connection: local
   hosts: localhost
   roles:
+
   - role: hostname
     vars:
       hostname: localhost
+
   - role: locale
+
   - role: system_groups
+
   - role: connman
+
   - role: resolve_dns_via_localhost
+
   - role: sshd
     vars:
       no_password_login: True
+
   - role: dnsmasq
     vars:
       upstream: connman
+
   - role: system_user
     vars:
       user: foo
       group: users
       additional_groups: audio,video
+
   - role: zsh
     vars:
       users:
       - root
+
   - role: tmux
     vars:
       users:
       - root
       - foo
+
   - role: clean_tmp_dirs
+
   - role: disable_wireless_power_saving

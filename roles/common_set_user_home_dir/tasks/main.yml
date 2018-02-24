@@ -11,6 +11,10 @@
   set_fact:
     user_home_dir: '{{ getent_passwd[user][4] }}'
 
+- assert:
+    that:
+    - user_home_dir != ""
+
 - debug:
     msg: 'user: {{ user }}'
 

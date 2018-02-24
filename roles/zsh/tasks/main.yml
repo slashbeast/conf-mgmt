@@ -1,24 +1,8 @@
 - assert:
     that:
-    - user is defined
+    - users is defined
 
-- name: query for home dir of user 
-  getent:
-    database: passwd
-    key: '{{ user }}'
-
-- name: set user_home_dir variable
-  set_fact:
-    user_home_dir: '{{ getent_passwd[user][4] }}'
-
-- name: set user's shell to /bin/zsh
-  user:
-    name: '{{ user }}'
-    shell: /bin/zsh
-
-- name: user's zshrc deployment
-  copy:
-    src: DOTzshrc
-    dest: '{{ user_home_dir }}/.zshrc'
-    owner: '{{ user }}'
-    mode: 0600
+- include_tasks: per_user.yml
+  vars:
+    user: '{{ item }}'
+  with_items: '{{ users }}'

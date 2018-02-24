@@ -28,7 +28,8 @@
       additional_groups: audio,video
   - role: zsh
     vars:
-      user: root
+      users:
+      - root
   - role: tmux
     vars:
       users:

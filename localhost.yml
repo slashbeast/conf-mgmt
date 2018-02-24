@@ -31,6 +31,8 @@
       user: root
   - role: tmux
     vars:
-      user: root
+      users:
+      - root
+      - foo
   - role: clean-tmp-dirs
   - role: disable_wireless_power_saving

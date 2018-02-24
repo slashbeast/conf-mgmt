@@ -73,7 +73,7 @@ Deploy .zshrc to user of choice and set the user's shell to /bin/zsh.
 tmux
 ----
 
-Deploy .tmux.conf to user of choice.
+Deploy .tmux.conf to user of choice. Pass ``users`` variable with list of users that .tmux.conf is to be deployed to.
 
 hostname
 --------

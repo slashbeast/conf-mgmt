@@ -100,3 +100,8 @@ disable_wireless_power_saving
 -----------------------------
 
 Disable 'power saving' for Wireless network interfaces. Useful for hosts that have WAN as wireless, to prevent inbound SSH connections from being lagish.
+
+common_set_user_home_dir
+------------------------
+
+Internal use only. Common interface to set ``user_home_dir`` fact for the specified ``user``.

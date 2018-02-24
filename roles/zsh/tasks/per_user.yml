@@ -2,17 +2,9 @@
     that:
     - user is defined
 
-- debug:
-    msg: 'user: {{ user }}'
-
-- name: query for home dir of user 
-  getent:
-    database: passwd
-    key: '{{ user }}'
-
-- name: set user_home_dir variable
-  set_fact:
-    user_home_dir: '{{ getent_passwd[user][4] }}'
+- include_role: common_set_user_home_dir
+  vars:
+    user: '{{ user }}'
 
 - name: set user's shell to /bin/zsh
   user:

@@ -29,5 +29,8 @@
   - role: zsh
     vars:
       user: root
+  - role: tmux
+    vars:
+      user: root
   - role: clean-tmp-dirs
   - role: disable_wireless_power_saving

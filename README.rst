@@ -70,6 +70,11 @@ zsh
 
 Deploy .zshrc to user of choice and set the user's shell to /bin/zsh.
 
+tmux
+----
+
+Deploy .tmux.conf to user of choice.
+
 hostname
 --------
 

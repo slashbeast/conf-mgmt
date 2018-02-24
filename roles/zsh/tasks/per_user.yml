@@ -2,7 +2,8 @@
     that:
     - user is defined
 
-- include_role: common_set_user_home_dir
+- include_role: 
+  name: common_set_user_home_dir
   vars:
     user: '{{ user }}'
 

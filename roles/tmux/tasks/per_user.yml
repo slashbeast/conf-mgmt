@@ -3,9 +3,7 @@
     - user is defined
 
 - include_role:
-  name: common_set_user_home_dir
-  vars:
-    user: '{{ user }}'
+    name: common_set_user_home_dir
 
 - name: user's .tmux.conf deployment
   copy:

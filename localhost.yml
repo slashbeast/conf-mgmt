@@ -35,23 +35,17 @@
       group: users
       additional_groups: audio,video
 
-  - role: zsh
-    vars:
-      users:
-      - root
-
-  - role: tmux
-    vars:
-      users:
-      - root
-      - foo
-
-  - role: vim
-    vars:
-      users:
-      - root
-      - foo
-
   - role: clean_tmp_dirs
 
   - role: disable_wireless_power_saving
+
+  - role: user_configs
+    vars:
+      users:
+      - root
+      - foo
+      deploy:
+      - zsh
+      - vim
+      - tmux
+

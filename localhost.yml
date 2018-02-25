@@ -46,6 +46,12 @@
       - root
       - foo
 
+  - role: vim
+    vars:
+      users:
+      - root
+      - foo
+
   - role: clean_tmp_dirs
 
   - role: disable_wireless_power_saving

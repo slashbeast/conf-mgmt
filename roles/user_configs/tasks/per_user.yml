@@ -2,7 +2,7 @@
     that:
     - user is defined
 
-- name: query for home dir of user 
+- name: query for home dir of user
   getent:
     database: passwd
     key: '{{ user }}'
@@ -21,3 +21,11 @@
 - debug:
     msg: 'home dir: {{ user_home_dir }}'
 
+- include_tasks: zsh.yml
+  when: '"zsh" in deploy'
+
+- include_tasks: tmux.yml
+  when: '"tmux" in deploy'
+
+- include_tasks: vim.yml
+  when: '"vim" in deploy'

@@ -7,7 +7,7 @@
 
 - name: user's .vimrc deployment
   copy:
-    src: DOTvimrc.conf
+    src: DOTvimrc
     dest: '{{ user_home_dir }}/.vimrc'
     owner: '{{ user }}'
     mode: 0600

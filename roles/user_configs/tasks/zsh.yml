@@ -8,4 +8,5 @@
     src: DOTzshrc
     dest: '{{ user_home_dir }}/.zshrc'
     owner: '{{ user }}'
+    group: '{{ user_group_id }}'
     mode: 0600

@@ -7,16 +7,18 @@
     database: passwd
     key: '{{ user }}'
 
-- name: set user_home_dir variable
+- name: set user_home_dir and user_group variables
   set_fact:
     user_home_dir: '{{ getent_passwd[user][4] }}'
+    user_group_id: '{{ getent_passwd[user][2] }}'
 
 - assert:
     that:
     - user_home_dir != ""
+    - user_group_id != ''
 
 - debug:
-    msg: 'user: {{ user }}'
+    msg: 'user: {{ user }}, group_id: {{ user_group_id }}'
 
 - debug:
     msg: 'home dir: {{ user_home_dir }}'

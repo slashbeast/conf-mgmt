@@ -75,6 +75,11 @@ tmux
 
 Deploy .tmux.conf to user of choice. Pass ``users`` variable with list of users that .tmux.conf is to be deployed to.
 
+vim
+---
+
+Deploy .vimrc to user of choice. Pass ``users`` variable with list of users that .vimrc is to be deployed to.
+
 hostname
 --------
 

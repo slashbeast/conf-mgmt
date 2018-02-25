@@ -65,21 +65,6 @@ system_user
 
 Create user with name as ``user`` and group as ``group``. Optionally can get ``additional_groups`` parameter with colon separated additional groups.
 
-zsh
----
-
-Deploy .zshrc to user of choice and set the user's shell to /bin/zsh.
-
-tmux
-----
-
-Deploy .tmux.conf to user of choice. Pass ``users`` variable with list of users that .tmux.conf is to be deployed to.
-
-vim
----
-
-Deploy .vimrc to user of choice. Pass ``users`` variable with list of users that .vimrc is to be deployed to.
-
 hostname
 --------
 
@@ -106,7 +91,7 @@ disable_wireless_power_saving
 
 Disable 'power saving' for Wireless network interfaces. Useful for hosts that have WAN as wireless, to prevent inbound SSH connections from being lagish.
 
-common_set_user_home_dir
-------------------------
+user_configs
+------------
 
-Internal use only. Common interface to set ``user_home_dir`` fact for the specified ``user``.
+Takes users from ``users`` list and deploy the configuration files from ``deploy`` list for them.

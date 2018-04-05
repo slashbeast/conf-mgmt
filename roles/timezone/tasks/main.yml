@@ -1,0 +1,16 @@
+- name: copy zonefile into /etc/localtime
+  copy:
+    remote_src: yes
+    src: /usr/share/zoneinfo/{{ timezone }}
+    dest: /etc/localtime
+    mode: 0644
+    owner: root
+    group: root
+
+- name: set timezone in /etc/timezone
+  copy:
+    content: '{{ timezone }}'
+    dest: /etc/timezone
+    mode: 0644
+    owner: root
+    group: root

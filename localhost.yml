@@ -13,6 +13,10 @@
     vars:
       hostname: localhost
 
+  - role: timezone
+    vars:
+      timezone: Europe/Warsaw
+
   - role: locale
 
   - role: system_groups

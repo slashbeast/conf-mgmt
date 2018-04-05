@@ -70,6 +70,11 @@ hostname
 
 Set hostname to ``hostname`` variable.
 
+timezone
+--------
+
+Set timezone to ``timezone`` variable.
+
 locale
 ------
 

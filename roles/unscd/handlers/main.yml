@@ -1,0 +1,6 @@
+- name: restart unscd
+  service:
+    name: unscd
+    state: restarted
+    runlevel: default
+    enabled: true

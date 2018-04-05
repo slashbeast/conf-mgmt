@@ -80,6 +80,11 @@ locale
 
 Set English UTF-8 locales with ISO-ish date format and Coreutils's long-iso time style.
 
+unscd
+-----
+
+Enable unscd as dns cache.
+
 clean_tmp_dirs
 --------------
 

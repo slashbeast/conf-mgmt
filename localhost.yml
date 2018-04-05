@@ -19,6 +19,8 @@
 
   - role: locale
 
+  - role: unscd
+
   - role: system_groups
 
   - role: connman

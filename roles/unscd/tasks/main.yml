@@ -1,12 +1,7 @@
-- name: check if unscd is installed
-  stat:
-    path: /usr/sbin/unscd
-  register: unscd_binary
-
-- name: fail if not installed
-  when: not unscd_binary.stat.exists
-  fail:
-    msg: /usr/sbin/unscd missing
+- include_role:
+    name: check_for_binary
+  vars:
+    binary: /usr/sbin/unscd
 
 - set_fact:
     dns_positive_ttl: 10800

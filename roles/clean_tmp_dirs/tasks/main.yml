@@ -1,12 +1,7 @@
-- name: check if tmpreaper is installed
-  stat:
-    path: /usr/sbin/tmpreaper
-  register: tmpreaper_binary
-
-- name: fail if tmpreaper is not installed
-  when: tmpreaper_binary.stat.exists == false
-  fail:
-    msg: /usr/sbin/tmpreaper is missing
+- include_role:
+    name: check_for_binary
+  vars:
+    binary: /usr/sbin/tmpreaper
 
 - name: script
   copy:

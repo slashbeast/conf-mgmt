@@ -1,12 +1,7 @@
-- name: check if connman is installed
-  stat:
-    path: /usr/sbin/connmand
-  register: connmand_binary
-
-- name: fail if no connman installed
-  when: connmand_binary.stat.exists == false
-  fail:
-    msg: /usr/sbin/connmand missing
+- include_role:
+    name: check_for_binary
+  vars:
+    binary: /usr/sbin/connmand
 
 - name: /etc/connman directory
   file:

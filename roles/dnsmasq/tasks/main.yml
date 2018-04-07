@@ -1,12 +1,7 @@
-- name: check if is installed
-  stat:
-    path: /usr/sbin/dnsmasq
-  register: dnsmasq_binary
-
-- name: fail if not installed
-  when: not dnsmasq_binary.stat.exists
-  fail:
-    msg: /usr/sbin/dnsmasq missing
+- include_role:
+    name: check_for_binary
+  vars:
+    binary: /usr/sbin/dnsmasq
 
 - name: validate upstream variable
   assert:

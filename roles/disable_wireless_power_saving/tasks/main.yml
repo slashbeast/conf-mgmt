@@ -1,12 +1,7 @@
-- name: check if iwconfig is installed
-  stat:
-    path: /sbin/iwconfig
-  register: iwconfig_binary
-
-- name: fail if no iwconfig installed
-  when: iwconfig_binary.stat.exists == false
-  fail:
-    msg: /sbin/iwconfig missing
+- include_role:
+    name: check_for_binary
+  vars:
+    binary: /sbin/iwconfig
 
 - name: script
   copy:

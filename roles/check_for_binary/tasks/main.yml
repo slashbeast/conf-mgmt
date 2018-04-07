@@ -1,4 +1,4 @@
-- name: check if requested binary is present
+- name: check if {{ binary }} binary is present
   stat:
     path: '{{ binary }}'
   register: requested_binary

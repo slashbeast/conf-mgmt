@@ -3,7 +3,7 @@
     path: '{{ binary }}'
   register: requested_binary
 
-- name: fail if not installed
+- name: fail if {{ binary }} is not present
   when: not requested_binary.stat.exists
   fail:
     msg: The required {{ binary }} binary appears to not be present on your system.

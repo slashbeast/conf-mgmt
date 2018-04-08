@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# This script is supposed to simplify merging the public 'conf-mgmt'
+# with private 'conf-mgmt--private' that can be simply used as it all
+# were within the same repository 'conf-mgmt-like-a-sir-merged'
+
+# Usage:
+#   cd /root/src/conf-mgmt
+#   ./auto
+
+set -e
+set -u
+
+einfo() {
+    echo "[INFO] >>> $*"
+}
+
+eerror() {
+    echo "[ERROR] >>> $*" >&2
+}
+
+edie() {
+    eerror "$*"
+    exit 1
+}
+
+trap 'eerror "Error in $0 on line ${LINENO}."' ERR
+
+HSOTNAME="$(hostname)"
+
+# localhost.yml is just an example, never to be executed as-is.
+if [ "${HOSTNAME}" == 'localhost' ]; then
+    edie "Your hostname is set to 'localhost'. Change it to a proper one before running this script."
+fi
+
+script_path="$(readlink -f "$0")"
+work_dir="${script_path%/*}"
+
+script_dir_name="${work_dir##*/}"
+
+public_dir="${work_dir}"
+private_dir="${work_dir}/../${script_dir_name}-private"
+merged_dir="${work_dir}/../${script_dir_name}-merged"
+
+test -d "${public_dir}"
+test -d "${private_dir}"
+
+einfo "Merging into ${merged_dir} ..."
+rm -rf "${merged_dir}"
+mkdir "${merged_dir}"
+cp -ans "${public_dir}"/* "${merged_dir}"/
+cp -ans "${private_dir}"/* "${merged_dir}"/
+
+einfo "Running ${HOSTNAME}.yml playbook ..."
+cd "${merged_dir}"
+if [ -f "${HOSTNAME}".yml ]; then
+    ./"${HOSTNAME}".yml
+else
+    edie "Missing playbook for the host ${HOSOTNAME}."
+fi
+
+einfo 'Cleaning merged directory ...'
+rm -rf "${merged_dir}"

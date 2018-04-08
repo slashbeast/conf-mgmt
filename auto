@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# This script is supposed to simplify merging the public 'conf-mgmt'
-# with private 'conf-mgmt--private' that can be simply used as it all
-# were within the same repository 'conf-mgmt-like-a-sir-merged'
+# This script is meant to simplify merging the public and '-private' conf-mgmt
+# files and then running a playbook matching hostname.
 
 # Usage:
 #   cd /root/src/conf-mgmt

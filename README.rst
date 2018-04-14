@@ -105,3 +105,8 @@ user_configs
 ------------
 
 Takes users from ``users`` list and deploy the configuration files from ``deploy`` list for them.
+
+pam_limits
+----------
+
+Set pam_limits's configuration, max per-user processes to ``4096`` and max per-user file descriptors to ``4096``.

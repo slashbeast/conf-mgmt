@@ -1,0 +1,15 @@
+- name: limit max per-user's opened files to 4096
+  pam_limits:
+    domain: '*'
+    limit_type: hard
+    limit_item: nofile
+    value: 4096
+
+- name: limit max per-user's processes to 4096
+  pam_limits:
+    domain: '*'
+    limit_type: hard
+    limit_item: nproc
+    value: 4096
+
+

@@ -55,3 +55,4 @@
       - vim
       - tmux
 
+  - role: pam_limits

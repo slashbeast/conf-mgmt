@@ -115,3 +115,8 @@ in_home_tmpdir
 --------------
 
 Create ~/tmp and set $TMP and $TMPDIR to point that directory.
+
+default_umask_077
+-----------------
+
+Login shells gets umask of 077

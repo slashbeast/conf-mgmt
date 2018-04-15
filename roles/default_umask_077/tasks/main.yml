@@ -1,0 +1,9 @@
+- name: create umask.sh in /etc/profile.d
+  copy:
+    dest: /etc/profile.d/umask.sh
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      #!/bin/sh
+      umask 077

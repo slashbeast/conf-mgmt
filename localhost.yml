@@ -58,3 +58,5 @@
   - role: pam_limits
 
   - role: in_home_tmpdir
+
+  - role: default_umask_077

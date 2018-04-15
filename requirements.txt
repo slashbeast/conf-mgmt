@@ -22,8 +22,8 @@ mccabe==0.6.1             # via flake8
 multilint==2.2.1
 paramiko==2.4.1           # via ansible
 pathspec==0.5.6           # via yamllint
-pip-lock==1.1.0
-pip-tools==1.11.0
+pip-lock==1.1.1
+pip-tools==2.0.1
 pluggy==0.6.0             # via tox
 py==1.5.3                 # via tox
 pyasn1==0.4.2             # via paramiko

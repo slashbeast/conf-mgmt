@@ -110,3 +110,8 @@ pam_limits
 ----------
 
 Set pam_limits's configuration, max per-user processes to ``4096`` and max per-user file descriptors to ``4096``.
+
+in_home_tmpdir
+--------------
+
+Create ~/tmp and set $TMP and $TMPDIR to point that directory.

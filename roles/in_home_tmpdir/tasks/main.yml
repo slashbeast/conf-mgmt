@@ -1,0 +1,11 @@
+- name: create home-tmp.sh in /etc/profile.d
+  copy:
+    dest: /etc/profile.d/home-tmp.sh
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      #!/bin/sh
+      export TMPDIR="${HOME}/tmp"
+      export TMP="${TMPDIR}"
+      if ! [ -d "${TMPDIR}" ]; then install -d "${TMPDIR}" -m 0700; fi

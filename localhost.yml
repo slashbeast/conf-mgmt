@@ -56,3 +56,5 @@
       - tmux
 
   - role: pam_limits
+
+  - role: in_home_tmpdir

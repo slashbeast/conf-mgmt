@@ -18,10 +18,10 @@
     - user_group_id != ''
 
 - debug:
-    msg: 'user: {{ user }}, group_id: {{ user_group_id }}'
-
-- debug:
-    msg: 'home dir: {{ user_home_dir }}'
+    msg:
+      - 'user: {{ user }}'
+      - 'group_id: {{ user_group_id }}'
+      - 'home dir: {{ user_home_dir }}'
 
 - include_tasks: zsh.yml
   when: '"zsh" in deploy'

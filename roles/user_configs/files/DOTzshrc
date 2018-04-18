@@ -419,7 +419,7 @@ _select_path_with_fzy() {
     echo
     print -nr "${zle_bracketed_paste[2]}" >/dev/tty
     {
-        selected_path="$(find -L . 2>/dev/null | cut -c 3- | sort | fzy)"
+        selected_path="$(find -L . \( -type d -printf "%p/\n" , -type f -print \) 2>/dev/null | cut -c 3- | sort | fzy)"
     } always {
         print -nr "${zle_bracketed_paste[1]}" >/dev/tty
     }

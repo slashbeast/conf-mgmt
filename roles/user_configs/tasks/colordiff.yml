@@ -1,0 +1,7 @@
+- name: .colordiffrc deployment
+  copy:
+    src: DOTcolordiffrc
+    dest: '{{ user_home_dir }}/.colordiffrc'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

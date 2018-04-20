@@ -23,11 +23,8 @@
       - 'group_id: {{ user_group_id }}'
       - 'home dir: {{ user_home_dir }}'
 
-- include_tasks: zsh.yml
-  when: '"zsh" in deploy'
-
-- include_tasks: tmux.yml
-  when: '"tmux" in deploy'
-
-- include_tasks: vim.yml
-  when: '"vim" in deploy'
+- include_tasks: '{{ config_name }}.yml'
+  when: 'config_name in deploy'
+  with_items: '{{ deploy }}'
+  loop_control:
+    loop_var: config_name

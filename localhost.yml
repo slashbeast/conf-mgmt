@@ -54,6 +54,7 @@
       - zsh
       - vim
       - tmux
+      - colordiff
 
   - role: pam_limits
 

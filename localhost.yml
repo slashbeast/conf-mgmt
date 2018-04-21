@@ -45,6 +45,8 @@
 
   - role: disable_wireless_power_saving
 
+  - role: dispatch-conf
+
   - role: user_configs
     vars:
       users:

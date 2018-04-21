@@ -120,3 +120,8 @@ default_umask_077
 -----------------
 
 Login shells gets umask of 077
+
+dispatch-conf
+-------------
+
+Set dispatch-conf to use colordiff.

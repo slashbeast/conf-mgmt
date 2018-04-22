@@ -1,0 +1,5 @@
+- name: add --noclear to agetty
+  replace:
+    path: /etc/inittab
+    regexp: '^(c[0-9]+:[0-9]+:respawn:/sbin/agetty) ([0-9]+ tty[0-9]+ linux)$'
+    replace: '\1 --noclear \2'

@@ -63,3 +63,5 @@
   - role: in_home_tmpdir
 
   - role: default_umask_077
+
+  - role: noclear_tty_on_boot

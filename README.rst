@@ -125,3 +125,8 @@ dispatch-conf
 -------------
 
 Set dispatch-conf to use colordiff.
+
+noclear_tty_on_boot
+-------------------
+
+Append --noclear to agetty so tty are not cleared at startup.

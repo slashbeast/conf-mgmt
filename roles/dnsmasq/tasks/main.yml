@@ -6,7 +6,7 @@
 - name: validate upstream variable
   assert:
     that:
-    - upstream in ['connman', 'google', 'opendns']
+    - upstream in ['connman', 'google', 'opendns', 'cloudflare']
 
 - name: dnsmasq.conf
   notify: restart dnsmasq

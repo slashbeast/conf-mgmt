@@ -17,6 +17,8 @@ server=208.67.220.220
 {% elif upstream == 'google' %}
 server=8.8.8.8
 server=8.8.4.4
+{% elif upstream == 'cloudflare' %}
+server=1.1.1.1
 {% endif %}
 {% endif %}
 

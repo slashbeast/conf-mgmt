@@ -32,7 +32,7 @@ if [ "${HOSTNAME}" == 'localhost' ]; then
     edie "Your hostname is set to 'localhost'. Change it to a proper one before running this script."
 fi
 
-if [ "${SSH_CLIENT}" ] && ! [ "${TMUX}" ]; then
+if [ "${SSH_CLIENT:-}" ] && ! [ "${TMUX:-}" ]; then
     edie "Running over ssh and without tmux. Things may end up bad. Run under tmux."
 fi
 

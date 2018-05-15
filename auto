@@ -57,7 +57,7 @@ cp -ans "${private_dir}"/* "${merged_dir}"/
 einfo "Running ${HOSTNAME}.yml playbook ..."
 cd "${merged_dir}"
 if [ -f "${HOSTNAME}".yml ]; then
-    ./"${HOSTNAME}".yml
+    ./"${HOSTNAME}".yml "$@"
 else
     edie "Missing playbook for the host ${HOSOTNAME}."
 fi

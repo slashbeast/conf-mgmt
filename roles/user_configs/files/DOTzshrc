@@ -396,6 +396,12 @@ case $USER in
     ;;
 esac
 
+# Keep history of `cd` as in with `pushd` and make `cd -<TAB>` work.
+DIRSTACKSIZE=16
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_minus
+
 # Ignore lines prefixed with '#'.
 setopt interactivecomments
 

@@ -58,6 +58,7 @@
       - tmux
       - colordiff
       - gnupg
+      - git
 
   - role: pam_limits
 

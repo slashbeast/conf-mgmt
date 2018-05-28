@@ -1,3 +1,5 @@
+# One can set git_name and git_email in playbook's vars or in inventory/group_vars/all/main.yml of conf-mgmt-private.
+
 - name: .gitconfig deployment
   template:
     src: DOTgitconfig.j2

@@ -7,7 +7,7 @@ Intentionally none of the roles will install packages, and fail, if the binaries
 
 Usage
 -----
-To apply *defaults* one can run ``default.yml`` script.
+To apply *defaults* one can run ``localhost.yml`` script.
 ::
 
     python2 $(command -v virtualenv) venv
@@ -18,7 +18,7 @@ To apply *defaults* one can run ``default.yml`` script.
 Secrets
 =======
 
-Secrets handling via separated repository is supported by the ``auto`` script. Check it's header comments for more information.
+Secrets handling via separated repository is supported by the ``apply``` script. Check it's header comments for more information.
 
 Roles
 =====

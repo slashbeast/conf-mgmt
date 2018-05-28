@@ -17,7 +17,5 @@ einfo 'Updating conf-mgmt ...'
 git pull
 
 einfo 'Updating conf-mgmt-private'
-pushd ../conf-mgmt-private
+cd ../conf-mgmt-private
 git pull
-popd
-

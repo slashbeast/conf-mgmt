@@ -1,4 +1,4 @@
-- name: ensure ~/.gnupg exist.
+- name: ensure ~/.gnupg exist
   file:
     path: '{{ user_home_dir }}/.gnupg'
     state: directory

@@ -65,3 +65,5 @@
   - role: default_umask_077
 
   - role: noclear_tty_on_boot
+
+  - role: virtual_memory_tune

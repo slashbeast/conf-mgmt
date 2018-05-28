@@ -130,3 +130,8 @@ noclear_tty_on_boot
 -------------------
 
 Append --noclear to agetty so tty are not cleared at startup.
+
+virtual_memory_tune
+-------------------
+
+Tune dirty (background) bytes, swappiness and vfs pressure.

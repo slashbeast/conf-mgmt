@@ -1,6 +1,6 @@
 [user]
-	name = {{ git_name | default( 'NOT SET' ) }}
-	email = {{ git_email | default( 'NOT SET' ) }}
+	name = {{ git_name[user] | default( 'NOT SET' ) }}
+	email = {{ git_email[user] | default( 'NOT SET' ) }}
 [color]
 	ui = auto
 [log]

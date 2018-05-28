@@ -2,7 +2,7 @@
   lineinfile:
     line: '=sys-apps/baselayout-2.5-r1'
     # Don't leave old broken syntax.
-    regex: '^sys-apps/baselayout-2.5-r1$'
+    regexp: '^sys-apps/baselayout-2.5-r1$'
     path: /etc/portage/package.mask/baselayout
     create: true
 

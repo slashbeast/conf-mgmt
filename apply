@@ -5,7 +5,7 @@
 
 # Usage:
 #   cd /root/src/conf-mgmt
-#   ./auto
+#   ./apply
 
 set -e
 set -u

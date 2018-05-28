@@ -1,0 +1,6 @@
+- name: mask sys-apps/baselayout-2.5-r1 due to ROOTPATH removal that breaks zsh and sudo
+  lineinfile:
+    line: 'sys-apps/baselayout-2.5-r1'
+    path: /etc/portage/package.mask/baselayout
+    create: true
+

@@ -135,3 +135,8 @@ virtual_memory_tune
 -------------------
 
 Tune dirty (background) bytes, swappiness and vfs pressure.
+
+package.mask
+------------
+
+Common package.mask entries.

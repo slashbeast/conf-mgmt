@@ -68,3 +68,5 @@
   - role: noclear_tty_on_boot
 
   - role: virtual_memory_tune
+
+  - role: package.mask

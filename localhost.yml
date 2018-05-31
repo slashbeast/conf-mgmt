@@ -71,3 +71,5 @@
   - role: virtual_memory_tune
 
   - role: package.mask
+
+  - role: prefer_ipv4_over_ipv6

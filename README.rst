@@ -140,3 +140,8 @@ package.mask
 ------------
 
 Common package.mask entries.
+
+prefer_ipv4_over_ipv6
+---------------------
+
+Make glibc's resolver prefer A entries over AAAA.

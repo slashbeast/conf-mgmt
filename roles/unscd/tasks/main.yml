@@ -16,3 +16,9 @@
     owner: root
     group: root
     mode: 0644
+
+- name: autostart unscd on boot
+  service:
+    name: unscd
+    runlevel: default
+    enabled: true

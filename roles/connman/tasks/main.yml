@@ -94,3 +94,9 @@
     owner: root
     group: root
     mode: 0644
+
+- name: autostart connman on boot
+  service:
+    name: connman
+    runlevel: default
+    enabled: true

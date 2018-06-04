@@ -2,5 +2,3 @@
   service:
     name: dnsmasq
     state: restarted
-    runlevel: default
-    enabled: true

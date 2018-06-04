@@ -33,3 +33,9 @@
     line: 'ChallengeResponseAuthentication no'
     state: present
   notify: restart sshd
+
+- name: autostart sshd on boot
+  service:
+    name: sshd
+    runlevel: default
+    enabled: true

@@ -16,3 +16,9 @@
     owner: root
     group: root
     mode: 0644
+
+- name: autostart dnsmasq on boot
+  service:
+    name: dnsmasq
+    runlevel: default
+    enabled: true

@@ -2,5 +2,3 @@
   service:
     name: sshd
     state: restarted
-    runlevel: default
-    enabled: true

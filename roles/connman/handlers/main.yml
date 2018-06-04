@@ -2,8 +2,6 @@
   service:
     name: connman
     state: restarted
-    runlevel: default
-    enabled: true
 
 - name: reload dbus
   service:

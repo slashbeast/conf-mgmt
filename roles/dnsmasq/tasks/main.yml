@@ -1,5 +1,4 @@
-- include_role:
-    name: check_for_binary
+- include_tasks: '{{ common }}/check_for_binary.yml'
   vars:
     binary: /usr/sbin/dnsmasq
 

@@ -1,0 +1,11 @@
+# Common include for waiting for async tasks.
+
+- name: wait for task
+  async_status:
+    jid: "{{ wait_item.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 300
+  with_items: '{{ items }}'
+  loop_control:
+    loop_var: wait_item

@@ -1,15 +1,21 @@
 #!/usr/bin/env python
 
-# Not *that* needed now, but may be very handy in the future, to gather 'better' facts.
-
+from __future__ import absolute_import, division, print_function, unicode_literals
 import json
+import os
+
+
+def get_ansible_root_directory():
+    inventory_directory = os.path.dirname(os.path.realpath(__file__))
+    ansible_root = os.path.realpath(os.path.join(inventory_directory, '..'))
+
+    return ansible_root
 
 
 def main():
-    inventory = {}
+    ansible_root = get_ansible_root_directory()
 
     inventory = {
-
         'hosts': [
             'localhost'
         ],
@@ -21,9 +27,14 @@ def main():
             }
         }
     }
+
+    global_vars = inventory.setdefault('all', {}).setdefault('vars', {})
+
+    global_vars['ansible_root'] = ansible_root
+    global_vars['common'] = os.path.join(ansible_root, 'common')
+
     print(json.dumps(inventory, sort_keys=True, indent=2))
 
 
 if __name__ == '__main__':
     main()
-

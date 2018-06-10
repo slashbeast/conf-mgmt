@@ -150,3 +150,8 @@ acpid
 -----
 
 Deploy acpid hooks, to support hotkeys like sleep, volume, brightness and so on.
+
+sudoers
+-------
+
+Deploy /etc/sudoers.d/* files

@@ -1,0 +1,8 @@
+- name: /etc/sudoers.d/wheel_group
+  copy:
+    dest: /etc/sudoers.d/wheel_group
+    owner: root
+    group: root
+    mode: 0600
+    content: |
+      %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot, /usr/bin/genlop

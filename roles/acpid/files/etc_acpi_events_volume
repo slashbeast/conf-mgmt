@@ -1,0 +1,2 @@
+event=button/(mute|volume(up|down))
+action=/etc/acpi/actions/volume %e

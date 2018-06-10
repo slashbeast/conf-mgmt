@@ -1,0 +1,82 @@
+#!/bin/sh
+
+sata_link_power_mgmt() {
+    case "$1" in
+        'powersave')
+            for i in /sys/class/scsi_host/host*/link_power_management_policy; do
+                echo min_power >"$i"
+            done
+        ;;
+        'performance')
+            for i in /sys/class/scsi_host/host*/link_power_management_policy; do
+                echo max_performance >"$i"
+            done
+        ;;
+    esac
+}
+
+pci_devices() {
+    case "$1" in
+        'powersave')
+            for i in /sys/bus/pci/devices/*/power/control; do
+                echo auto >"$i"
+            done
+        ;;
+        'performance')
+            for i in /sys/bus/pci/devices/*/power/control; do
+                echo on >"$i"
+            done
+        ;;
+    esac
+}
+
+snd_hda_intel() {
+    case "$1" in
+        'powersave')
+            echo 1 >/sys/module/snd_hda_intel/parameters/power_save
+        ;;
+        'performance')
+            echo 0 >/sys/module/snd_hda_intel/parameters/power_save
+        ;;
+    esac
+}
+
+if [ "$4" ]; then
+    case "$4" in
+        '00000001')
+            state='ac'
+        ;;
+        '00000000')
+            state='battery'
+        ;;
+        *)
+            exit 1
+        ;;
+    esac
+else
+    read ac_online < /sys/class/power_supply/AC/online
+    case "${ac_online}" in
+        '1')
+            state='ac'
+        ;;
+        '0')
+            state='battery'
+        ;;
+        *)
+            exit 1
+        ;;
+    esac
+fi
+
+case "${state}" in
+    'ac')
+        sata_link_power_mgmt performance
+        pci_devices performance
+        snd_hda_intel performance
+    ;;
+    'battery')
+        sata_link_power_mgmt powersave
+        pci_devices powersave
+        snd_hda_intel powersave
+    ;;
+esac

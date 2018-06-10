@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Interface volume up, volume down and mute via acpid.
+# Due to running as root and possible multiple sound cards,
+# some additional logic to find right .asoundrc has been added.
+
+# Requires:
+#   - busybox with chpst applet enabled
+#   - alsa-utils
+
+step='2'
+
+set_X_user() {
+    # If X is running, run amixer as the running user.
+    # So if the user changed current default card in ~/.asoundrc, it will be used.
+    # Useful with USB sound cards for example.
+
+    read X_pid < <(pidof -s /usr/bin/X)
+    if [ "${X_pid}" ]; then
+        while read -r var; do
+            if [ "${var%=*}" = 'USER' ]; then
+                X_user="${var#*=}"
+                return 0
+            fi
+        done < <(tr '\0' '\n' < "/proc/${X_pid}/environ")
+    fi
+    return 1
+}
+
+set_X_user_home() {
+    while IFS=: read -r username _ _ _ _ home_dir _; do
+    if [ "${X_user}" = "${username}" ]; then
+        X_user_home="${home_dir}"
+        return 0
+    fi
+    done < <(getent passwd)
+
+    return 1
+}
+
+# Wrapper around amixer, to spawn it as another user, if X is running.
+amixer() {
+    # Since we do not use pam to switch user, we may need to specify group
+    # that can poke /dev/snd/controlC*
+    control_group='audio'
+    if [ "${X_user}" ]; then
+        HOME="${X_user_home}" busybox chpst -u "${X_user}":${control_group} amixer "$@"
+    else
+        amixer "$@"
+    fi
+}
+
+if set_X_user; then
+    set_X_user_home
+fi
+
+if amixer sget Master >/dev/null 2>&1; then
+	control='Master'
+elif amixer sget PCM >/dev/null 2>&1; then
+	control='PCM'
+else
+	exit 1
+fi
+
+
+case "$2" in
+    'VOLUP')
+        amixer -q set "${control}" "${step}+" unmute
+    ;;
+    'VOLDN')
+        amixer -q set "${control}" "${step}-" unmute
+    ;;
+    'MUTE')
+        amixer -q set "${control}" mute
+    ;;
+esac

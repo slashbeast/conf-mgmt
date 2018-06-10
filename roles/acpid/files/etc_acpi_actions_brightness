@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# xbacklight is from acpilight.
+
+case "${1#video/brightness}" in
+    'up')
+        xbacklight -inc 10
+    ;;
+    'down')
+        xbacklight -dec 10
+    ;;
+esac

@@ -1,0 +1,2 @@
+event=video/brightness(up|down)
+action=/etc/acpi/actions/brightness %e

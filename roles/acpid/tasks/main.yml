@@ -1,0 +1,57 @@
+- include_tasks: '{{ common }}/check_for_binary.yml'
+  vars:
+    binary: /usr/sbin/acpid
+
+- name: remove default.sh and events/default
+  notify: restart acpid
+  file:
+    dest: /etc/acpi/{{ item }}
+    state: absent
+  with_items:
+  - default.sh
+  - events/default
+
+- name: ensure /etc/acpi/{actions,events} directories exist
+  notify: restart acpid
+  file:
+    dest: /etc/acpi/{{ item }}
+    state: directory
+  with_items:
+  - actions
+  - events
+
+- name: deploy scripts
+  notify: restart acpid
+  copy:
+    src: etc_acpi_actions_{{ item }}
+    dest: /etc/acpi/actions/{{ item }}
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+  - brightness
+  - lid
+  - powersave
+  - sleep
+  - volume
+
+- name: deploy triggers
+  notify: restart acpid
+  copy:
+    src: etc_acpi_events_{{ item }}
+    dest: /etc/acpi/events/{{ item }}
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - brightness
+  - lid
+  - ac_adapter
+  - sleep
+  - volume
+
+- name: autostart acpid on boot
+  service:
+    name: acpid
+    runlevel: default
+    enabled: true

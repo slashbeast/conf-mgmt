@@ -1,0 +1,2 @@
+#event=.*
+#action=logger -t acpid %e

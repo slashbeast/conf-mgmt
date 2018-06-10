@@ -73,3 +73,5 @@
   - role: package.mask
 
   - role: prefer_ipv4_over_ipv6
+
+  - role: acpid

@@ -145,3 +145,8 @@ prefer_ipv4_over_ipv6
 ---------------------
 
 Make glibc's resolver prefer A entries over AAAA.
+
+acpid
+-----
+
+Deploy acpid hooks, to support hotkeys like sleep, volume, brightness and so on.

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+scriptpath="$(readlink -f "$0")"
+workdir="${scriptpath%/*}"
+
+case "$2" in
+    'SBTN')
+        logger -t acpid 'Running sync prior to suspend ...'
+        sync
+
+        logger -t acpid 'Running suspend ...'
+
+        echo mem >/sys/power/state
+
+        # While sleeping AC adapter status could change.
+        if [ "${workdir}/powersave" ]; then
+            sleep 3
+            "${workdir}/powersave"
+        fi
+    ;;
+esac

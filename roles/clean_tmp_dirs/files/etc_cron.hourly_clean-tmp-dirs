@@ -32,7 +32,7 @@ while IFS=: read -r username _ _ _ _ home_dir user_shell; do
         '/root'|'/home/'*)
             home_tmp_dir="${home_dir}/tmp"
             if [ -d "${home_tmp_dir}" ] && shell_is_valid "${user_shell}" && ! [ -f "${home_tmp_dir}/.skip-cleaning" ]; then
-                env -i busybox chpst -u "${username}" \
+                env -i busybox chpst -u "${username}":nobody \
                     /usr/sbin/tmpreaper \
                     --force \
                     -m \

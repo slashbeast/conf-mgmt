@@ -40,6 +40,7 @@ while IFS=: read -r username _ _ _ _ home_dir user_shell; do
                     --symlinks \
                     --protect 'qtsingleapp-qBitto-*' \
                     --protect 'tmux-*' \
+                    --protect 'bridge.*' \
                     24h \
                     "${home_tmp_dir}/"
             fi

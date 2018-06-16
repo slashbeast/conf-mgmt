@@ -5,12 +5,14 @@ workdir="${scriptpath%/*}"
 
 case "$2" in
     'SBTN')
-        logger -t acpid 'Running sync prior to suspend ...'
+        logger -t acpid 'Syncing filesystems ...'
         sync
 
-        logger -t acpid 'Running suspend ...'
+#        logger -t acpid 'Running suspend ...'
+        logger -t acpid 'Running hibernate ...'
 
-        echo mem >/sys/power/state
+        #echo mem >/sys/power/state
+        echo disk >/sys/power/state
 
         # While sleeping AC adapter status could change.
         if [ "${workdir}/powersave" ]; then

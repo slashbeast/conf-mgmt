@@ -8,10 +8,10 @@ case "$2" in
         logger -t acpid 'Syncing filesystems ...'
         sync
 
-#        logger -t acpid 'Running suspend ...'
-        logger -t acpid 'Running hibernate ...'
+        logger -t acpid 'Dropping filesystem caches ...'
+        echo 1 >/proc/sys/vm/drop_caches
 
-        #echo mem >/sys/power/state
+        logger -t acpid 'Running hibernate ...'
         echo disk >/sys/power/state
 
         # While sleeping AC adapter status could change.

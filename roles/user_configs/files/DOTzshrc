@@ -58,9 +58,6 @@ CYAN='\e[1;36m'
 NC='\e[0m'
 
 # Functions
-if [ -f '/etc/profile.d/prll.sh' ]; then
-    . "/etc/profile.d/prll.sh"
-fi
 
 # Fancy cd that can cd into parent directory, if trying to cd into file.
 # useful with ^F fuzzy searcher.

@@ -62,6 +62,23 @@ if [ -f '/etc/profile.d/prll.sh' ]; then
     . "/etc/profile.d/prll.sh"
 fi
 
+# Fancy cd that can cd into parent directory, if trying to cd into file.
+# useful with ^F fuzzy searcher.
+cd() {
+    
+    if (( $+2 )); then
+        builtin cd "$@"
+        return 0
+    fi
+
+    if [ -f "$1" ]; then
+        echo "${yellow}cd ${1:h}${NC}" >&2
+        builtin cd "${1:h}"
+    else
+        builtin cd "${@}"
+    fi
+}
+
 run_under_tmux() {
     # Run $1 under session or attach if such session already exist.
     # $2 is optional path, if no specified, will use $1 from $PATH.

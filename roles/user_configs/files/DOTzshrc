@@ -450,6 +450,27 @@ _select_path_with_fzy() {
 zle -N _select_path_with_fzy
 bindkey "^F" _select_path_with_fzy
 
+# ^A to open new terminal in current working directory
+# Check `logname` so we won't create new terminall as user after `su`.
+_open_new_terminal_here(){
+    if \
+        [ "${XAUTHORITY}" ] && \
+        [ "${DISPLAY}" ] && \
+        [ "${LOGNAME}" = "$(logname)" ] && \
+        command -v urxvt >/dev/null 2>&1
+    then
+        # Spawn terminal with clean login shell.
+        env -i \
+            XAUTHORITY="${XAUTHORITY}" \
+            PATH="${PATH}" \
+            HOME="${HOME}" \
+            LOGNAME="${LOGNAME}" \
+            urxvt -e "${SHELL}" --login >/dev/null 2>&1 &!
+    fi
+}
+zle -N _open_new_terminal_here
+bindkey "^A" _open_new_terminal_here
+
 # Fix for tmux on linux.
 case "$(uname -o)" in
     'GNU/Linux')

@@ -467,6 +467,7 @@ _open_new_terminal_here(){
             DISPLAY="${DISPLAY}" \
             LOGNAME="${LOGNAME}" \
             SHELL="${SHELL}" \
+            LANG="${LANG}" \
             urxvt -e "${SHELL}" --login >/dev/null 2>&1 &!
     fi
 }

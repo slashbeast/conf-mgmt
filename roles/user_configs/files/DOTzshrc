@@ -443,6 +443,12 @@ _select_path_with_fzy() {
         print -nr "${zle_bracketed_paste[1]}" >/dev/tty
     }
     if [ "${selected_path}" ]; then
+        if [[ "${LBUFFER[-1]}" =~ [[:alnum:]] ]]; then
+            # if last character is a word character, insert space.
+            # before inserting selected path. Useful when one's lazy 
+            # and use 'vim^F', yet works okay with 'cmd foo=^F'.
+            LBUFFER+=" "
+        fi
         LBUFFER+="${(q)selected_path}"
     fi
     zle reset-prompt

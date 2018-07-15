@@ -428,9 +428,29 @@ setopt hist_ignore_space
 #stty -ixon
 setopt noflowcontrol
 
-# Insert path selected with fzy into command line on ^F press.
+# Ensure that / is added after tab complation to directories.
+# without disabling it, $LBUFFER does not have the slash at the end
+# and it's required for _append_path_to_buffer thing..
+setopt AUTO_PARAM_SLASH
+unsetopt AUTO_REMOVE_SLASH
+
 _select_path_with_fzy() {
+    (
+        if [ "$1" != '.' ]; then
+            if ! [ -d $~1 ]; then
+                echo -e "${yellow}The $1 is not a directory.${NC}"  >&2
+                return
+            fi
+            cd $~1
+        fi
+
+        find -L . \( -type d -printf "%p/\n" , -type f -print \) 2>/dev/null | cut -c 3- | sort | fzy
+    )
+}
+
+_append_path_to_buffer() {
     local selected_path
+
     if ! command -v fzy >/dev/null 2>&1; then
         echo 'No fzy binary found in $PATH.'
         return 1
@@ -438,7 +458,13 @@ _select_path_with_fzy() {
     echo
     print -nr "${zle_bracketed_paste[2]}" >/dev/tty
     {
-        selected_path="$(find -L . \( -type d -printf "%p/\n" , -type f -print \) 2>/dev/null | cut -c 3- | sort | fzy)"
+        if [ "${LBUFFER[-1]}" = '/' ]; then
+            search_in="${LBUFFER##*[$'\t' ]}"
+        else
+            search_in='.'
+        fi
+
+        selected_path="$(_select_path_with_fzy "${search_in}")"
     } always {
         print -nr "${zle_bracketed_paste[1]}" >/dev/tty
     }
@@ -453,8 +479,8 @@ _select_path_with_fzy() {
     fi
     zle reset-prompt
 }
-zle -N _select_path_with_fzy
-bindkey "^F" _select_path_with_fzy
+zle -N _append_path_to_buffer
+bindkey "^F" _append_path_to_buffer
 
 # ^A to open new terminal in current working directory
 # Check `logname` so we won't create new terminal as user after `su`.

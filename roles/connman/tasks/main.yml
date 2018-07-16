@@ -58,7 +58,7 @@
     mode: 0600
     section: 'General'
     option: 'NetworkInterfaceBlacklist'
-    value: 'vmnet,vboxnet,virbr,ifb,eth,br,tap'
+    value: 'vmnet,vboxnet,virbr,ifb,eth,br,tap,docker'
     no_extra_spaces: true
 
 - name: disable NTP client

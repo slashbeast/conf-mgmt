@@ -78,3 +78,14 @@
   - role: acpid
 
   - role: sudoers
+
+  - role: moar-network-setup
+    vars:
+      vm_bridges: '30 31 32'
+      vm_bridges_network_prefix: '192.168'
+      switch_bridge_interface: br-eth-ports
+      switch_bridge_member_interfaces: eth0 eth1
+      switch_bridge_subnet: 172.17.17.0/24
+      switch_bridge_ip: 172.17.17.1/24
+      inbound_open_tcp_ports: 22
+      inbound_respond_to_ping: 'true'

@@ -155,3 +155,23 @@ sudoers
 -------
 
 Deploy /etc/sudoers.d/* files
+
+
+moar-network-setup
+------------------
+
+Script to configure firewall, vm bridges and poor's man switch via single local.d script, rather than via /etc/conf.d/ hackery.
+
+Variables:
+
+    - vm_bridges: int, numbers of bridges, will be used as sufix for interface name and as 3rd octet of 24bit subnet.
+    - vm_bridges_network_prefix: prefix, for example `192.168` to get `192.168.<vm_bridge[0].0/24`
+    - switch_bridge_interface: name of the 'switch' bridge interface, for example `br-eth-ports`
+    - switch_bridge_member_interfaces: interfaces to add into 'switch'. for example `eth0 eth1 eth2`
+    - switch_bridge_subnet: subnet on bridge, for example `172.17.17.0/24`
+    - switch_bridge_ip: ip to set on 'switch' bridge, for example `172.17.17.1/24`
+    - inbound_open_tcp_ports: TCP ports to open.
+    - inbound_open_udp_ports: UDP ports to open.
+    - inbound_respond_to_ping: control ping responses, enabled by `true` string (not bool!)
+    - outbound_reject_from_users: list of user whom should not be able to make outgoing connections.
+

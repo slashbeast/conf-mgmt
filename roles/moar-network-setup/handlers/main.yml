@@ -1,0 +1,2 @@
+- name: apply moar-network-setup.start
+  shell: /etc/local.d/moar-network-setup.start

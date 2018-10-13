@@ -101,7 +101,7 @@ disable_wireless_power_saving
 
 Disable 'power saving' for Wireless network interfaces. Useful for hosts that have WAN as wireless, to prevent inbound SSH connections from being lagish.
 
-user_configs
+home_files
 ------------
 
 Takes users from ``users`` list and deploy the configuration files from ``deploy`` list for them.

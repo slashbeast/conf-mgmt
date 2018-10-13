@@ -48,7 +48,7 @@
 
   - role: dispatch-conf
 
-  - role: user_configs
+  - role: home_files
     vars:
       users:
       - root

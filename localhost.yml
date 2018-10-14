@@ -71,6 +71,7 @@
       - xmodmap
       - gmrun
       - tint2
+      - openbox
 
   - role: pam_limits
 

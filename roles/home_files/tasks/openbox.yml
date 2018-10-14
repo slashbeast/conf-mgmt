@@ -1,0 +1,31 @@
+- name: ensure ~/.config exist
+  file:
+    path: '{{ user_home_dir }}/.config'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ensure ~/.config/openbox exist
+  file:
+    path: '{{ user_home_dir }}/.config/openbox'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: menu.xml deployment
+  copy:
+    src: DOTconfig_openbox_menu.xml
+    dest: '{{ user_home_dir }}/.config/openbox/menu.xml'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600
+
+- name: rc.xml deployment
+  template:
+    src: DOTconfig_openbox_rc.xml.j2
+    dest: '{{ user_home_dir }}/.config/openbox/rc.xml'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

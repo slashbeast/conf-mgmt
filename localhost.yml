@@ -8,6 +8,8 @@
   gather_facts: false
   connection: local
   hosts: localhost
+  vars:
+    screen_resolution: 1920x1080
   roles:
 
   - role: hostname
@@ -60,6 +62,15 @@
       - colordiff
       - gnupg
       - git
+
+  - role: home_files
+    vars:
+      users:
+      - foo
+      deploy:
+      - xmodmap
+      - gmrun
+      - tint2
 
   - role: pam_limits
 

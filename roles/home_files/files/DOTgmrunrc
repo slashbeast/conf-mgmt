@@ -1,0 +1,25 @@
+# Set terminal
+Terminal = urxvt
+TermExec = ${Terminal} -e zsh -c 
+AlwaysInTerm = ssh telnet ftp lynx mc vi vim pine centericq perldoc man
+
+# Set window geometry (except height)
+Width = 400
+Top = 30
+# Push window to right corner regardless of screen esolution.
+Left = 9999
+
+# History size
+History = 32
+
+# Shows last history line selected when invoked
+ShowLast = 1
+
+# Show files starting with '.'
+# Default is 0 (off), set it to 1 if you want "hidden" files to show up
+# in the completion window
+ShowDotFiles = 0
+
+# Timeout (in milliseconds) after which gmrun will simulate a TAB press
+# Set this to NULL if don't like this feature.
+TabTimeout = 0

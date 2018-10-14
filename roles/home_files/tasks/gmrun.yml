@@ -1,0 +1,7 @@
+- name: .gmrunrc deployment
+  copy:
+    src: DOTgmrunrc
+    dest: '{{ user_home_dir }}/.gmrunrc'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

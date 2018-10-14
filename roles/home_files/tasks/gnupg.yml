@@ -8,7 +8,7 @@
 
 - name: gpg-agent.conf deployment
   copy:
-    src: gpg-agent.conf
+    src: DOTgnupg_gpg-agent.conf
     dest: '{{ user_home_dir }}/.gnupg/gpg-agent.conf'
     owner: '{{ user }}'
     group: '{{ user_group_id }}'

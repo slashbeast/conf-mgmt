@@ -16,7 +16,7 @@
 
 - name: tint2rc deployment
   template:
-    src: tint2rc.j2
+    src: DOTconfig_tint2_tint2rc.j2
     dest: '{{ user_home_dir }}/.config/tint2/tint2rc'
     owner: '{{ user }}'
     group: '{{ user_group_id }}'

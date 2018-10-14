@@ -1,0 +1,30 @@
+- assert:
+    that:
+    - user is defined
+
+- name: query for home dir of user
+  getent:
+    database: passwd
+    key: '{{ user }}'
+
+- name: set user_home_dir and user_group variables
+  set_fact:
+    user_home_dir: '{{ getent_passwd[user][4] }}'
+    user_group_id: '{{ getent_passwd[user][2] }}'
+
+- assert:
+    that:
+    - user_home_dir != ""
+    - user_group_id != ''
+
+- debug:
+    msg:
+      - 'user: {{ user }}'
+      - 'group_id: {{ user_group_id }}'
+      - 'home dir: {{ user_home_dir }}'
+
+- include_tasks: '{{ config_name }}.yml'
+  when: 'config_name in deploy'
+  with_items: '{{ deploy }}'
+  loop_control:
+    loop_var: config_name

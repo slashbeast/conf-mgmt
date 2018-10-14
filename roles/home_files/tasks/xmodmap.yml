@@ -1,0 +1,7 @@
+- name: .xmodmap deployment
+  copy:
+    src: DOTxmodmap
+    dest: '{{ user_home_dir }}/.xmodmap'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

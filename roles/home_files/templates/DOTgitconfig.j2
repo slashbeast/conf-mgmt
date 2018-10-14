@@ -1,0 +1,14 @@
+[user]
+	name = {{ git_name[user] | default( 'NOT SET' ) }}
+	email = {{ git_email[user] | default( 'NOT SET' ) }}
+[color]
+	ui = auto
+[log]
+	date = iso
+[alias]
+	c = commit --verbose
+	ca = commit --verbose --all
+	s = status --short
+	l = log --color --graph --pretty=format:'%C(yellow)%h%Creset%C(bold green)%d%Creset %s %Creset'
+[push]
+	default = simple

@@ -1,0 +1,8 @@
+banner=no
+color_patches=no
+diff_cmd=diff
+plain=off
+newtext=green
+oldtext=red
+diffstuff=darkcyan
+cvsstuff=cyan

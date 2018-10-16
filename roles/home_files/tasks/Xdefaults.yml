@@ -1,0 +1,7 @@
+- name: .Xdefaults deployment.
+  template:
+    src: DOTXdefaults.j2
+    dest: '{{ user_home_dir }}/.Xdefaults'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

@@ -1,0 +1,22 @@
+{% if screen_resolution == '1920x1080' %}
+{%     set font_dpi = '120' %}
+{% else %}
+{%     set font_dpi = '96' %}
+{% endif %}
+
+Xft.dpi: {{ font_dpi }}
+
+urxvt*scrollBar:false
+urxvt.perl-ext-common:  default,-searchable-scrollback
+urxvt*geometry: 90x24
+urxvt*termName: rxvt-256color
+
+*.cursorColor: #eee
+*.foreground:  #eee
+*.background:  #000
+
+*.color1: OrangeRed
+*.color4: CornflowerBlue
+*.color12: #729FCF
+
+*.font: xft:xos4 Terminus:style=regular:size=11:antialias=false:lang=pl,xft:Droid Sans Japanese,xft:Droid Sans Fallback

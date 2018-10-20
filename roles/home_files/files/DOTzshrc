@@ -431,8 +431,8 @@ setopt noflowcontrol
 # Ensure that / is added after tab complation to directories.
 # without disabling it, $LBUFFER does not have the slash at the end
 # and it's required for _append_path_to_buffer thing..
-setopt AUTO_PARAM_SLASH
-unsetopt AUTO_REMOVE_SLASH
+#setopt AUTO_PARAM_SLASH
+#unsetopt AUTO_REMOVE_SLASH
 
 _select_path_with_fzy() {
     (

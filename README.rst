@@ -175,3 +175,7 @@ Variables:
     - inbound_respond_to_ping: control ping responses, enabled by `true` string (not bool!)
     - outbound_reject_from_users: list of user whom should not be able to make outgoing connections.
 
+inotify_tune
+------------
+
+Allow user to have 256k inotify watchers.

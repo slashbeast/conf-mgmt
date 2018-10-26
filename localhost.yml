@@ -102,3 +102,5 @@
       switch_bridge_ip: 172.17.17.1/24
       inbound_open_tcp_ports: 22
       inbound_respond_to_ping: 'true'
+
+  - role: inotify_tune

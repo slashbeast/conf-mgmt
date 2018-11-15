@@ -6,6 +6,14 @@
     owner: '{{ user }}'
     group: '{{ user_group_id }}'
 
+- name: gpg.conf deployment
+  copy:
+    src: DOTgnupg_gpg.conf
+    dest: '{{ user_home_dir }}/.gnupg/gpg.conf'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600
+
 - name: gpg-agent.conf deployment
   copy:
     src: DOTgnupg_gpg-agent.conf

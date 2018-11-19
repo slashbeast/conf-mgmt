@@ -1,0 +1,17 @@
+- include_tasks: '{{ common }}/check_for_binary.yml'
+  vars:
+    binary: /usr/bin/erunit
+
+- name: initialize erunit
+  become: true
+  become_user: '{{ user }}'
+  shell: erunit init
+  args:
+    creates: '{{ user_home_dir }}/.config/erunit'
+
+- name: make erunit autostart on system boot via crontab.
+  cron:
+    name: "erunit"
+    special_time: reboot
+    job: "erunit runsvdir-start >/dev/null"
+    user: '{{ user }}'

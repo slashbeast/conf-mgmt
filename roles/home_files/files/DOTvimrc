@@ -52,3 +52,5 @@ autocmd BufReadPost *
 set viminfo=\'100,\"1000,:100
 
 set modeline
+
+set foldlevelstart=20

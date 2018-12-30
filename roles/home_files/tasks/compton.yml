@@ -1,0 +1,7 @@
+- name: .compton.conf deployment
+  copy:
+    src: DOTcompton.conf
+    dest: '{{ user_home_dir }}/.compton.conf'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

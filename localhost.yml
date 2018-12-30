@@ -73,6 +73,8 @@
       - tint2
       - openbox
       - Xdefaults
+      - mpv
+      - compton
 
   - role: pam_limits
 

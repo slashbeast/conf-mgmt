@@ -43,7 +43,7 @@ script_dir_name="${work_dir##*/}"
 
 public_dir="${work_dir}"
 private_dir="${work_dir}/../${script_dir_name}-private"
-merged_dir="${work_dir}/../${script_dir_name}-merged"
+merged_dir="$(readlink -f "${work_dir}/..")/${script_dir_name}-merged.tmp"
 
 test -d "${public_dir}"
 test -d "${private_dir}"

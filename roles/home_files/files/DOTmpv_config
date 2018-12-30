@@ -1,0 +1,40 @@
+hwdec=auto
+vo=gpu
+
+video-sync=display-resample
+interpolation
+dscale=mitchell
+tscale=oversample
+
+ao=alsa
+
+# Control maximum size of mpv window
+autofit=800
+
+# Move subs a little up.
+sub-pos=97
+
+# OSD font settings. The half-transparent background under subs.
+sub-ass=no
+sub-font="Alte Haas Grotesk"
+sub-color='#EEEEEE'
+sub-bold=yes
+sub-font-size=48
+sub-back-color="#80000000"
+sub-border-size=0.0
+
+# margin on sub-back-color.
+sub-shadow-offset=5
+
+alang=jpn
+slang=eng
+
+no-resume-playback
+
+# Put mpv window in the center.
+geometry=50%:50%
+
+# Make youtube-dl prefer the <=720p
+ytdl-format=best[height<=720]
+
+screenshot-format=png

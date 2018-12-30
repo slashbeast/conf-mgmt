@@ -1,0 +1,28 @@
+- name: ensure ~/.mpv directories exist
+  file:
+    path: '{{ user_home_dir }}/{{ mpv_dir }}'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+  with_items:
+  - .mpv
+  - .mpv/scripts
+  loop_control:
+    loop_var: mpv_dir
+
+- name: .mpv/config deployment
+  copy:
+    src: DOTmpv_config
+    dest: '{{ user_home_dir }}/.mpv/config'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600
+
+- name: .mpv/input.conf deployment
+  copy:
+    src: DOTmpv_input.conf
+    dest: '{{ user_home_dir }}/.mpv/input.conf'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

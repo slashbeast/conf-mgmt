@@ -43,7 +43,7 @@ script_dir_name="${work_dir##*/}"
 
 public_dir="${work_dir}"
 private_dir="${work_dir}/../${script_dir_name}-private"
-merged_dir="$(readlink -f "${work_dir}/..")/${script_dir_name}-merged.tmp"
+merged_dir="$(mktemp -d -t conf-mgmt-merged.XXXXX)"
 
 test -d "${public_dir}"
 test -d "${private_dir}"
@@ -51,8 +51,8 @@ test -d "${private_dir}"
 einfo "Merging into ${merged_dir} ..."
 rm -rf "${merged_dir}"
 mkdir "${merged_dir}"
-cp -ans "${public_dir}"/* "${merged_dir}"/
-cp -ans "${private_dir}"/* "${merged_dir}"/
+cp -nsr --preserve=mode,ownership "${public_dir}"/* "${merged_dir}"/
+cp -nsr --preserve=mode,ownership "${private_dir}"/* "${merged_dir}"/
 
 einfo "Running ${HOSTNAME}.yml playbook ..."
 cd "${merged_dir}"

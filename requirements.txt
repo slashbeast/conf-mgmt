@@ -24,7 +24,7 @@ paramiko==2.4.2           # via ansible
 pathspec==0.5.9           # via yamllint
 pip-lock==1.2.0
 pip-tools==3.2.0
-pluggy==0.8.0             # via tox
+pluggy==0.8.1             # via tox
 py==1.7.0                 # via tox
 pyasn1==0.4.5             # via paramiko
 pycodestyle==2.4.0        # via flake8
@@ -35,5 +35,5 @@ pyyaml==3.13              # via ansible, yamllint
 six==1.12.0               # via bcrypt, cryptography, multilint, pip-tools, pynacl, tox
 toml==0.10.0              # via tox
 tox==3.6.1
-virtualenv==16.1.0        # via tox
+virtualenv==16.2.0        # via tox
 yamllint==1.13.0

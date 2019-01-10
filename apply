@@ -25,7 +25,7 @@ edie() {
 
 trap 'eerror "Error in $0 on line ${LINENO}."' ERR
 
-HSOTNAME="$(hostname)"
+HOSTNAME="$(hostname)"
 
 # localhost.yml is just an example, never to be executed as-is.
 if [ "${HOSTNAME}" == 'localhost' ]; then

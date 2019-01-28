@@ -482,6 +482,37 @@ _append_path_to_buffer() {
 zle -N _append_path_to_buffer
 bindkey "^F" _append_path_to_buffer
 
+_history_search_with_fzy() {
+    local selected_history_entry
+
+    if ! command -v fzy >/dev/null 2>&1; then
+        echo 'No fzy binary found in $PATH.'
+        return 1
+    fi
+
+    if ! command -v awk >/dev/null 2>&1; then
+        echo 'No awk binary found in $PATH.'
+        return 1
+    fi
+    echo
+
+    print -nr "${zle_bracketed_paste[2]}" >/dev/tty
+    {
+        # The awk is used to filter out duplicates, keeping the most 
+        # recent entries, while not re-ordering the history list.
+        selected_history_entry="$(fc -nrl 1 | awk '!v[$0]++' | fzy)"
+    } always {
+        print -nr "${zle_bracketed_paste[1]}" >/dev/tty
+    }
+    if [ "${selected_history_entry}" ]; then
+        BUFFER="${selected_history_entry}"
+        CURSOR="${#BUFFER}"
+    fi
+    zle reset-prompt
+}
+zle -N _history_search_with_fzy
+bindkey "^R" _history_search_with_fzy
+
 # ^A to open new terminal in current working directory
 # Check `logname` so we won't create new terminal as user after `su`.
 _open_new_terminal_here(){
@@ -575,7 +606,8 @@ case $TERM in
     ;;
 esac
 
-bindkey "^R" history-incremental-pattern-search-backward 
-bindkey "^S" history-incremental-pattern-search-forward
+# Replaced with _history_search_with_fzy
+#bindkey "^R" history-incremental-pattern-search-backward 
+#bindkey "^S" history-incremental-pattern-search-forward
 
 if [ -f ~/.alert ]; then echo '>>> Check ~/.alert'; fi

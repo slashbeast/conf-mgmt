@@ -4,17 +4,16 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-ansible==2.7.5
+ansible==2.7.6
 asn1crypto==0.24.0        # via cryptography
-bcrypt==3.1.5             # via paramiko
+bcrypt==3.1.6             # via paramiko
 cffi==1.11.5              # via bcrypt, cryptography, pynacl
 click==7.0                # via pip-tools
-cryptography==2.4.2       # via ansible, paramiko
+cryptography==2.5         # via ansible, paramiko
 filelock==3.0.10          # via tox
 flake8-comprehensions==1.4.1
 flake8-tidy-imports==1.1.0
 flake8==3.6.0
-idna==2.8                 # via cryptography
 isort==4.3.4
 jinja2==2.10              # via ansible
 markupsafe==1.1.0         # via jinja2
@@ -23,7 +22,7 @@ multilint==2.4.0
 paramiko==2.4.2           # via ansible
 pathspec==0.5.9           # via yamllint
 pip-lock==1.2.0
-pip-tools==3.2.0
+pip-tools==3.3.2
 pluggy==0.8.1             # via tox
 py==1.7.0                 # via tox
 pyasn1==0.4.5             # via paramiko
@@ -34,6 +33,6 @@ pynacl==1.3.0             # via paramiko
 pyyaml==3.13              # via ansible, yamllint
 six==1.12.0               # via bcrypt, cryptography, multilint, pip-tools, pynacl, tox
 toml==0.10.0              # via tox
-tox==3.6.1
-virtualenv==16.2.0        # via tox
-yamllint==1.13.0
+tox==3.7.0
+virtualenv==16.3.0        # via tox
+yamllint==1.14.0

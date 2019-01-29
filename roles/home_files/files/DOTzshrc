@@ -511,7 +511,7 @@ _history_search_with_fzy() {
     zle reset-prompt
 }
 zle -N _history_search_with_fzy
-bindkey "^R" _history_search_with_fzy
+bindkey "^T" _history_search_with_fzy
 
 # ^A to open new terminal in current working directory
 # Check `logname` so we won't create new terminal as user after `su`.
@@ -607,7 +607,7 @@ case $TERM in
 esac
 
 # Replaced with _history_search_with_fzy
-#bindkey "^R" history-incremental-pattern-search-backward 
-#bindkey "^S" history-incremental-pattern-search-forward
+bindkey "^R" history-incremental-pattern-search-backward 
+bindkey "^S" history-incremental-pattern-search-forward
 
 if [ -f ~/.alert ]; then echo '>>> Check ~/.alert'; fi

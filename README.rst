@@ -10,10 +10,10 @@ Usage
 To apply *defaults* one can run ``localhost.yml`` script.
 ::
 
-    python2 $(command -v virtualenv) venv
+    virtualenvvenv
     . venv/bin/activate
     pip install -r requirements.txt
-    ./default.yml
+    ./update && ./apply
 
 Secrets
 =======

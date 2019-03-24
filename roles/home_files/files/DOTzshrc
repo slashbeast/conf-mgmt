@@ -205,50 +205,20 @@ termtitle() {
     esac
 }
 
-git_check_if_worktree() {
-    # This function intend to be only executed in chpwd().
-    # Check if the current path is in git repo. 
-
-    # We would want stop this function, on some big git repos it can take some time to cd into.
-    if [ -n "${skip_zsh_git}" ]; then
-        git_pwd_is_worktree='false'
-        return 1
+setup_git_prompt() {
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        unset git_prompt
+        return 0
     fi
-    # The : separated list of paths where we will run check for git repo.
-    # If not set, then we will do it only for /root and /home.
-    if [ "${UID}" = '0' ]; then
-        # running 'git' in repo changes owner of git's index files to root, skip prompt git magic if CWD=/home/*
-        git_check_if_workdir_path="${git_check_if_workdir_path:-/root:/etc}"
+
+    local git_status_dirty git_branch
+
+    if [ "$(git --no-optional-locks status --untracked-files='no' --porcelain)" ]; then
+        git_status_dirty='%F{green}*'
     else
-        git_check_if_workdir_path="${git_check_if_workdir_path:-/home}"
-        git_check_if_workdir_path_exclude="${git_check_if_workdir_path_exclude:-${HOME}/_sshfs}"
+        unset git_status_dirty
     fi
 
-    if begin_with "${PWD}" ${=git_check_if_workdir_path//:/ }; then
-        if ! begin_with "${PWD}" ${=git_check_if_workdir_path_exclude//:/ }; then
-            local git_pwd_is_worktree_match='true'
-        else
-            local git_pwd_is_worktree_match='false'
-        fi
-    fi
-
-    if ! [ "${git_pwd_is_worktree_match}" = 'true' ]; then
-        git_pwd_is_worktree='false'
-        return 1
-    fi
-
-    # todo: Prevent checking for /.git or /home/.git, if PWD=/home or PWD=/ maybe...
-    #   damn annoying RBAC messages about Access denied there.
-    if [ -d '.git' ] || [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-        git_pwd_is_worktree='true'
-        git_worktree_is_bare="$(git config core.bare)"
-    else
-        unset git_branch git_worktree_is_bare
-        git_pwd_is_worktree='false'
-    fi
-}
-
-git_branch() {
     git_branch="$(git symbolic-ref HEAD 2>/dev/null)"
     git_branch="${git_branch#refs/heads/}"
 
@@ -257,28 +227,17 @@ git_branch() {
     fi
 
     git_branch="${git_branch:-no branch}"
-}
 
-git_dirty() {
-    if [ "${git_worktree_is_bare}" = 'false' ] && [ -n "$(git status --untracked-files='no' --porcelain)" ]; then
-        git_dirty='%F{green}*'
-    else
-        unset git_dirty
-    fi
+    git_prompt=" %F{blue}[%F{253}${git_branch}${git_status_dirty}%F{blue}]"
+
 }
 
 precmd() {
     # Set terminal title.
     termtitle precmd
 
-    if [ "${git_pwd_is_worktree}" = 'true' ]; then
-        git_branch
-        git_dirty
-            
-        git_prompt=" %F{blue}[%F{253}${git_branch}${git_dirty}%F{blue}]"
-    else
-        unset git_prompt
-    fi
+    # Set optional git part of prompt.
+    setup_git_prompt
 
 # Maybe to be used someday, too annoying with vim and other interactive apps.
 #   # $REPORTTIME is about cpu time, not real time.
@@ -300,10 +259,6 @@ preexec() {
 #   executed_on=${(%):-'%D{%s}'}
 }
 
-chpwd() {
-    git_check_if_worktree
-}
-
 man() {
     if command -v vimmanpager >/dev/null 2>&1; then
         PAGER="vimmanpager" command man "$@"
@@ -312,16 +267,6 @@ man() {
     fi
 }
 
-
-# Check if we started zsh in git worktree, useful with tmux when your new zsh may spawn in source dir.
-git_check_if_worktree
-if [ "${git_pwd_is_worktree}" = 'true' ]; then
-    git_branch
-    git_dirty
-    git_prompt=" %F{blue}[%F{253}${git_branch}${git_dirty}%F{blue}]"
-else
-    unset git_prompt
-fi
 
 dot_progress() {
     # Fancy progress function from Landley's Aboriginal Linux.

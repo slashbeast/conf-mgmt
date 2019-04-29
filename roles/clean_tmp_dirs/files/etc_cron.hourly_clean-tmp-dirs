@@ -27,12 +27,12 @@ for system_tmp_dir in /tmp /var/tmp; do
         "${system_tmp_dir}"
 done
 
-while IFS=: read -r username _ _ _ _ home_dir user_shell; do
+while IFS=: read -r _ _ uid gid _ home_dir user_shell; do
     case "${home_dir}" in
         '/root'|'/home/'*)
             home_tmp_dir="${home_dir}/tmp"
             if [ -d "${home_tmp_dir}" ] && shell_is_valid "${user_shell}" && ! [ -f "${home_tmp_dir}/.skip-cleaning" ]; then
-                env -i busybox chpst -u "${username}":nobody \
+                env -i busybox chpst -u "${uid}:${gid}" \
                     /usr/sbin/tmpreaper \
                     --force \
                     -m \
@@ -41,6 +41,7 @@ while IFS=: read -r username _ _ _ _ home_dir user_shell; do
                     --protect 'qtsingleapp-qBitto-*' \
                     --protect 'tmux-*' \
                     --protect 'bridge.*' \
+                    --protect 'serverauth.*' \
                     24h \
                     "${home_tmp_dir}/"
             fi

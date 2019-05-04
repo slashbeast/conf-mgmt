@@ -1,3 +1,9 @@
+{% if screen_resolution == '1920x1080' %}
+{%     set autofit = '1200' %}
+{% else %}
+{%     set autofit = '800' %}
+{% endif %}
+
 hwdec=auto
 vo=gpu
 
@@ -9,7 +15,7 @@ tscale=oversample
 ao=alsa
 
 # Control maximum size of mpv window
-autofit=800
+autofit={{ autofit }}
 
 # Move subs a little up.
 sub-pos=97

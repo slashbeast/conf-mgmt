@@ -12,8 +12,8 @@
     loop_var: mpv_dir
 
 - name: .mpv/config deployment
-  copy:
-    src: DOTmpv_config
+  template:
+    src: DOTmpv_config.j2
     dest: '{{ user_home_dir }}/.mpv/config'
     owner: '{{ user }}'
     group: '{{ user_group_id }}'

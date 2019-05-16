@@ -1,5 +1,0 @@
-- name: drop /etc/portage/package.mask/baselayout
-  file:
-    path: /etc/portage/package.mask/baselayout
-    state: absent
-

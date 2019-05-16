@@ -5,11 +5,12 @@
 # Create '<hostname>.yml' with host specific configuration.
 
 - name: apply default role
-  gather_facts: false
+  gather_facts: true
   connection: local
   hosts: localhost
   vars:
     screen_resolution: 1920x1080
+    target_cpu: znver1
   roles:
 
   - role: hostname
@@ -86,7 +87,7 @@
 
   - role: virtual_memory_tune
 
-  - role: package.mask
+  - role: portage
 
   - role: prefer_ipv4_over_ipv6
 

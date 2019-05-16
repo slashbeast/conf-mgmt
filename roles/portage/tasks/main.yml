@@ -1,0 +1,27 @@
+- name: /etc/portage directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: portage
+    mode: 0750
+  with_items:
+  - /etc/portage
+  - /etc/portage/package.use
+
+- name: /etc/portage/package.use/00_common
+  copy:
+    src: etc_portage_package.use_00_common
+    dest: /etc/portage/package.use/00_common
+    owner: root
+    group: root
+    mode: 0644
+
+- name: /etc/portage/make.conf
+  template:
+    src: etc_portage_make.conf.j2
+    dest: /etc/portage/make.conf
+    owner: root
+    group: root
+    mode: 0644
+

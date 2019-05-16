@@ -1,0 +1,71 @@
+dev-qt/qtgui -libinput
+dev-qt/qtquickcontrols2 widgets
+dev-qt/* X
+
+media-*/* X truetype alsa g3dvl x264 xvid vdpau mp3 vorbis flac
+
+x11-*/* X
+
+# protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
+media-sound/pulseaudio -* glib
+
+# dbus autolaunch requires USE=X
+sys-apps/dbus X
+
+sys-libs/glibc nscd
+
+app-admin/keepassxc autotype
+
+app-crypt/gcr gtk
+app-crypt/pinentry gnome-keyring
+
+app-editors/vim vim-pager
+
+app-portage/layman git
+
+app-text/xmlto text
+
+dev-db/sqlite secure-delete
+
+dev-lang/python sqlite
+
+dev-libs/elfutils static-libs
+dev-libs/libpcre2 pcre16
+dev-libs/libxml2 python
+dev-libs/xmlsec nss
+
+media-gfx/gimp python
+
+media-libs/harfbuzz icu
+media-libs/libpng apng
+media-libs/libvpx postproc
+media-libs/mesa vulkan
+
+media-sound/deadbeef -gtk2 gtk3 alac curl equalizer ffmpeg
+
+media-video/ffmpeg fdk x265 openssl opus theora
+
+net-libs/zeromq drafts
+
+net-misc/connman iptables wifi
+
+net-p2p/qbittorrent X
+net-p2p/syncthing tools
+
+net-vpn/openvpn iproute2 lz4
+
+sys-apps/busybox static
+sys-apps/hwids udev
+sys-apps/pcsc-lite libusb
+
+sys-auth/consolekit policykit
+
+sys-libs/zlib static-libs
+
+x11-base/xorg-server elogind -suid udev
+
+x11-libs/cairo xcb
+x11-libs/libva utils vdpau
+x11-libs/libxcb xkb
+
+x11-terms/rxvt-unicode 256-color

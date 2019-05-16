@@ -136,10 +136,10 @@ virtual_memory_tune
 
 Tune dirty (background) bytes, swappiness and vfs pressure.
 
-package.mask
-------------
+portage
+-------
 
-Common package.mask entries.
+Control /etc/portage content.
 
 prefer_ipv4_over_ipv6
 ---------------------

@@ -141,6 +141,10 @@ portage
 
 Control /etc/portage content.
 
+Variables:
+    - local_use_flags - optional USE flags, host specific, additional to common one.
+
+
 prefer_ipv4_over_ipv6
 ---------------------
 

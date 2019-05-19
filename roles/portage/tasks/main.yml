@@ -17,6 +17,14 @@
     group: root
     mode: 0644
 
+- name: /etc/portage/package.use/01_local_use_flags
+  copy:
+    dest: /etc/portage/package.use/01_local_use_flags
+    owner: root
+    group: root
+    mode: 0644
+    content: "{{ local_use_flags | default('# no local use flags specified.\n') }}"
+
 - name: /etc/portage/make.conf
   template:
     src: etc_portage_make.conf.j2

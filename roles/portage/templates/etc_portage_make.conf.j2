@@ -17,14 +17,6 @@ MAKEOPTS="--quiet -j{{ (ansible_processor_vcpus * 0.8)|int }}"
 
 CPU_FLAGS_X86="{{ cpu_flags_x86 | default("aes avx avx2 f16c fma3 mmx mmxext sse sse2 sse3 sse4_1 sse4_2 ssse3") }}"
 
-USE="
-    pic
-    threads smp
-    xft fontconfig opengl glamor vaapi cairo
-    logrotate zsh-completion cups vim-syntax jpeg png dbus elogind
-    -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome -udev
-"
-
 ACCEPT_LICENSE="*"
 
 # Save elog, viewable by elogv.

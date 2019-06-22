@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# a simple scrot interface via dmenu.
+
+umask 077
+
+eerror() {
+    echo ">>> [ERROR] $*"
+}
+
+die() {
+    eerror "$*"
+    exit 1
+}
+
+dmenu_wrapper() {
+    # A magic to position dmenu in the middle of screen.
+    read screen_w screen_h < <( xdpyinfo | sed -r '/dimensions:/!d; s/.*dimensions:[[:blank:]]+([0-9]+)x([0-9]+) pixels.*/\1 \2/')
+    dmenu_width='400'
+    pull_up='140'
+    x_offset="$(( (screen_w - dmenu_width) / 2 ))"
+    y_offset="$(( (screen_h - pull_up) / 2 ))"
+
+    dmenu -i -l 10 \
+        -y "${y_offset}" -x "${x_offset}" -w "${dmenu_width}" \
+        -fn 'Droid Sans Mono:pixelsize=15'  \
+        -sb '#a13d12' \
+        -p "$*"
+}
+
+scrot_wrapper() {
+    scrot \
+        "$@" \
+        "${TMPDIR:-/tmp}"/screenshot-'%Y-%m-%d_%H-%M-%S.png' \
+        -e 'notify-send $f'
+}
+
+add_menu_item() {
+    printf -v i_wanna_sprintf "%-128s %s" "$1" "$2"
+    menu_items+=( "${i_wanna_sprintf}" )
+}
+
+
+for i in scrot notify-send; do
+    if ! command -v "$i" >/dev/null 2>&1; then
+        die "Missing binary '$i'."
+    fi
+done
+
+
+declare -a menu_items
+add_menu_item 'Capture full screen' 'fullscreen'
+add_menu_item 'Select region or window to capture' 'select'
+
+
+read dmenu_selection < <(dmenu_wrapper 'Screenshot:' < <(printf '%s\n' "${menu_items[@]}"))
+dmenu_selection="${dmenu_selection##* }"
+
+case "${dmenu_selection}" in
+    'fullscreen')
+        scrot_wrapper
+    ;;
+    'select')
+        scrot_wrapper -s
+    ;;
+esac

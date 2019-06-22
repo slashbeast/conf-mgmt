@@ -63,6 +63,7 @@
       - colordiff
       - gnupg
       - git
+      - bin
 
   - role: home_files
     vars:

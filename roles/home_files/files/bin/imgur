@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Client-ID once published on api.imgur.com, still works.
+auth_header='Authorization: Client-ID 3e7a4deb7ac67da'
+
+img="$1"
+
+test -f "$img" || exit 1
+
+response="$(curl -s -H "${auth_header}" -F "image=@${img}" 'https://api.imgur.com/3/upload')"
+
+echo -n 'Image URL:     '
+sed 's%.*"link":"\([^"]*\).*%\1%; s%\\%%g' <<< "${response}"
+echo -n 'Delete URL:    https://imgur.com/delete/'
+sed 's%.*"deletehash":"\([^"]*\).*%\1%' <<< "${response}"

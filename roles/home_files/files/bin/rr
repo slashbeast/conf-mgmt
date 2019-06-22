@@ -1,0 +1,130 @@
+#!/usr/bin/env perl
+# Copyright (c) 2017, Piotr Karbowski <piotr.karbowski@gmail.com>
+#
+# rr - a fancy rename tool.
+#
+# Mass rename made easy, with optional perl expressions.
+
+# todo:
+# - Don't use eval, parse -e instead, split by / to get search, replace and optional flags.
+# - A switch to work on dirs-only and files-only.
+
+use strict;
+use warnings;
+
+use File::Find qw/ finddepth /;
+use File::Basename qw/ fileparse /;
+
+use Getopt::Long;
+Getopt::Long::Configure ("bundling");
+
+use autodie qw/ :all /;
+
+my ($recursive, $to_lower, $to_underscore, @perlexpr, $dryrun, $help);
+
+sub help {
+    print <<'END';
+rr - a fancy rename tool.
+
+Mass rename made easy, with optional perl expressions.
+
+Options:
+
+  --lower, -l                    Convert names to lower case.
+  --underscore, -u               Convert spaces into underscores.
+  --perlexpr <expr>, -e <expr>   Use Perl expression to transfom string.
+                                 Due to usage of eval, the <expr> needs
+                                 to be valid Perl code, like 's/foo/bar/'.
+                                 Can be specified multiple times.
+  --recursive, -r                Travel directories recursively.
+  --dry-run, -n                  Don't rename anything, just print.
+  --help, -h                     Help.
+
+Usage:
+
+  Convert upper into lower case and replace spaces with underscores. Recursively.
+      rr -lur ~/music
+
+  Convert spaces to underscore for files/dirs specified as arguments
+      rr -u file1 /mnt/dropzone/dir1 /tmp/foo
+          - or -
+      rr -e 's/ /_/g' file1 /mnt/dropzone/dir1 /tmp/foo
+
+  Replace 'jpeg' with 'jpg' and 'IMG' with 'Photo' on all files inside directory.
+      rr -e 's/jpeg/jpg/' -e 's/IMG/Photo/g' /media/foo/*
+
+   Remove a year from names, so "foo (2015) baz" and "bar_(1999)_yep" become "foo baz" and "bar_yep"
+      rr -e 's/\([0-9]{4}\)( |_)//g' dir/*
+
+END
+    exit(1);
+}
+
+GetOptions (
+    'lower|l' => \$to_lower,
+    'underscore|u' => \$to_underscore,
+    'recursive|r' => \$recursive,
+    'perlexpr|e=s' => \@perlexpr,
+    'dry-run|n' => \$dryrun,
+    'help|h' => \$help,
+
+) or help;
+
+help if $help;
+help if not @ARGV;
+
+sub bump_name {
+        my $old_path = $File::Find::name ? $File::Find::name : $_;
+
+        # To handle like a boss the 'rr -r -<...> .', 
+        # to not even try to rename current working directory.
+        # thought we could load Cwd's abs_path during runtime
+        # and rename current working directory anyway.
+        return if $old_path eq '.';
+
+        my ($basename, $dirname) = fileparse($old_path);
+        my $new = $basename;
+
+        if (@perlexpr) {
+            for (@perlexpr) {
+                # WHAT COULD GO WRONG?!
+                my $perlexpr = '$new =~ ' . $_;
+                {
+                    no strict;
+                    eval $perlexpr;
+                }
+                die $@ if $@;
+            }
+        }
+
+        if ($to_lower) {
+            $new = lc($new);
+        }
+
+        if ($to_underscore) {
+            $new =~ s/ /_/g;
+        }
+
+        return if $new eq $basename;
+
+        my $new_path = $dirname . $new;
+
+        print "[rr] >>> $old_path -> $new_path\n";
+
+        die "[error] >>> Target already exist.\n" if -e $new_path;
+
+        if (not $dryrun) {
+            rename($old_path, $new_path);
+        }
+}
+
+for (@ARGV) {
+    die "[error] >>> $_: $!\n"  if not -e;
+
+    my @paths;
+    if ($recursive) {
+        finddepth({ wanted => \&bump_name, follow => 0, no_chdir => 1}, $_);
+    } else {
+        bump_name($_);
+    }
+}

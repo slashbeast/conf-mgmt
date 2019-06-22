@@ -1,0 +1,19 @@
+- name: ensure ~/bin exists
+  file:
+    path: '{{ user_home_dir }}/bin'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ~/bin/ files deployment
+  copy:
+    src: '{{ bin_file }}'
+    dest: '{{ user_home_dir }}/bin/{{ bin_file | basename }}'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0700
+  with_fileglob:
+    - bin/*
+  loop_control:
+    loop_var: bin_file

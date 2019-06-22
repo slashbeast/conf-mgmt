@@ -24,7 +24,6 @@
       - 'home dir: {{ user_home_dir }}'
 
 - include_tasks: '{{ config_name }}.yml'
-  when: 'config_name in deploy'
   with_items: '{{ deploy }}'
   loop_control:
     loop_var: config_name

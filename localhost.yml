@@ -11,6 +11,7 @@
   vars:
     screen_resolution: 1920x1080
     target_cpu: znver1
+    system_type: desktop
   roles:
 
   - role: hostname

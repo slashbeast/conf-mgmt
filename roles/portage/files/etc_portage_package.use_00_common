@@ -17,6 +17,15 @@ media-sound/pulseaudio -* glib
 # dbus autolaunch requires USE=X
 sys-apps/dbus X
 
+app-admin/conky X truetype -portmon
+
+x11-misc/tint2 battery
+
+sys-fs/squashfs-tools lz4 lzma lzo
+sys-fs/squashfuse lz4 lzma lzo
+
+app-cdr/cuetools flac mp3 vorbis
+
 sys-libs/glibc nscd
 
 app-admin/keepassxc autotype
@@ -46,7 +55,7 @@ media-libs/libpng apng
 media-libs/libvpx postproc
 media-libs/mesa vulkan
 
-media-sound/deadbeef -gtk2 gtk3 alac curl equalizer ffmpeg
+media-sound/deadbeef -gtk2 gtk3 alac curl equalizer ffmpeg aac dts wma musepack wavpack
 
 media-video/ffmpeg fdk x265 openssl opus theora
 
@@ -74,3 +83,5 @@ x11-libs/libva utils vdpau
 x11-libs/libxcb xkb
 
 x11-terms/rxvt-unicode 256-color
+
+app-emulation/qemu sdl

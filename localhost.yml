@@ -11,6 +11,7 @@
   vars:
     screen_resolution: 1920x1080
     target_cpu: znver1
+    cpu_flags_x86: "aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3"
     system_type: desktop
   roles:
 

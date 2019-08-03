@@ -85,6 +85,11 @@ unscd
 
 Enable unscd as dns cache.
 
+fstrim
+------
+
+Send TRIM to underlying storage on all supported filesystems for unused blocks.
+
 clean_tmp_dirs
 --------------
 

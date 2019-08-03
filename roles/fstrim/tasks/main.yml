@@ -1,0 +1,7 @@
+- name: script
+  copy:
+    src: etc_cron.weekly_fstrim
+    dest: /etc/cron.weekly/fstrim
+    owner: root
+    group: root
+    mode: 0755

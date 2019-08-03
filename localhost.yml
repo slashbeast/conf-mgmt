@@ -27,6 +27,8 @@
 
   - role: unscd
 
+  - role: fstrim
+
   - role: system_groups
 
   - role: connman

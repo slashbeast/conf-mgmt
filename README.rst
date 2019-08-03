@@ -90,6 +90,11 @@ fstrim
 
 Send TRIM to underlying storage on all supported filesystems for unused blocks.
 
+iwlwifi
+-------
+
+Control iwlwifi kernel module options
+
 clean_tmp_dirs
 --------------
 

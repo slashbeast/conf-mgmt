@@ -1,0 +1,9 @@
+- name: /etc/modprobe.d/iwlwifi.conf
+  copy:
+    dest: /etc/modprobe.d/iwlwifi.conf
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      options iwlwifi swcrypto={{ swcrypto }}
+

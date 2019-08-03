@@ -29,6 +29,8 @@
 
   - role: fstrim
 
+  - role: iwlwifi
+
   - role: system_groups
 
   - role: connman

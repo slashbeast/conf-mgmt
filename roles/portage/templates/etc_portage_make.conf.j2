@@ -42,6 +42,8 @@ EMERGE_DEFAULT_OPTS="
     --binpkg-respect-use y
     --buildpkg-exclude 'virtual/* sys-kernel/*-sources games-*/* app-emulation/emul-linux-*'
     --backtrack=300
+    --jobs 4
+    --load-average {{ ansible_processor_vcpus }}
 "
 
 foobashrc_modules="localpatch striplafiles break_hardlinks"

@@ -79,6 +79,7 @@ sys-libs/zlib static-libs
 x11-base/xorg-server elogind -suid udev
 
 x11-libs/cairo xcb
+dev-cpp/cairomm X
 x11-libs/libva utils vdpau
 x11-libs/libxcb xkb
 

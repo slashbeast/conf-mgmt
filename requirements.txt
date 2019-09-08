@@ -4,36 +4,38 @@
 #
 #    pip-compile
 #
-ansible==2.8.2
+ansible==2.8.4
 asn1crypto==0.24.0        # via cryptography
+attrs==19.1.0             # via packaging
 cffi==1.12.3              # via cryptography
 click==7.0                # via pip-tools
 cryptography==2.7         # via ansible
 entrypoints==0.3          # via flake8
 filelock==3.0.12          # via tox
-flake8-comprehensions==2.1.0
+flake8-comprehensions==2.2.0
 flake8-tidy-imports==2.0.0
 flake8==3.7.8
-importlib-metadata==0.18  # via pluggy, tox
+importlib-metadata==0.20  # via pluggy, tox
 isort==4.3.21
 jinja2==2.10.1            # via ansible
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8
-multilint==3.0.0
-packaging==19.0           # via tox
+more-itertools==7.2.0     # via zipp
+multilint==4.0.0
+packaging==19.1           # via tox
 pathspec==0.5.9           # via yamllint
 pip-lock==2.0.0
-pip-tools==3.9.0
+pip-tools==4.1.0
 pluggy==0.12.0            # via tox
 py==1.8.0                 # via tox
 pycodestyle==2.5.0        # via flake8
 pycparser==2.19           # via cffi
 pyflakes==2.1.1           # via flake8
-pyparsing==2.4.0          # via packaging
-pyyaml==5.1.1             # via ansible, yamllint
+pyparsing==2.4.2          # via packaging
+pyyaml==5.1.2             # via ansible, yamllint
 six==1.12.0               # via cryptography, packaging, pip-tools, tox
 toml==0.10.0              # via tox
-tox==3.13.2
-virtualenv==16.6.2        # via tox
-yamllint==1.16.0
-zipp==0.5.2               # via importlib-metadata
+tox==3.14.0
+virtualenv==16.7.5        # via tox
+yamllint==1.17.0
+zipp==0.6.0               # via importlib-metadata

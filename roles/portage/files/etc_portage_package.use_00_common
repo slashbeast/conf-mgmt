@@ -21,8 +21,9 @@ app-admin/conky X truetype -portmon
 
 x11-misc/tint2 battery
 
-sys-fs/squashfs-tools lz4 lzma lzo
-sys-fs/squashfuse lz4 lzma lzo
+sys-fs/squashfs-tools lz4 xz lzo zstd
+sys-fs/squashfs-tools-ng lz4 xz lzo zstd
+sys-fs/squashfuse lz4 lzo zstd
 
 app-cdr/cuetools flac mp3 vorbis
 

@@ -5,17 +5,16 @@
 # also Google search everything else.
 
 import subprocess
+import sys
 from urllib.parse import quote
 
 
 def run(params):
-    subprocess.Popen(
-        params,
-        stdin=None,
-        stdout=None,
-        stderr=None,
-        close_fds=True
-    )
+    with subprocess.Popen(params, stdin=None, stdout=None, stderr=None, close_fds=True) as p:
+        try:
+            return p.wait()
+        except:
+            return p.wait()
 
 
 def main():
@@ -38,9 +37,11 @@ def main():
         url = 'https://duckduckgo.com/?q={}'.format(quote(clipboard))
 
     if url:
-        run(['firefox', '--new-tab', url])
+        cmd = ['firefox', '--new-tab', url]
     elif mpv_url:
-        run(['mpv', mpv_url])
+        cmd = ['mpv', mpv_url]
+
+    sys.exit(run(cmd))
 
 
 if __name__ == "__main__":

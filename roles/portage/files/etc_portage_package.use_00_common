@@ -87,3 +87,7 @@ x11-libs/libxcb xkb
 x11-terms/rxvt-unicode 256-color
 
 app-emulation/qemu sdl
+
+dev-libs/boost icu
+
+dev-lang/luajit lua52compat

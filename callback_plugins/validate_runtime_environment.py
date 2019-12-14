@@ -23,7 +23,8 @@ class CallbackModule(CallbackBase):
         if not ( 
             sys.version_info[:2] == (2, 7) or
             sys.version_info[:2] == (3, 5) or
-            sys.version_info[:2] == (3, 6)
+            sys.version_info[:2] == (3, 6) or
+            sys.version_info[:2] == (3, 7)
         ):
             print('Your runtime Python environment is not supported. Check README.rst for more information how to set it up', file=sys.stderr)
             sys.exit(1)

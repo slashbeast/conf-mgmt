@@ -87,7 +87,7 @@ clock_background_id = 0
 #clock_lclick_command = xclock
 clock_rclick_command = orage
 
-
+{% if system_type == 'laptop' %} 
 #-------------------------------------
 # Battery
 #-------------------------------------
@@ -107,7 +107,7 @@ battery_uwheel_command =
 battery_dwheel_command =
 ac_connected_cmd = notify-send -u normal "AC connected"
 ac_disconnected_cmd = notify-send -u normal "AC disconnected"
-
+{% endif %}
 
 #---------------------------------------------
 # MOUSE ACTION ON TASK

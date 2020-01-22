@@ -95,3 +95,5 @@ dev-lang/luajit lua52compat
 net-libs/webkit-gtk -geolocation X gstreamer
 
 media-libs/babl introspection
+
+dev-util/xdelta lzma

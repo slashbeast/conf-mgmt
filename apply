@@ -26,7 +26,7 @@ edie() {
 trap 'eerror "Error in $0 on line ${LINENO}."' ERR
 
 
-if [ "${FORCE_ANSIBLE_PLAYBOOK}" ]; then
+if [ "${FORCE_ANSIBLE_PLAYBOOK:-}" ]; then
     ansible_playbook="${FORCE_ANSIBLE_PLAYBOOK}"
 else
     HOSTNAME="$(hostname)"

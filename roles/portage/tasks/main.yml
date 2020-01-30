@@ -8,6 +8,8 @@
   with_items:
   - /etc/portage
   - /etc/portage/package.use
+  - /var/portage
+  - /var/portage/tmp
 
 - name: /etc/portage/package.use/00_common
   copy:
@@ -33,3 +35,13 @@
     group: root
     mode: 0644
 
+- include_tasks: move_and_link.yml
+  with_items:
+  - from: /var/db/repos/gentoo
+    to: /var/portage/tree
+  - from: /var/cache/binpkgs
+    to: /var/portage/packages
+  - from: /var/cache/distfiles
+    to: /var/portage/distfiles
+  loop_control:
+    loop_var: move_and_link

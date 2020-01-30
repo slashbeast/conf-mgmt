@@ -1,0 +1,14 @@
+#!/usr/bin/env ansible-playbook
+
+- name: Apply initial configuration for stage4.
+  gather_facts: true
+  connection: local
+  hosts: localhost
+  vars:
+    target_cpu: x86-64
+    cpu_flags_x86: ""
+  roles:
+
+  - role: portage
+    vars:
+      ccache: false

@@ -14,3 +14,5 @@
     src: '{{ move_and_link.to }}'
     dest: '{{ move_and_link.from }}'
     state: link
+    follow: false
+    force: true

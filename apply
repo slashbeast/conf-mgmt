@@ -64,7 +64,7 @@ if [ -d "${private_dir}" ]; then
     cp -nsr --preserve=mode,ownership "${private_dir}"/* "${merged_dir}"/
 fi
 
-einfo "Running ${HOSTNAME}.yml playbook ..."
+einfo "Running ${ansible_playbook} playbook ..."
 cd "${merged_dir}"
 if [ -f "${ansible_playbook}" ]; then
     ./"${ansible_playbook}" "$@"

@@ -28,7 +28,8 @@ def main():
             'www.youtube.com/watch',
             'youtube.com/watch',
             'www.youtu.be',
-            'youtu.be'
+            'youtu.be',
+            'streamable.com'
         )):
             mpv_url = clipboard
         else:

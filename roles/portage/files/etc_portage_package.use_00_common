@@ -62,7 +62,7 @@ media-video/ffmpeg fdk x265 openssl opus theora
 
 net-libs/zeromq drafts
 
-net-misc/connman iptables wifi
+net-misc/connman iptables -nftables wifi
 
 net-p2p/qbittorrent X webui
 net-p2p/syncthing tools
@@ -97,3 +97,5 @@ net-libs/webkit-gtk -geolocation X gstreamer
 media-libs/babl introspection
 
 dev-util/xdelta lzma
+
+dev-python/requests socks5

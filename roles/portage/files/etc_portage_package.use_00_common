@@ -1,4 +1,4 @@
-*/* pic pax_kernel threads smp
+*/* pic threads smp
 */* xft fontconfig opengl glamor vaapi cairo
 */* logrotate zsh-completion cups vim-syntax jpeg png dbus elogind
 */* -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome -udev

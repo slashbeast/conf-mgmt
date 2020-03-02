@@ -1,7 +1,7 @@
 */* pic threads smp
 */* xft fontconfig opengl glamor vaapi cairo
 */* logrotate zsh-completion cups vim-syntax jpeg png dbus elogind
-*/* -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome -udev
+*/* -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome
 
 dev-qt/qtgui -libinput
 dev-qt/qtquickcontrols2 widgets
@@ -71,7 +71,7 @@ net-vpn/openvpn iproute2 lz4
 
 sys-apps/busybox static
 sys-apps/hwids udev
-sys-apps/pcsc-lite libusb
+sys-apps/pcsc-lite -libusb udev
 
 sys-auth/consolekit policykit
 

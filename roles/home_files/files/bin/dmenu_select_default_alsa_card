@@ -79,9 +79,10 @@ else
 fi
 
 
+card_id="$(cat "/proc/asound/card${dmenu_selection}/id")"
 cat >> ~/.asoundrc <<END
-defaults.pcm.!card ${dmenu_selection}; 
-defaults.ctl.!card ${dmenu_selection};
+defaults.pcm.!card ${card_id};
+defaults.ctl.!card ${card_id};
 END
 
 while read -r card; do

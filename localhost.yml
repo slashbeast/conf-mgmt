@@ -114,3 +114,5 @@
       inbound_respond_to_ping: 'true'
 
   - role: inotify_tune
+
+  - role: udev

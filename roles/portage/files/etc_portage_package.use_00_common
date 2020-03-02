@@ -99,3 +99,6 @@ media-libs/babl introspection
 dev-util/xdelta lzma
 
 dev-python/requests socks5
+
+# USE=gnome required to actually show VPN tab in nm-applet.
+net-vpn/networkmanager-l2tp gnome

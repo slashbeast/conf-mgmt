@@ -1,14 +1,12 @@
 !Drop some symbols, so we can still bind them in acpid and frineds,
 !but keep mpv and others from acting om them.
+
 !mute button.
-!keycode 121 = NoSymbol
-keycode 160 = NoSymbol
-!lower volume
-!keycode 122 = NoSymbol
-keycode 174 = NoSymbol
-!incress volume
-!keycode 123 = NoSymbol
-keycode 176 = NoSymbol
+keycode 121 = NoSymbol
+!volume down
+keycode 122 = NoSymbol
+!volume up
+keycode 123 = NoSymbol
 
 keycode 30 = u U EuroSign EuroSign EuroSign EuroSign
 

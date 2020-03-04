@@ -1,6 +1,6 @@
 */* pic threads smp
 */* xft fontconfig opengl glamor vaapi cairo
-*/* logrotate zsh-completion cups vim-syntax jpeg png dbus elogind
+*/* logrotate zsh-completion cups vim-syntax jpeg png dbus elogind policykit
 */* -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome
 
 dev-qt/qtgui -libinput
@@ -72,8 +72,6 @@ net-vpn/openvpn iproute2 lz4
 sys-apps/busybox static
 sys-apps/hwids udev
 sys-apps/pcsc-lite -libusb udev
-
-sys-auth/consolekit policykit
 
 sys-libs/zlib static-libs
 

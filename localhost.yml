@@ -116,3 +116,5 @@
   - role: inotify_tune
 
   - role: udev
+
+  - role: elogind

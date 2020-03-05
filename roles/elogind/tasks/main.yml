@@ -1,0 +1,17 @@
+- name: Disable elogind actions on power/sleep buttons and lid close events.
+  ini_file:
+    path: /etc/elogind/logind.conf
+    owner: root
+    group: root
+    mode: 0644
+    section: 'Login'
+    option: '{{ item }}'
+    value: 'ignore'
+    no_extra_spaces: true
+  with_items:
+    - HandlePowerKey
+    - HandleSuspendKey
+    - HandleHibernateKey
+    - HandleLidSwitch
+    - HandleLidSwitchExternalPower
+    - HandleLidSwitchDocked

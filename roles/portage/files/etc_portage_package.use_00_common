@@ -1,13 +1,12 @@
 */* pic threads smp
-*/* xft fontconfig opengl glamor vaapi cairo
-*/* logrotate zsh-completion cups vim-syntax jpeg png dbus elogind policykit
+*/* xft fontconfig opengl glamor vaapi cairo truetype jpeg png tiff
+*/* logrotate zsh-completion cups vim-syntax dbus elogind policykit
 */* -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome
 
-dev-qt/qtgui -libinput
 dev-qt/qtquickcontrols2 widgets
 dev-qt/* X
 
-media-*/* X truetype alsa g3dvl x264 xvid vdpau mp3 vorbis flac
+media-*/* X alsa g3dvl x264 xvid vdpau mp3 vorbis flac
 
 x11-*/* X
 
@@ -17,7 +16,7 @@ media-sound/pulseaudio -* glib
 # dbus autolaunch requires USE=X
 sys-apps/dbus X
 
-app-admin/conky X truetype -portmon
+app-admin/conky X  -portmon
 
 x11-misc/tint2 battery
 
@@ -97,6 +96,9 @@ media-libs/babl introspection
 dev-util/xdelta lzma
 
 dev-python/requests socks5
+
+# networkmanager-strongswan require libnm-gtk provided by nm-applet.
+gnome-extra/nm-applet gtk
 
 # USE=gnome required to actually show VPN tab in nm-applet.
 net-vpn/networkmanager-l2tp gnome

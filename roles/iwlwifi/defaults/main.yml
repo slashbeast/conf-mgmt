@@ -3,3 +3,6 @@
 # which greatly impact network performance. enabling software crypto
 # seems like a working workaround.
 swcrypto: 1
+
+# And here I suspect other of my issues are bluetooth related, but I don't even use bluetooth.
+bt_coex_active: N

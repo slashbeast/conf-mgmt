@@ -5,5 +5,5 @@
     group: root
     mode: 0644
     content: |
-      options iwlwifi swcrypto={{ swcrypto }}
+      options iwlwifi swcrypto={{ swcrypto }} bt_coex_active={{ bt_coex_active }}
 

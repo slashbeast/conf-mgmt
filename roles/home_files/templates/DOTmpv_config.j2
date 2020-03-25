@@ -1,7 +1,9 @@
 {% if screen_resolution == '1920x1080' %}
 {%     set autofit = '1200' %}
+{%     set font_size = '36' %}
 {% else %}
 {%     set autofit = '800' %}
+{%     set font_size = '40' %}
 {% endif %}
 
 hwdec=no
@@ -25,7 +27,7 @@ sub-ass=no
 sub-font="Alte Haas Grotesk"
 sub-color='#EEEEEE'
 sub-bold=yes
-sub-font-size=40
+sub-font-size={{ font_size }}
 sub-back-color="#80000000"
 sub-border-size=0.0
 

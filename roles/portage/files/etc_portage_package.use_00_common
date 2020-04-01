@@ -1,22 +1,16 @@
 */* pic threads smp
-*/* xft fontconfig opengl glamor vaapi cairo truetype jpeg png tiff
+*/* X xft fontconfig opengl glamor vaapi cairo truetype jpeg png tiff
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit
-*/* -networkmanager -gstreamer -pm-utils -X -udisks -pulseaudio -kde -gnome
+*/* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 
 dev-qt/qtquickcontrols2 widgets
-dev-qt/* X
 
-media-*/* X alsa g3dvl x264 xvid vdpau mp3 vorbis flac
-
-x11-*/* X
+media-*/* alsa g3dvl x264 xvid vdpau mp3 vorbis flac
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
 media-sound/pulseaudio -* glib
 
-# dbus autolaunch requires USE=X
-sys-apps/dbus X
-
-app-admin/conky X  -portmon
+app-admin/conky -portmon
 
 x11-misc/tint2 battery
 
@@ -63,7 +57,7 @@ net-libs/zeromq drafts
 
 net-misc/connman iptables -nftables wifi
 
-net-p2p/qbittorrent X webui
+net-p2p/qbittorrent webui
 net-p2p/syncthing tools
 
 net-vpn/openvpn iproute2 lz4
@@ -77,7 +71,6 @@ sys-libs/zlib static-libs
 x11-base/xorg-server elogind -suid udev
 
 x11-libs/cairo xcb
-dev-cpp/cairomm X
 x11-libs/libva utils vdpau
 x11-libs/libxcb xkb
 
@@ -89,7 +82,7 @@ dev-libs/boost icu
 
 dev-lang/luajit lua52compat
 
-net-libs/webkit-gtk -geolocation X gstreamer
+net-libs/webkit-gtk -geolocation gstreamer
 
 media-libs/babl introspection
 

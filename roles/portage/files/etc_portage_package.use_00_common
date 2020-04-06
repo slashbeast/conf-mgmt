@@ -41,6 +41,7 @@ dev-libs/elfutils static-libs
 dev-libs/libpcre2 pcre16
 dev-libs/libxml2 python
 dev-libs/xmlsec nss
+app-arch/bzip2 static-libs
 
 media-gfx/gimp python
 
@@ -99,3 +100,6 @@ net-vpn/networkmanager-l2tp gnome
 net-dialup/ppp eap-tls
 
 net-vpn/strongswan networkmanager
+
+# No need to pull in GUI.
+sys-boot/woeusb minimal

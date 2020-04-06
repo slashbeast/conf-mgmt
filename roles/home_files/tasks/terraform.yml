@@ -1,0 +1,12 @@
+- name: set user's shell to /bin/zsh
+  user:
+    name: '{{ user }}'
+    shell: /bin/zsh
+
+- name: .terraformrc deployment
+  copy:
+    src: DOTterraformrc
+    dest: '{{ user_home_dir }}/.terraformrc'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

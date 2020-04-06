@@ -1,0 +1,1 @@
+plugin_cache_dir = "$HOME/.cache/terraform-plugins-cache"

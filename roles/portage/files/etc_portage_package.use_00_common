@@ -43,8 +43,6 @@ dev-libs/libxml2 python
 dev-libs/xmlsec nss
 app-arch/bzip2 static-libs
 
-media-gfx/gimp python
-
 media-libs/harfbuzz icu
 media-libs/libpng apng
 media-libs/libvpx postproc

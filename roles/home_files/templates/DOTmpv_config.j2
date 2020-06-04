@@ -7,12 +7,15 @@
 {% endif %}
 
 hwdec=no
+profile=gpu-hq
 vo=gpu
 
 video-sync=display-resample
 interpolation
 dscale=mitchell
 tscale=oversample
+scale=ewa_lanczossharp
+cscale=ewa_lanczossharp
 
 ao=alsa
 
@@ -43,10 +46,6 @@ no-resume-playback
 geometry=50%:50%
 
 # Make youtube-dl prefer the <=720p
-ytdl-format=best[height<=720]
+ytdl-format=best[height<=1080]
 
 screenshot-format=png
-
-# Reduce softvol to mitigation issue with cracking sound on some devices.
-# this should be more or less -2dB
-volume=96

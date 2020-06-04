@@ -4,38 +4,37 @@
 #
 #    pip-compile
 #
-ansible==2.9.6
-appdirs==1.4.3            # via virtualenv
+ansible==2.9.9            # via -r requirements.in
+appdirs==1.4.4            # via virtualenv
 cffi==1.14.0              # via cryptography
-click==7.1.1              # via pip-tools
-cryptography==2.8         # via ansible
+click==7.1.2              # via pip-tools
+cryptography==2.9.2       # via ansible
 distlib==0.3.0            # via virtualenv
-entrypoints==0.3          # via flake8
 filelock==3.0.12          # via tox, virtualenv
-flake8-comprehensions==3.2.2
-flake8-tidy-imports==4.0.0
-flake8==3.7.9
-isort==4.3.21
-jinja2==2.11.1            # via ansible
+flake8-comprehensions==3.2.2  # via -r requirements.in
+flake8-tidy-imports==4.1.0  # via -r requirements.in
+flake8==3.8.2             # via -r requirements.in, flake8-comprehensions, flake8-tidy-imports
+isort==4.3.21             # via -r requirements.in
+jinja2==2.11.2            # via ansible
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8
-multilint==4.1.0
-packaging==20.3           # via tox
-pathspec==0.7.0           # via yamllint
-pip-lock==2.1.0
-pip-tools==4.5.1
+multilint==4.1.0          # via -r requirements.in
+packaging==20.4           # via tox
+pathspec==0.8.0           # via yamllint
+pip-lock==2.1.0           # via -r requirements.in
+pip-tools==5.2.0          # via -r requirements.in
 pluggy==0.13.1            # via tox
 py==1.8.1                 # via tox
-pycodestyle==2.5.0        # via flake8
+pycodestyle==2.6.0        # via flake8
 pycparser==2.20           # via cffi
-pyflakes==2.1.1           # via flake8
-pyparsing==2.4.6          # via packaging
+pyflakes==2.2.0           # via flake8
+pyparsing==2.4.7          # via packaging
 pyyaml==5.3.1             # via ansible, yamllint
-six==1.14.0               # via cryptography, packaging, pip-tools, tox, virtualenv
-toml==0.10.0              # via tox
-tox==3.14.5
-virtualenv==20.0.13       # via tox
-yamllint==1.20.0
+six==1.15.0               # via cryptography, packaging, pip-tools, tox, virtualenv
+toml==0.10.1              # via tox
+tox==3.15.1               # via -r requirements.in
+virtualenv==20.0.21       # via tox
+yamllint==1.23.0          # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

@@ -54,3 +54,6 @@ set viminfo=\'100,\"1000,:100
 set modeline
 
 set foldlevelstart=20
+
+" Do NOT copy to system clipboard.
+:set clipboard=

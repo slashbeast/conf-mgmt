@@ -211,12 +211,18 @@ setup_git_prompt() {
         return 0
     fi
 
-    local git_status_dirty git_branch
+    local git_status_dirty git_status_stash git_branch
 
     if [ "$(git --no-optional-locks status --untracked-files='no' --porcelain)" ]; then
         git_status_dirty='%F{green}*'
     else
         unset git_status_dirty
+    fi
+
+    if [ "$(git stash list)" ]; then
+        git_status_stash="%F{yellow}▲"
+    else
+        unset git_status_stash
     fi
 
     git_branch="$(git symbolic-ref HEAD 2>/dev/null)"
@@ -228,7 +234,7 @@ setup_git_prompt() {
 
     git_branch="${git_branch:-no branch}"
 
-    git_prompt=" %F{blue}[%F{253}${git_branch}${git_status_dirty}%F{blue}]"
+    git_prompt=" %F{blue}[%F{253}${git_branch}${git_status_dirty}${git_status_stash}%F{blue}]"
 
 }
 

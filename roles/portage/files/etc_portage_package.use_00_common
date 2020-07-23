@@ -102,6 +102,6 @@ net-vpn/strongswan networkmanager
 # No need to pull in GUI.
 sys-boot/woeusb minimal
 
-net-misc/remmina rdp ssh
+net-misc/remmina rdp ssh vnc
 
 media-gfx/geeqie exif gnu-accel gtk3

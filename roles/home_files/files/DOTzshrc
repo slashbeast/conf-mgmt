@@ -19,7 +19,7 @@ umask 077
 ZDOTDIR=${ZDOTDIR:-${HOME}}
 ZSHDDIR="${HOME}/.config/zsh.d"
 HISTFILE="${ZDOTDIR}/.zsh_history"
-HISTSIZE='10000'
+HISTSIZE='64000'
 SAVEHIST="${HISTSIZE}"
 export EDITOR="/usr/bin/vim"
 export TMP="$HOME/tmp"

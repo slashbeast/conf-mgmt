@@ -159,7 +159,7 @@ reboot() { confirm_wrapper --root $0 "$@"; }
 hibernate() { confirm_wrapper --root $0 "$@"; }
 
 startx() {
-    exec =startx
+    exec =startx "$@"
 }
 
 has() {

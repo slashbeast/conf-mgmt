@@ -42,16 +42,21 @@ if [ "${vm_bridges}" ]; then
     echo 1 >/proc/sys/net/ipv4/ip_forward
 fi
 
-# Purge current rules.
-iptables -F
-iptables -X
-iptables -t nat -F
-iptables -t nat -X
-iptables -t mangle -F
-iptables -t mangle -X
-#iptables -P INPUT ACCEPT
-#iptables -P FORWARD ACCEPT
-#iptables -P OUTPUT ACCEPT
+# Do not purge iptables if script was started by OpenRC (system boot)
+# as to not damage iptables rules that Docker sets during it's start.
+# On boot iptables are 'clean' enough to not purge them.
+if ! [ "$(ps -o comm= "${PPID}")" == 'openrc-run.sh' ]; then
+    # Purge current rules.
+    iptables -F
+    iptables -X
+    iptables -t nat -F
+    iptables -t nat -X
+    iptables -t mangle -F
+    iptables -t mangle -X
+    #iptables -P INPUT ACCEPT
+    #iptables -P FORWARD ACCEPT
+    #iptables -P OUTPUT ACCEPT
+fi
 
 # Default policy, drop incoming, allow outgoing.
 iptables -P INPUT DROP

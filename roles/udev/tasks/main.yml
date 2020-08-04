@@ -5,3 +5,12 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Set block devices readahead to 1M
+  notify: reload and apply udev storage rules
+  copy:
+    dest: /etc/udev/rules.d/80-storage-readahead.rules
+    src: etc_udev_rules.d_80-storage-readahead.rules
+    owner: root
+    group: root
+    mode: 0644

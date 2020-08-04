@@ -1,0 +1,3 @@
+ACTION=="add", KERNEL=="nvme*[0-9]n*[0-9]", ATTR{bdi/read_ahead_kb}="1024"
+ACTION=="add", KERNEL=="sd[a-z]", ATTR{bdi/read_ahead_kb}="1024"
+ACTION=="add", KERNEL=="dm-*[0-9]", ATTR{bdi/read_ahead_kb}="1024"

@@ -105,3 +105,5 @@ sys-boot/woeusb minimal
 net-misc/remmina rdp ssh vnc
 
 media-gfx/geeqie exif gnu-accel gtk3
+
+net-misc/curl http2

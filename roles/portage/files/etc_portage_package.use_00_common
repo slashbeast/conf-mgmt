@@ -65,7 +65,7 @@ sys-apps/busybox static
 sys-apps/hwids udev
 sys-apps/pcsc-lite -libusb udev
 
-sys-libs/zlib static-libs
+sys-libs/zlib static-libs minizip
 
 x11-base/xorg-server elogind -suid udev
 

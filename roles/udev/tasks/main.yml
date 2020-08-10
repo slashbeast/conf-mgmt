@@ -1,8 +1,17 @@
-- name: Disable udev predictable interface names.
+- name: Disable eudev predictable interface names.
   notify: reload udev rules
   copy:
     dest: /etc/udev/rules.d/80-net-name-slot.rules
     content: "# This file only masks content of /lib/udev/rules.d/80-net-name-slot.rules"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable udev predictable interface names.
+  notify: reload udev rules
+  copy:
+    dest: /etc/udev/rules.d/80-net-setup-link.rules
+    content: "# This file only masks content of /lib/udev/rules.d/80-net-setup-link.rules"
     owner: root
     group: root
     mode: 0644

@@ -1,9 +1,12 @@
-{% if screen_resolution == '1920x1080' %}
-{%     set font_dpi = '120' %}
-{% else %}
-{%     set font_dpi = '96' %}
-{% endif %}
+{% if system_type == 'laptop'   %}
+{%     set font_dpi     = '148' %}
+{%     set xcursor_size = '32'  %}
+{% else                         %}
+{%     set font_dpi     = '120' %}
+{%     set xcursor_size = '32'  %}
+{% endif                        %}
 
+xcursor.size: {{ xcursor_size }}
 Xft.dpi: {{ font_dpi }}
 
 urxvt*scrollBar:false

@@ -57,3 +57,6 @@ set foldlevelstart=20
 
 " Do NOT copy to system clipboard.
 :set clipboard=
+
+" space bar as insert mode key, for keyboards without insert key.
+:nnoremap <Space> i

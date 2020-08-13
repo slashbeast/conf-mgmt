@@ -41,6 +41,22 @@ snd_hda_intel() {
     esac
 }
 
+cpu_boost() {
+    if ! [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
+        return
+    fi
+
+    case "$1" in
+        'on')
+            echo 1 >/sys/devices/system/cpu/cpufreq/boost
+        ;;
+        'off')
+            echo 0 >/sys/devices/system/cpu/cpufreq/boost
+        ;;
+    esac
+}
+
+
 if [ "$4" ]; then
     case "$4" in
         '00000001')
@@ -73,10 +89,12 @@ case "${state}" in
         sata_link_power_mgmt performance
         pci_devices performance
         snd_hda_intel performance
+        cpu_boost on
     ;;
     'battery')
         sata_link_power_mgmt powersave
         pci_devices powersave
         snd_hda_intel powersave
+        cpu_boost off
     ;;
 esac

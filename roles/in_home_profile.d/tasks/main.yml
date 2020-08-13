@@ -1,0 +1,13 @@
+- name: create home-profile.d.sh in /etc/profile.d
+  copy:
+    dest: /etc/profile.d/home-profile.d.sh
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      #!/bin/sh
+      for e in "${HOME}/.config/profile.d"/*; do
+        if [ -f "${e}" ]; then
+          . "${e}"
+        fi
+      done

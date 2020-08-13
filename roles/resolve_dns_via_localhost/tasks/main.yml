@@ -2,7 +2,7 @@
   copy:
     dest: /etc/resolv.conf
     content: "nameserver 127.0.0.1{{'\n'}}"
-    attributes: ie
+    attributes: +i
     owner: root
     group: root
     mode: 0644

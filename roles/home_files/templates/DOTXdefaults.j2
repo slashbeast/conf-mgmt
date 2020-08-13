@@ -1,12 +1,13 @@
-{% if system_type == 'laptop'   %}
-{%     set font_dpi     = '148' %}
-{%     set xcursor_size = '32'  %}
-{% else                         %}
-{%     set font_dpi     = '120' %}
-{%     set xcursor_size = '32'  %}
-{% endif                        %}
+{% if system_type == 'laptop'     %}
+{%     set font_dpi       = '148' %}
+{%     set xcursor_size   = '32'  %}
+{%     set term_font_size = '12'  %}
+{% else                           %}
+{%     set font_dpi       = '120' %}
+{%     set xcursor_size   = '16'  %}
+{%     set term_font_size = '11'  %}
+{% endif                          %}
 
-xcursor.size: {{ xcursor_size }}
 Xft.dpi: {{ font_dpi }}
 
 urxvt*scrollBar:false
@@ -22,4 +23,6 @@ urxvt*termName: rxvt-256color
 *.color4: CornflowerBlue
 *.color12: #729FCF
 
-*.font: xft:xos4 Terminus:style=regular:size=11:antialias=false:lang=pl,xft:Droid Sans Japanese,xft:Droid Sans Fallback
+*.font: xft:xos4 Terminus:style=regular:size={{ term_font_size }}:antialias=false:lang=pl,xft:Droid Sans Japanese,xft:Droid Sans Fallback
+
+Xcursor.size: {{ xcursor_size }}

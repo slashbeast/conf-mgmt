@@ -1,0 +1,6 @@
+{% if system_type == 'laptop' %} 
+export QT_SCALE_FACTOR=1.3
+export QT_FONT_DPI=96
+{% else %}
+# Placeholder, no QT scaling enabled on this deployment.
+{% endif %}

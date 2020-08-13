@@ -107,3 +107,6 @@ net-misc/remmina rdp ssh vnc
 media-gfx/geeqie exif gnu-accel gtk3
 
 net-misc/curl http2
+
+# gkr-pam integration breaks `passwd USERNAME` from root. 
+gnome-base/gnome-keyring -pam

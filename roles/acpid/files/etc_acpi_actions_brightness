@@ -1,12 +1,60 @@
-#!/bin/sh
+#!/bin/bash
 
-# xbacklight is from acpilight.
+set -e
 
-case "${1#video/brightness}" in
-    'up')
-        xbacklight -inc 10
-    ;;
-    'down')
-        xbacklight -dec 10
-    ;;
-esac
+plus_minus_percent() {
+    min="$1"
+    max="$2"
+    curr="$3"
+    change="$4"
+
+    percentage="${change%\%}"
+    percentage="${percentage#\+}"
+    percentage="${percentage#\-}"
+
+    step="$(( max * percentage / 100 ))"
+
+    case "${change:0:1}" in
+        '+')
+            new="$(( curr + step ))"
+        ;;
+        '-')
+            new="$(( curr - step ))"
+        ;;
+    esac
+
+    if [ "${new}" -gt "${max}" ]; then
+        echo "${max}"
+    elif [ "${new}" -lt "${min}" ]; then
+        echo "${min}"
+    else
+        echo "${new}"
+    fi
+}
+
+
+control() {
+    action="$1"
+
+    if [ -d '/sys/class/backlight/intel_backlight' ]; then
+        control_directory='/sys/class/backlight/intel_backlight'
+    elif [ -d '/sys/class/backlight/amdgpu_bl0' ]; then
+        control_directory='/sys/class/backlight/amdgpu_bl0'
+    else
+        exit 1
+    fi
+
+    max_brightness="$(< "${control_directory}"/max_brightness)"
+    current_brightness="$(< "${control_directory}"/brightness)"
+
+    case "${action}" in
+        up)
+            plus_minus_percent 0 "${max_brightness}" "${current_brightness}" +10% >"${control_directory}"/brightness
+        ;;
+        down)
+            plus_minus_percent 0 "${max_brightness}" "${current_brightness}" -10% >"${control_directory}"/brightness
+        ;;
+    esac
+}
+
+control "${1#video/brightness}"

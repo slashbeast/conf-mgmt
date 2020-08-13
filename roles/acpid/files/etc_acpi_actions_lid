@@ -2,19 +2,26 @@
 
 # Dell laptops does not turn off brightness when LID is closed.
 
-control='/sys/class/backlight/intel_backlight'
+if [ -d '/sys/class/backlight/intel_backlight' ]; then
+    control_directory='/sys/class/backlight/intel_backlight'
+elif [ -d '/sys/class/backlight/amdgpu_bl0' ]; then
+    control_directory='/sys/class/backlight/amdgpu_bl0'
+else
+    exit 1
+fi
+
 store_file='/run/brightness_on_close'
 
 case "$3" in
     'open')
         if [ -f "${store_file}" ]; then
-            cat "${store_file}" >"${control}/brightness"
+            cat "${store_file}" >"${control_directory}/brightness"
         else
-            cat "${control}/max_brightness" >"${control}/brightness"
+            cat "${control_directory}/max_brightness" >"${control_directory}/brightness"
         fi
     ;;
     'close')
-        cat "${control}/actual_brightness" >"${store_file}"
-        echo 0 >"${control}/brightness"
+        cat "${control_directory}/brightness" >"${store_file}"
+        echo 0 >"${control_directory}/brightness"
     ;;
 esac

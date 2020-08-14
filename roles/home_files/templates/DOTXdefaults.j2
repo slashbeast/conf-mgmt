@@ -25,4 +25,7 @@ urxvt*termName: rxvt-256color
 
 *.font: xft:xos4 Terminus:style=regular:size={{ term_font_size }}:antialias=false:lang=pl,xft:Droid Sans Japanese,xft:Droid Sans Fallback
 
+! Without setting theme (even if only one exists in /usr/share/cursors/xorg-x11/)
+! the cursor size will be ignored in bare X apps (urxvt, openbox etc)
+Xcursor.theme: Adwaita
 Xcursor.size: {{ xcursor_size }}

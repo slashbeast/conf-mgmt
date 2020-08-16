@@ -29,6 +29,8 @@ keycode 91 = Delete KP_Decimal
 !keycode 112 = Prior
 !keycode 117 = Next
 
+
+! Columns: keycode NUM = key shift+key mode_switch+key mode_switch+shift+key,= ISO_Level3_Shift+Key ISO_Level3_Shift+Shift+Key
 ! ! ✔
 keycode 10 = 1 exclam NoSymbol NoSymbol U2714
 ! @ ✘
@@ -37,3 +39,5 @@ keycode 11 = 2 at NoSymbol NoSymbol U2718
 keycode 12 = 3 numbersign NoSymbol NoSymbol U300C
 ! $ 」
 keycode 13 = 4 dollar NoSymbol NoSymbol U300D
+! Escape ~ -- So shift+esc does not require Fn to produce ~ on 65% keyboards.
+keycode 9 = Escape asciitilde Escape Escape Escape Escape

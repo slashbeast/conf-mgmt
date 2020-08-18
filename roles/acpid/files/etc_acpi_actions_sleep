@@ -3,8 +3,13 @@
 scriptpath="$(readlink -f "$0")"
 workdir="${scriptpath%/*}"
 
+if ! [ -f /sys/power/disk ]; then
+    # No hibernation support.
+    exit 0
+fi
+
 case "$2" in
-    'SBTN')
+    'SBTN'|'PBTN')
         logger -t acpid 'Syncing filesystems ...'
         sync
 
@@ -24,7 +29,7 @@ case "$2" in
         fi
 
         # While sleeping AC adapter status could change.
-        if [ "${workdir}/powersave" ]; then
+        if [ -f "${workdir}/powersave" ]; then
             sleep 3
             "${workdir}/powersave"
         fi

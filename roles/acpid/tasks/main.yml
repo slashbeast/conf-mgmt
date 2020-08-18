@@ -48,6 +48,7 @@
   - lid
   - ac_adapter
   - sleep
+  - power
   - volume
 
 - name: autostart acpid on boot

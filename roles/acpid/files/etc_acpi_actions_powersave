@@ -1,6 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 sata_link_power_mgmt() {
+    if ! compgen -G /sys/class/scsi_host/* >/dev/null 2>&1; then
+        return
+    fi
+
     case "$1" in
         'powersave')
             for i in /sys/class/scsi_host/host*/link_power_management_policy; do

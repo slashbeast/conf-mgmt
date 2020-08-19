@@ -1,0 +1,3 @@
+- include_tasks: home-profile.d.yml
+- include_tasks: home-tmp-dir.yml
+- include_tasks: umask_077.yml

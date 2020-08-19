@@ -1,13 +1,5 @@
 # todo: add rest of QT4/5 configuration here.
 
-- name: ensure ~/.config exist
-  file:
-    path: '{{ user_home_dir }}/.config'
-    state: directory
-    mode: 0700
-    owner: '{{ user }}'
-    group: '{{ user_group_id }}'
-
 - name: ensure ~/.config/profile.d
   file:
     path: '{{ user_home_dir }}/.config/profile.d'

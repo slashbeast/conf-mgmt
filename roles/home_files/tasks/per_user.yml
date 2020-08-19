@@ -23,6 +23,15 @@
       - 'group_id: {{ user_group_id }}'
       - 'home dir: {{ user_home_dir }}'
 
+# Create ~/.config regardless of passed arguments.
+- name: ~/.config directory
+  file:
+    path: '{{ user_home_dir }}/.config'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
 - include_tasks: '{{ config_name }}.yml'
   with_items: '{{ deploy }}'
   loop_control:

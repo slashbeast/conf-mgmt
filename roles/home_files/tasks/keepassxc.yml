@@ -1,11 +1,3 @@
-- name: ensure ~/.config exist
-  file:
-    path: '{{ user_home_dir }}/.config'
-    state: directory
-    mode: 0700
-    owner: '{{ user }}'
-    group: '{{ user_group_id }}'
-
 - name: ensure ~/.config/keepassxc exist
   file:
     path: '{{ user_home_dir }}/.config/keepassxc'

@@ -35,3 +35,12 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Disable bluetooth
+  notify: reload udev rules
+  copy:
+    dest: /etc/udev/rules.d/80-disable-bluetooth.rules
+    content: 'SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0"'
+    owner: root
+    group: root
+    mode: 0644

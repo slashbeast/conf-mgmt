@@ -1,0 +1,23 @@
+- name: ensure ~/.config exist
+  file:
+    path: '{{ user_home_dir }}/.config'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ensure ~/.config/profile.d
+  file:
+    path: '{{ user_home_dir }}/.config/profile.d'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ssh-agent.sh deployment
+  copy:
+    src: DOTconfig_profile.d_ssh-agent.sh
+    dest: '{{ user_home_dir }}/.config/profile.d/ssh-agent.sh'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

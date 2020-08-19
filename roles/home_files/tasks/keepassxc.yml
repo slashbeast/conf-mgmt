@@ -1,0 +1,23 @@
+- name: ensure ~/.config exist
+  file:
+    path: '{{ user_home_dir }}/.config'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ensure ~/.config/keepassxc exist
+  file:
+    path: '{{ user_home_dir }}/.config/keepassxc'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: keepassxc.ini deployment
+  copy:
+    src: DOTconfig_keepassxc_keepassxc.ini
+    dest: '{{ user_home_dir }}/.config/keepassxc/keepassxc.ini'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+acpid_state='/run/acpid'
+
 sata_link_power_mgmt() {
     if ! compgen -G /sys/class/scsi_host/* >/dev/null 2>&1; then
         return
@@ -46,20 +48,46 @@ snd_hda_intel() {
 }
 
 cpu_boost() {
-    if ! [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
+    local state_file boost_toggle
+
+    boost_toggle='/sys/devices/system/cpu/cpufreq/boost'
+
+    if ! [ -f "${boost_toggle}" ]; then
         return
     fi
 
+    state_file="${acpid_state}/previous_cpu_boost_state"
+
     case "$1" in
-        'on')
-            echo 1 >/sys/devices/system/cpu/cpufreq/boost
+        'restore')
+            if [ -f "${state_file}" ]; then
+                cat "${state_file}" >"${boost_toggle}"
+            else
+                echo 1 >"${boost_toggle}"
+            fi
         ;;
         'off')
-            echo 0 >/sys/devices/system/cpu/cpufreq/boost
+            cat "${boost_toggle}" >"${state_file}"
+            echo 0 >"${boost_toggle}"
         ;;
     esac
 }
 
+get_lock() {
+    lock_path="${acpid_state}/action_powersave.lock"
+
+    while :; do 
+        if ( set -o noclobber; echo "$$" > "${lock_path}") 2> /dev/null; then 
+            break
+        else 
+            sleep 1
+        fi;
+    done
+
+    trap 'rm -f "${lock_path}"' INT TERM EXIT
+}
+
+get_lock
 
 if [ "$4" ]; then
     case "$4" in
@@ -93,12 +121,19 @@ else
     esac
 fi
 
+# The events can be fired multiple times for one action.
+# If we already applied powersave state (and preserved previous state of for example boost)
+# it's better to not re-apply 'battery' on the top of 'battery' and 'ac' on the top of 'ac'.
+if [ "${state}" = "$(cat "${acpid_state}/current_powersave_state" 2>/dev/null)" ]; then
+    exit 0
+fi
+
 case "${state}" in
     'ac')
         sata_link_power_mgmt performance
         pci_devices performance
         snd_hda_intel performance
-        cpu_boost on
+        cpu_boost restore
     ;;
     'battery')
         sata_link_power_mgmt powersave
@@ -107,3 +142,5 @@ case "${state}" in
         cpu_boost off
     ;;
 esac
+
+echo "${state}" >"${acpid_state}/current_powersave_state"

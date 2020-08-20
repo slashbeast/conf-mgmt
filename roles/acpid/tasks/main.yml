@@ -44,6 +44,17 @@
   - sleep
   - volume
 
+# Apply ac or battery state on boot.
+- name: /etc/local.d/powersave.start
+  copy:
+    dest: /etc/local.d/powersave.start
+    owner: root
+    group: root
+    mode: 0700
+    content: |
+      #!/bin/sh
+      /etc/acpi/actions/powersave >/dev/null
+
 - name: deploy triggers
   notify: restart acpid
   copy:

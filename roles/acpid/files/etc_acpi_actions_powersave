@@ -74,6 +74,11 @@ if [ "$4" ]; then
         ;;
     esac
 else
+    if ! [ -d /sys/class/power_supply/AC ]; then
+        echo "Looks like there's no power_supply status to probe"
+        exit 0
+    fi
+
     read ac_online < /sys/class/power_supply/AC/online
     case "${ac_online}" in
         '1')

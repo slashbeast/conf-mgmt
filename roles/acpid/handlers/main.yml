@@ -1,3 +1,6 @@
+- name: trigger tmpfiles on /run/acpid
+  shell: tmpfiles --prefix=/run/acpid --create
+
 - name: restart acpid
   service:
     name: acpid

@@ -1,6 +1,15 @@
 - include_tasks: '{{ common }}/check_for_binary.yml'
   vars:
     binary: /usr/sbin/acpid
+ 
+- name: /run/acpid via tmpfiles.d
+  notify: trigger tmpfiles on /run/acpid
+  copy:
+    dest: /usr/lib/tmpfiles.d/acpid.conf
+    owner: root
+    group: root
+    mode: 0644
+    content: "d /run/acpid 0700 root root{{'\n'}}"
 
 - name: remove default.sh and events/default
   notify: restart acpid

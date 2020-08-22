@@ -1,9 +1,11 @@
-- name: restart connman
+- name: restart connma
+  when: skip_handlers is not definedn
   service:
     name: connman
     state: restarted
 
 - name: reload dbus
+  when: skip_handlers is not defined
   service:
     name: dbus
     state: reloaded

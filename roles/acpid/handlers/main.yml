@@ -1,7 +1,9 @@
 - name: trigger tmpfiles on /run/acpid
+  when: skip_handlers is not defined
   shell: tmpfiles --prefix=/run/acpid --create
 
 - name: restart acpid
+  when: skip_handlers is not defined
   service:
     name: acpid
     state: restarted

@@ -1,4 +1,5 @@
 - name: restart chronyd
+  when: skip_handlers is not defined
   service:
     name: chronyd
     state: restarted

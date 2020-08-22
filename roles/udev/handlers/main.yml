@@ -1,5 +1,7 @@
 - name: reload udev rules
+  when: skip_handlers is not defined
   shell: if [ -f /run/udev.pid ]; then udevadm control --reload-rules; fi
 
 - name: apply udev storage rules
+  when: skip_handlers is not defined
   shell: if [ -f /run/udev.pid ]; then udevadm trigger --subsystem-match=block --action=add; fi

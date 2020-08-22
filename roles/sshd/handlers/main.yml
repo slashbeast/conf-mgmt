@@ -1,4 +1,5 @@
 - name: restart sshd
+  when: skip_handlers is not defined
   service:
     name: sshd
     state: restarted

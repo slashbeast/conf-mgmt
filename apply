@@ -10,6 +10,8 @@
 set -e
 set -u
 
+umask 077
+
 einfo() {
     echo "[INFO] >>> $*"
 }
@@ -23,8 +25,43 @@ edie() {
     exit 1
 }
 
-trap 'eerror "Error in $0 on line ${LINENO}."' ERR
+setup_and_load_venv() {
+    if ! [ -d "${venv_dir}" ] || ! cmp "${work_dir}/requirements.txt" "${venv_dir}/requirements.txt"; then
+        einfo 'Setting up new virtualenv ...'
+        rm -rf "${venv_dir}"
+        mkdir -p "${venv_dir}"
+        virtualenv "${venv_dir}"
+        . "${venv_dir}/bin/activate"
+        pip install -r "${work_dir}/requirements.txt"
+        cp "${work_dir}/requirements.txt" "${venv_dir}/requirements.txt"
+    else
+        einfo 'Loading virtualenv ...'
+        . "${venv_dir}/bin/activate"
+    fi
+}
 
+merge_with_private () {
+    test -d "${public_dir}"
+    einfo "Merging into ${merged_dir} ..."
+    rm -rf "${merged_dir}"
+    mkdir "${merged_dir}"
+    cp -nsr --preserve=mode,ownership "${public_dir}"/* "${merged_dir}"/
+    if [ -d "${private_dir}" ]; then
+        cp -nsr --preserve=mode,ownership "${private_dir}"/* "${merged_dir}"/
+    fi
+}
+
+apply_playbook() {
+    einfo "Running ${ansible_playbook} playbook ..."
+    cd "${merged_dir}"
+    if [ -f "${ansible_playbook}" ]; then
+        ./"${ansible_playbook}" "$@"
+    else
+        edie "Missing playbook ${ansible_playbook}."
+    fi
+}
+
+trap 'eerror "Error in $0 on line ${LINENO}."' ERR
 
 if [ "${FORCE_ANSIBLE_PLAYBOOK:-}" ]; then
     ansible_playbook="${FORCE_ANSIBLE_PLAYBOOK}"
@@ -50,27 +87,17 @@ public_dir="${work_dir}"
 private_dir="${work_dir}/../${script_dir_name}-private"
 merged_dir="$(mktemp -d -t conf-mgmt-merged.XXXXX)"
 
-test -d "${public_dir}"
+venv_dir="${HOME}/src/conf-mgmt-venv"
 
 if [ -d "${work_dir}/logs" ]; then
     export ANSIBLE_LOG_PATH="${work_dir}/logs/$(date '+%Y-%m-%d_%H-%M-%S').log"
 fi
 
-einfo "Merging into ${merged_dir} ..."
-rm -rf "${merged_dir}"
-mkdir "${merged_dir}"
-cp -nsr --preserve=mode,ownership "${public_dir}"/* "${merged_dir}"/
-if [ -d "${private_dir}" ]; then
-    cp -nsr --preserve=mode,ownership "${private_dir}"/* "${merged_dir}"/
-fi
+merge_with_private
 
-einfo "Running ${ansible_playbook} playbook ..."
-cd "${merged_dir}"
-if [ -f "${ansible_playbook}" ]; then
-    ./"${ansible_playbook}" "$@"
-else
-    edie "Missing playbook ${ansible_playbook}."
-fi
+setup_and_load_venv
+
+apply_playbook
 
 einfo 'Cleaning merged directory ...'
 rm -rf "${merged_dir}"

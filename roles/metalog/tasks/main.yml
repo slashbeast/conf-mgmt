@@ -1,0 +1,10 @@
+- include_tasks: '{{ common }}/check_for_binary.yml'
+  vars:
+    binary: /usr/sbin/metalog
+
+- name: autostart metalog on boot
+  service:
+    name: metalog
+    runlevel: boot
+    enabled: true
+

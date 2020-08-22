@@ -97,7 +97,7 @@ merge_with_private
 
 setup_and_load_venv
 
-apply_playbook
+apply_playbook "$@"
 
 einfo 'Cleaning merged directory ...'
 rm -rf "${merged_dir}"

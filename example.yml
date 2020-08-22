@@ -1,29 +1,27 @@
-#!/bin/false
 #!/usr/bin/env ansible-playbook
 
-# This is example of per-host playbook.
-# Create '<hostname>.yml' with host specific configuration.
-
-- name: apply default role
+- name: apply example host configuration
+  vars:
+    screen_resolution: 1920x1080
+    target_cpu: znver2
+    cpu_flags_x86: "aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3"
+    system_type: laptop
   gather_facts: true
   connection: local
   hosts: localhost
-  vars:
-    screen_resolution: 1920x1080
-    target_cpu: znver1
-    cpu_flags_x86: "aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3"
-    system_type: desktop
   roles:
 
   - role: hostname
     vars:
-      hostname: localhost
+      hostname: example
 
   - role: timezone
     vars:
       timezone: Europe/Warsaw
 
   - role: locale
+
+  - role: rc_conf
 
   - role: unscd
 
@@ -35,27 +33,32 @@
 
   - role: connman
 
-  - role: resolve_dns_via_localhost
-
   - role: sshd
     vars:
       no_password_login: True
 
   - role: dnsmasq
     vars:
-      upstream: connman
+      upstream: cloudflare
+
+  - role: resolve_dns_via_localhost
+
+  - role: clean_tmp_dirs
+
+  - role: pam_limits
+
+  - role: profile.d
+
+  - role: dispatch-conf
+
+  - role: noclear_tty_on_boot
 
   - role: system_user
     vars:
       user: foo
       group: users
-      additional_groups: audio,video
-
-  - role: clean_tmp_dirs
-
-  - role: disable_wireless_power_saving
-
-  - role: dispatch-conf
+      additional_groups: audio,cdrom,cron,docker,kvm,libvirt,plugdev,vboxusers,video,wheel
+      shell: /bin/zsh
 
   - role: home_files
     vars:
@@ -81,24 +84,22 @@
       - tint2
       - openbox
       - Xdefaults
+      - erunit
       - mpv
       - compton
+      - terraform
+      - dunst
+      - qt
+      - keepassxc
+      - ssh-agent
 
-  - role: pam_limits
-
-  - role: in_home_tmpdir
-
-  - role: default_umask_077
-
-  - role: noclear_tty_on_boot
-
-  - role: virtual_memory_tune
+  - role: sysctl
 
   - role: portage
+    tags:
+    - bootstrap
 
   - role: prefer_ipv4_over_ipv6
-
-  - role: acpid
 
   - role: sudoers
 
@@ -106,15 +107,18 @@
     vars:
       vm_bridges: '30 31 32'
       vm_bridges_network_prefix: '192.168'
-      switch_bridge_interface: br-eth-ports
-      switch_bridge_member_interfaces: eth0 eth1
-      switch_bridge_subnet: 172.17.17.0/24
-      switch_bridge_ip: 172.17.17.1/24
-      inbound_open_tcp_ports: 22
+      inbound_open_tcp_ports: '443 80'
+      inbound_open_udp_ports: ''
       inbound_respond_to_ping: 'true'
 
-  - role: inotify_tune
+  - role: acpid
 
   - role: udev
 
   - role: elogind
+
+  - role: cronie
+
+  - role: metalog
+
+  - role: chrony

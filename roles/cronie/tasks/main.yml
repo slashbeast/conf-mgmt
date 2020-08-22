@@ -1,0 +1,10 @@
+- include_tasks: '{{ common }}/check_for_binary.yml'
+  vars:
+    binary: /usr/sbin/crond
+
+- name: autostart cronie on boot
+  service:
+    name: cronie
+    runlevel: default
+    enabled: true
+

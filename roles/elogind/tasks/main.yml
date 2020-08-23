@@ -1,3 +1,9 @@
+- name: autostart elogind on boot
+  service:
+    name: elogind
+    runlevel: boot
+    enabled: true
+
 - name: Disable elogind actions on power/sleep buttons and lid close events.
   ini_file:
     path: /etc/elogind/logind.conf

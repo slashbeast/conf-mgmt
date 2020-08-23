@@ -109,3 +109,5 @@ net-misc/curl http2
 
 # gkr-pam integration breaks `passwd USERNAME` from root. 
 gnome-base/gnome-keyring -pam
+
+dev-libs/libjcat pkcs7 gpg

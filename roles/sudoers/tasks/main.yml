@@ -9,4 +9,5 @@
     group: root
     mode: 0600
     content: |
-      %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot, /usr/bin/genlop
+      %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot
+      %wheel ALL = NOPASSWD: /usr/bin/sshuttle

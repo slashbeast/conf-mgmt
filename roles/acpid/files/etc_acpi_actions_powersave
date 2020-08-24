@@ -62,8 +62,6 @@ cpu_boost() {
         'restore')
             if [ -f "${state_file}" ]; then
                 cat "${state_file}" >"${boost_toggle}"
-            else
-                echo 1 >"${boost_toggle}"
             fi
         ;;
         'off')

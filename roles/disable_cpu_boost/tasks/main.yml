@@ -1,0 +1,9 @@
+- name: /etc/local.d/disable_cpu_boost.start
+  copy:
+    dest: /etc/local.d/disable_cpu_boost.start
+    owner: root 
+    group: root
+    mode: 0700
+    content: |
+      #!/bin/sh
+      echo 0 >/sys/devices/system/cpu/cpufreq/boost

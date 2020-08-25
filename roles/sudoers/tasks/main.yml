@@ -11,3 +11,13 @@
     content: |
       %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot
       %wheel ALL = NOPASSWD: /usr/bin/sshuttle
+
+- name: /etc/sudoers.d/ssh-agent
+  copy:
+    dest: /etc/sudoers.d/ssh-agent
+    owner: root
+    group: root
+    mode: 0600
+    content: |
+      Defaults    env_keep+=SSH_AUTH_SOCK
+

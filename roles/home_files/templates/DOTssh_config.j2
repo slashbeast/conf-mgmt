@@ -1,0 +1,15 @@
+{% if ssh_config_hosts is defined %}
+{% for host in ssh_config_hosts %}
+host {{ host }}
+{% for key, value in ssh_config_hosts[host].items() %}
+    {{ key }} {{ value }}
+{% endfor %}
+
+{% endfor %}
+{% endif %}
+host *
+    TCPKeepAlive yes
+    ServerAliveInterval 59
+#    ControlMaster auto
+#    ControlPath ~/.ssh/sockets/%r@%h-%p
+#    ControlPersist 600

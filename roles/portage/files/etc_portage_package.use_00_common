@@ -39,7 +39,7 @@ dev-lang/python sqlite
 
 dev-libs/elfutils static-libs
 dev-libs/libpcre2 pcre16
-dev-libs/libxml2 python
+dev-libs/libxml2 python icu
 dev-libs/xmlsec nss
 app-arch/bzip2 static-libs
 
@@ -111,3 +111,7 @@ net-misc/curl http2
 gnome-base/gnome-keyring -pam
 
 dev-libs/libjcat pkcs7 gpg
+
+net-libs/nodejs inspector
+
+www-client/chromium -js-type-check

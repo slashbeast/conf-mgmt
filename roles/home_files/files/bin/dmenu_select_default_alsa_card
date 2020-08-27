@@ -40,7 +40,7 @@ dmenu_wrapper() {
     y_offset="$(( (screen_h - pull_up) / 2 ))"
 
     dmenu -i -l 10 \
-        -y "${y_offset}" -x "${x_offset}" -w "${dmenu_width}" \
+        -y "${y_offset}" -x "${x_offset}" -W "${dmenu_width}" \
         -fn 'Droid Sans Mono:pixelsize=15'  \
         -sb '#a13d12' \
         -p "$*"

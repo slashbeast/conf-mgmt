@@ -51,8 +51,6 @@ EMERGE_DEFAULT_OPTS="
     --load-average {{ ansible_processor_vcpus }}
 "
 
-foobashrc_modules="localpatch striplafiles break_hardlinks"
-
 {% if ccache is undefined or ccache is sameas true %}
 FEATURES="${FEATURES} ccache"
 CCACHE_DIR="/var/portage/tmp/ccache"

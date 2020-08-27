@@ -1,0 +1,13 @@
+diff --git a/dmenu.c b/dmenu.c
+index dc43957..2e8ae27 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -125,7 +125,7 @@ drawitem(struct item *item, int x, int y, int w)
+ 	else
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+ 
+-	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
++	return drw_text(drw, 0, y, mw, bh, lrpad / 2, item->text, 0);
+ }
+ 
+ static void

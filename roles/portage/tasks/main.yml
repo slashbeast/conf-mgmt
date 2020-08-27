@@ -41,6 +41,15 @@
     group: root
     mode: 0644
 
+- name: /etc/portage/patches
+  copy:
+    src: patches/
+    dest: /etc/portage/patches
+    owner: root
+    group: root
+    mode: 0644
+    directory_mode: 0755
+
 - include_tasks: move_and_link.yml
   with_items:
   - from: /var/db/repos/gentoo

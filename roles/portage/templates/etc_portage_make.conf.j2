@@ -51,6 +51,10 @@ EMERGE_DEFAULT_OPTS="
     --load-average {{ ansible_processor_vcpus }}
 "
 
+{% if buildpkg is undefined or buildpkg is sameas true %}
+FEATURES="${FEATURES} buildpkg"
+{% endif %}
+
 {% if ccache is undefined or ccache is sameas true %}
 FEATURES="${FEATURES} ccache"
 CCACHE_DIR="/var/portage/tmp/ccache"

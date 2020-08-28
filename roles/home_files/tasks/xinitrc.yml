@@ -1,0 +1,7 @@
+- name: .xinitrc
+  copy:
+    src: DOTxinitrc
+    dest: '{{ user_home_dir }}/.xinitrc'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

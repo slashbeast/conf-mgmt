@@ -1,0 +1,41 @@
+#!/bin/sh
+
+cd "${HOME}"
+
+xset s off
+xset -dpms
+
+# Although most of things reads .Xdefaults, qt5 does not, so we need
+# to poke it with xrdb as if it was .Xresources.
+if [ -f .Xdefaults ]; then
+    xrdb -merge .Xdefaults
+fi
+
+if [ -f .fehbg ]; then
+    sh ~/.fehbg
+fi
+
+setxkbmap -layout pl
+xset r rate 350 30
+
+if [ -f .xmodmap ]; then
+    xmodmap .xmodmap
+fi
+
+if [ -f .config/redshift.conf ]; then
+    redshift-gtk &
+fi
+
+if [ -f .config/dunstrc ]; then
+    dunst &
+fi
+
+if [ -f .compton.conf ]; then
+    compton  -b &
+fi
+
+if [ -f .config/tint2/tint2rc ]; then
+    tint2 >/dev/null 2>&1 &
+fi
+
+openbox

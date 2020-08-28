@@ -115,3 +115,5 @@ dev-libs/libjcat pkcs7 gpg
 net-libs/nodejs inspector
 
 www-client/chromium -js-type-check
+
+x11-misc/redshift gtk

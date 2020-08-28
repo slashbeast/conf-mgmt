@@ -1,0 +1,7 @@
+- name: redshift.conf
+  copy:
+    src: DOTconfig_redshift.conf
+    dest: '{{ user_home_dir }}/.config/redshift.conf'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

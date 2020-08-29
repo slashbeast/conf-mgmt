@@ -1,7 +1,3 @@
-- include_tasks: '{{ common }}/check_for_binary.yml'
-  vars:
-    binary: /usr/bin/sudo
-
 - name: /etc/sudoers.d/wheel_group
   copy:
     dest: /etc/sudoers.d/wheel_group

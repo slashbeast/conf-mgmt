@@ -15,7 +15,7 @@
     state: directory
     owner: root
     group: portage
-    mode: 0770
+    mode: 0775
 
 - name: /etc/portage/package.use/00_common
   copy:

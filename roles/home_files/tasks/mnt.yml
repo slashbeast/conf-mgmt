@@ -1,0 +1,15 @@
+- name: ~/mnt
+  file:
+    path: '{{ user_home_dir }}/mnt'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ~/mnt/.borg-exclude-dir
+  copy:
+    dest: '{{ user_home_dir }}/mnt/.borg-exclude-dir'
+    content: "# dummy file{{'\n'}}"
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

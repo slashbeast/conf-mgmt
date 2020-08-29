@@ -1,0 +1,10 @@
+diff --git a/src/config.def.h b/src/config.def.h
+index 98cc915..9455c43 100644
+--- a/src/config.def.h
++++ b/src/config.def.h
+@@ -1,4 +1,4 @@
+-#define TTY_COLOR_HIGHLIGHT TTY_COLOR_YELLOW
++#define TTY_COLOR_HIGHLIGHT TTY_COLOR_GREEN
+ 
+ #define SCORE_GAP_LEADING -0.005
+ #define SCORE_GAP_TRAILING -0.005

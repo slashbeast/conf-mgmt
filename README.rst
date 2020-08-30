@@ -9,7 +9,7 @@ Usage
 -----
 To apply example host, set hostname to ``example`` and run::
 
-    ./apply -t bootstrap
+    ./apply -t portage
 
 Then which will apply minimal configuration (/etc/portage), then merge your packages and follow it up by::
 

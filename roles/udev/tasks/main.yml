@@ -1,46 +1,49 @@
-- name: Disable eudev predictable interface names.
-  notify: reload udev rules
-  copy:
-    dest: /etc/udev/rules.d/80-net-name-slot.rules
-    content: "# This file only masks content of /lib/udev/rules.d/80-net-name-slot.rules"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Disable udev predictable interface names.
-  notify: reload udev rules
-  copy:
-    dest: /etc/udev/rules.d/80-net-setup-link.rules
-    content: "# This file only masks content of /lib/udev/rules.d/80-net-setup-link.rules"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Disable LVM auto assembly
-  notify: reload udev rules
-  copy:
-    dest: /etc/udev/rules.d/69-dm-lvm-metad.rules
-    content: "# This file only masks content of /lib/udev/rules.d/69-dm-lvm-metad.rules"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Set block devices readahead to 1M
-  notify:
-  - reload udev rules
-  - apply udev storage rules
-  copy:
-    dest: /etc/udev/rules.d/80-storage-readahead.rules
-    src: etc_udev_rules.d_80-storage-readahead.rules
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Disable bluetooth
-  notify: reload udev rules
-  copy:
-    dest: /etc/udev/rules.d/80-disable-bluetooth.rules
-    content: 'SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0"'
-    owner: root
-    group: root
-    mode: 0644
+- name: udev
+  tags: [udev]
+  block:
+  - name: Disable eudev predictable interface names.
+    notify: reload udev rules
+    copy:
+      dest: /etc/udev/rules.d/80-net-name-slot.rules
+      content: "# This file only masks content of /lib/udev/rules.d/80-net-name-slot.rules"
+      owner: root
+      group: root
+      mode: 0644
+  
+  - name: Disable udev predictable interface names.
+    notify: reload udev rules
+    copy:
+      dest: /etc/udev/rules.d/80-net-setup-link.rules
+      content: "# This file only masks content of /lib/udev/rules.d/80-net-setup-link.rules"
+      owner: root
+      group: root
+      mode: 0644
+  
+  - name: Disable LVM auto assembly
+    notify: reload udev rules
+    copy:
+      dest: /etc/udev/rules.d/69-dm-lvm-metad.rules
+      content: "# This file only masks content of /lib/udev/rules.d/69-dm-lvm-metad.rules"
+      owner: root
+      group: root
+      mode: 0644
+  
+  - name: Set block devices readahead to 1M
+    notify:
+    - reload udev rules
+    - apply udev storage rules
+    copy:
+      dest: /etc/udev/rules.d/80-storage-readahead.rules
+      src: etc_udev_rules.d_80-storage-readahead.rules
+      owner: root
+      group: root
+      mode: 0644
+  
+  - name: Disable bluetooth
+    notify: reload udev rules
+    copy:
+      dest: /etc/udev/rules.d/80-disable-bluetooth.rules
+      content: 'SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0"'
+      owner: root
+      group: root
+      mode: 0644

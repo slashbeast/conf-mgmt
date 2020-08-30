@@ -1,76 +1,82 @@
-- name: /etc/portage directories
-  file:
-    path: '{{ item }}'
-    state: directory
-    owner: root
-    group: portage
-    mode: 0750
-  with_items:
-  - /etc/portage
-  - /etc/portage/package.use
-
-- name: /var/portage directory
-  file:
-    path: /var/portage
-    state: directory
-    owner: root
-    group: portage
-    mode: 0775
-
-- name: /etc/portage/package.use/00_common
-  copy:
-    src: etc_portage_package.use_00_common
-    dest: /etc/portage/package.use/00_common
-    owner: root
-    group: root
-    mode: 0644
-
-- name: /etc/portage/package.use/01_local_use_flags
-  copy:
-    dest: /etc/portage/package.use/01_local_use_flags
-    owner: root
-    group: root
-    mode: 0644
-    content: "{{ local_use_flags | default('# no local use flags specified.\n') }}"
-
-- name: /etc/portage/make.conf
-  template:
-    src: etc_portage_make.conf.j2
-    dest: /etc/portage/make.conf
-    owner: root
-    group: root
-    mode: 0644
-
-- name: /etc/portage/patches
-  copy:
-    src: patches/
-    dest: /etc/portage/patches
-    owner: root
-    group: root
-    mode: 0644
-    directory_mode: 0755
-
-- include_tasks: move_and_link.yml
-  with_items:
-  - from: /var/db/repos/gentoo
-    to: /var/portage/tree
-  - from: /var/cache/binpkgs
-    to: /var/portage/packages
-  - from: /var/cache/distfiles
-    to: /var/portage/distfiles
-  loop_control:
-    loop_var: move_and_link
-
-# the subdirectories of /var/portage/ could be created after migration.
-- name: /var/portage directories
-  file:
-    path: '{{ item }}'
-    state: directory
-    owner: root
-    group: portage
-    mode: 0775
-  with_items:
-  - /var/portage/packages
-  - /var/portage/distfiles
-  - /var/portage/tree
-  - /var/portage/tmp
+- name: portage
+  tags: [portage]
+  block:
+  - name: portage
+    tags: [portage]
+    block:
+    - name: /etc/portage directories
+      file:
+        path: '{{ item }}'
+        state: directory
+        owner: root
+        group: portage
+        mode: 0750
+      with_items:
+      - /etc/portage
+      - /etc/portage/package.use
+    
+    - name: /var/portage directory
+      file:
+        path: /var/portage
+        state: directory
+        owner: root
+        group: portage
+        mode: 0775
+    
+    - name: /etc/portage/package.use/00_common
+      copy:
+        src: etc_portage_package.use_00_common
+        dest: /etc/portage/package.use/00_common
+        owner: root
+        group: root
+        mode: 0644
+    
+    - name: /etc/portage/package.use/01_local_use_flags
+      copy:
+        dest: /etc/portage/package.use/01_local_use_flags
+        owner: root
+        group: root
+        mode: 0644
+        content: "{{ local_use_flags | default('# no local use flags specified.\n') }}"
+    
+    - name: /etc/portage/make.conf
+      template:
+        src: etc_portage_make.conf.j2
+        dest: /etc/portage/make.conf
+        owner: root
+        group: root
+        mode: 0644
+    
+    - name: /etc/portage/patches
+      copy:
+        src: patches/
+        dest: /etc/portage/patches
+        owner: root
+        group: root
+        mode: 0644
+        directory_mode: 0755
+    
+    - include_tasks: move_and_link.yml
+      with_items:
+      - from: /var/db/repos/gentoo
+        to: /var/portage/tree
+      - from: /var/cache/binpkgs
+        to: /var/portage/packages
+      - from: /var/cache/distfiles
+        to: /var/portage/distfiles
+      loop_control:
+        loop_var: move_and_link
+    
+    # the subdirectories of /var/portage/ could be created after migration.
+    - name: /var/portage directories
+      file:
+        path: '{{ item }}'
+        state: directory
+        owner: root
+        group: portage
+        mode: 0775
+      with_items:
+      - /var/portage/packages
+      - /var/portage/distfiles
+      - /var/portage/tree
+      - /var/portage/tmp

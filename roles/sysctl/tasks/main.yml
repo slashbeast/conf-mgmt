@@ -1,2 +1,5 @@
-- include_tasks: vm_tune.yml
-- include_tasks: inotify_tune.yml
+- name: sysctl
+  tags: [sysctl]
+  block:
+  - include_tasks: vm_tune.yml
+  - include_tasks: inotify_tune.yml

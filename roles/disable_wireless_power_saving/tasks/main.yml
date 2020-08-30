@@ -1,12 +1,15 @@
-- name: script
-  copy:
-    src: etc_local.d_disable_wireless_power_saving.start
-    dest: /etc/local.d/disable_wireless_power_saving.start
-    owner: root
-    group: root
-    mode: 0700
-  register: disable_wireless_power_saving_script
-
-- name: execute script
-  when: disable_wireless_power_saving_script.changed
-  command: /etc/local.d/disable_wireless_power_saving.start
+- name: disable_wireless_power_saving
+  tags: [disable_wireless_power_saving]
+  block:
+  - name: script
+    copy:
+      src: etc_local.d_disable_wireless_power_saving.start
+      dest: /etc/local.d/disable_wireless_power_saving.start
+      owner: root
+      group: root
+      mode: 0700
+    register: disable_wireless_power_saving_script
+  
+  - name: execute script
+    when: disable_wireless_power_saving_script.changed
+    command: /etc/local.d/disable_wireless_power_saving.start

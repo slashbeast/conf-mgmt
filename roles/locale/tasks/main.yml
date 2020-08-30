@@ -1,31 +1,34 @@
-- name: set /etc/locale.gen to en_DK and en_US (UTF-8)
-  register: etc_locale_gen
-  copy:
-    dest: /etc/locale.gen
-    owner: root
-    group: root
-    mode: 0600
-    content: |
-      en_DK.UTF-8 UTF-8
-      en_US.UTF-8 UTF-8
-
-- name: regenerate locales
-  when: etc_locale_gen.changed
-  command: locale-gen
-
-- name: set English UTF-8 locales with ISO-ish date format
-  register: etc_env_d_02locale
-  copy:
-    dest: /etc/env.d/02locale
-    owner: root
-    group: root
-    mode: 0600
-    content: |
-      LC_COLLATE="C"
-      LANG="C.UTF-8"
-      LC_TIME="en_DK.UTF-8"
-      TIME_STYLE="long-iso"
-
-- name: updates environment settings
-  when: etc_env_d_02locale.changed
-  command: env-update
+- name: locale
+  tags: [locale]
+  block:
+  - name: set /etc/locale.gen to en_DK and en_US (UTF-8)
+    register: etc_locale_gen
+    copy:
+      dest: /etc/locale.gen
+      owner: root
+      group: root
+      mode: 0600
+      content: |
+        en_DK.UTF-8 UTF-8
+        en_US.UTF-8 UTF-8
+  
+  - name: regenerate locales
+    when: etc_locale_gen.changed
+    command: locale-gen
+  
+  - name: set English UTF-8 locales with ISO-ish date format
+    register: etc_env_d_02locale
+    copy:
+      dest: /etc/env.d/02locale
+      owner: root
+      group: root
+      mode: 0600
+      content: |
+        LC_COLLATE="C"
+        LANG="C.UTF-8"
+        LC_TIME="en_DK.UTF-8"
+        TIME_STYLE="long-iso"
+  
+  - name: updates environment settings
+    when: etc_env_d_02locale.changed
+    command: env-update

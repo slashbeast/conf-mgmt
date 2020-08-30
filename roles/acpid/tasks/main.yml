@@ -1,74 +1,77 @@
-- name: /run/acpid via tmpfiles.d
-  notify: trigger tmpfiles on /run/acpid
-  copy:
-    dest: /usr/lib/tmpfiles.d/acpid.conf
-    owner: root
-    group: root
-    mode: 0644
-    content: "d /run/acpid 0700 root root{{'\n'}}"
-
-- name: remove default.sh and events/default
-  notify: restart acpid
-  file:
-    dest: /etc/acpi/{{ item }}
-    state: absent
-  with_items:
-  - default.sh
-  - events/default
-
-- name: ensure /etc/acpi/{actions,events} directories exist
-  notify: restart acpid
-  file:
-    dest: /etc/acpi/{{ item }}
-    state: directory
-  with_items:
-  - actions
-  - events
-
-- name: deploy scripts
-  notify: restart acpid
-  copy:
-    src: etc_acpi_actions_{{ item }}
-    dest: /etc/acpi/actions/{{ item }}
-    owner: root
-    group: root
-    mode: 0755
-  with_items:
-  - brightness
-  - lid
-  - powersave
-  - sleep
-  - volume
-
-# Apply ac or battery state on boot.
-- name: /etc/local.d/powersave.start
-  copy:
-    dest: /etc/local.d/powersave.start
-    owner: root
-    group: root
-    mode: 0700
-    content: |
-      #!/bin/sh
-      /etc/acpi/actions/powersave >/dev/null
-
-- name: deploy triggers
-  notify: restart acpid
-  copy:
-    src: etc_acpi_events_{{ item }}
-    dest: /etc/acpi/events/{{ item }}
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-  - brightness
-  - lid
-  - ac_adapter
-  - sleep
-  - power
-  - volume
-
-- name: autostart acpid on boot
-  service:
-    name: acpid
-    runlevel: default
-    enabled: true
+- name: acpid
+  tags: [acpid]
+  block:
+  - name: /run/acpid via tmpfiles.d
+    notify: trigger tmpfiles on /run/acpid
+    copy:
+      dest: /usr/lib/tmpfiles.d/acpid.conf
+      owner: root
+      group: root
+      mode: 0644
+      content: "d /run/acpid 0700 root root{{'\n'}}"
+  
+  - name: remove default.sh and events/default
+    notify: restart acpid
+    file:
+      dest: /etc/acpi/{{ item }}
+      state: absent
+    with_items:
+    - default.sh
+    - events/default
+  
+  - name: ensure /etc/acpi/{actions,events} directories exist
+    notify: restart acpid
+    file:
+      dest: /etc/acpi/{{ item }}
+      state: directory
+    with_items:
+    - actions
+    - events
+  
+  - name: deploy scripts
+    notify: restart acpid
+    copy:
+      src: etc_acpi_actions_{{ item }}
+      dest: /etc/acpi/actions/{{ item }}
+      owner: root
+      group: root
+      mode: 0755
+    with_items:
+    - brightness
+    - lid
+    - powersave
+    - sleep
+    - volume
+  
+  # Apply ac or battery state on boot.
+  - name: /etc/local.d/powersave.start
+    copy:
+      dest: /etc/local.d/powersave.start
+      owner: root
+      group: root
+      mode: 0700
+      content: |
+        #!/bin/sh
+        /etc/acpi/actions/powersave >/dev/null
+  
+  - name: deploy triggers
+    notify: restart acpid
+    copy:
+      src: etc_acpi_events_{{ item }}
+      dest: /etc/acpi/events/{{ item }}
+      owner: root
+      group: root
+      mode: 0644
+    with_items:
+    - brightness
+    - lid
+    - ac_adapter
+    - sleep
+    - power
+    - volume
+  
+  - name: autostart acpid on boot
+    service:
+      name: acpid
+      runlevel: default
+      enabled: true

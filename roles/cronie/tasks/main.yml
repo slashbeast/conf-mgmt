@@ -1,6 +1,9 @@
-- name: autostart cronie on boot
-  service:
-    name: cronie
-    runlevel: default
-    enabled: true
-
+- name: cronie
+  tags: [cronie]
+  block:
+  - name: autostart cronie on boot
+    service:
+      name: cronie
+      runlevel: default
+      enabled: true
+  

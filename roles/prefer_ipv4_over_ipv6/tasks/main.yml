@@ -1,6 +1,9 @@
-- name: make glibc's resolver prefer IPv4 over IPv6 when domain have both
-  lineinfile:
-    line: "precedence ::ffff:0:0/96  100"
-    dest: /etc/gai.conf
-    insertafter: EOF
-
+- name: prefer_ipv4_over_ipv6
+  tags: [prefer_ipv4_over_ipv6]
+  block:
+  - name: make glibc's resolver prefer IPv4 over IPv6 when domain have both
+    lineinfile:
+      line: "precedence ::ffff:0:0/96  100"
+      dest: /etc/gai.conf
+      insertafter: EOF
+  

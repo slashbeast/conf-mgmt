@@ -1,12 +1,15 @@
-- name: script
-  copy:
-    src: etc_cron.hourly_clean-tmp-dirs
-    dest: /etc/cron.hourly/clean-tmp-dirs
-    owner: root
-    group: root
-    mode: 0755
-
-- name: drop default tmpreaper script in cron.daily
-  file:
-    dest: /etc/cron.daily/tmpreaper
-    state: absent
+- name: clean_tmp_dirs
+  tags: [clean_tmp_dirs]
+  block:
+  - name: script
+    copy:
+      src: etc_cron.hourly_clean-tmp-dirs
+      dest: /etc/cron.hourly/clean-tmp-dirs
+      owner: root
+      group: root
+      mode: 0755
+  
+  - name: drop default tmpreaper script in cron.daily
+    file:
+      dest: /etc/cron.daily/tmpreaper
+      state: absent

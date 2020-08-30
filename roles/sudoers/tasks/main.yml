@@ -1,19 +1,22 @@
-- name: /etc/sudoers.d/wheel_group
-  copy:
-    dest: /etc/sudoers.d/wheel_group
-    owner: root
-    group: root
-    mode: 0600
-    content: |
-      %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot
-      %wheel ALL = NOPASSWD: /usr/bin/sshuttle
-
-- name: /etc/sudoers.d/ssh-agent
-  copy:
-    dest: /etc/sudoers.d/ssh-agent
-    owner: root
-    group: root
-    mode: 0600
-    content: |
-      Defaults>root    env_keep+=SSH_AUTH_SOCK
-
+- name: sudoers
+  tags: [sudoers]
+  block:
+  - name: /etc/sudoers.d/wheel_group
+    copy:
+      dest: /etc/sudoers.d/wheel_group
+      owner: root
+      group: root
+      mode: 0600
+      content: |
+        %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot
+        %wheel ALL = NOPASSWD: /usr/bin/sshuttle
+  
+  - name: /etc/sudoers.d/ssh-agent
+    copy:
+      dest: /etc/sudoers.d/ssh-agent
+      owner: root
+      group: root
+      mode: 0600
+      content: |
+        Defaults>root    env_keep+=SSH_AUTH_SOCK
+  

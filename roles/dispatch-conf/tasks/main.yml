@@ -1,6 +1,9 @@
-- name: use colordiff
-  lineinfile: 
-    dest: /etc/dispatch-conf.conf
-    regexp: '^diff='
-    line: "diff=\"colordiff -Nu '%s' '%s'\""
-    state: present
+- name: dispatch-conf
+  tags: [dispatch-conf]
+  block:
+  - name: use colordiff
+    lineinfile: 
+      dest: /etc/dispatch-conf.conf
+      regexp: '^diff='
+      line: "diff=\"colordiff -Nu '%s' '%s'\""
+      state: present

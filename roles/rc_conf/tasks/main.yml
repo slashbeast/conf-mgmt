@@ -1,7 +1,10 @@
-- name: /etc/rc.conf deployment
-  copy:
-    dest: /etc/rc.conf
-    src: etc_rc.conf
-    owner: root
-    group: root
-    mode: 0644
+- name: rc_conf
+  tags: [rc_conf]
+  block:
+  - name: /etc/rc.conf deployment
+    copy:
+      dest: /etc/rc.conf
+      src: etc_rc.conf
+      owner: root
+      group: root
+      mode: 0644

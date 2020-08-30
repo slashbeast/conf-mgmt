@@ -1,23 +1,26 @@
-- assert:
-    that:
-    - user is defined
-    - group is defined
-
-- name: add user
-  user:
-    name: '{{ user }}'
-    group: '{{ group }}'
-    groups: '{{ additional_groups | default(omit) }}'
-    append: yes
-
-- name: query for home dir of user 
-  getent:
-    database: passwd
-    key: '{{ user }}'
-
-- name: ensure home dir is not world readable
-  file:
-    path: '{{ getent_passwd[user][4] }}'
-    owner: '{{ user }}'
-    group: '{{ group }}'
-    mode: 0700
+- name: system_user
+  tags: [system_user]
+  block:
+  - assert:
+      that:
+      - user is defined
+      - group is defined
+  
+  - name: add user
+    user:
+      name: '{{ user }}'
+      group: '{{ group }}'
+      groups: '{{ additional_groups | default(omit) }}'
+      append: yes
+  
+  - name: query for home dir of user 
+    getent:
+      database: passwd
+      key: '{{ user }}'
+  
+  - name: ensure home dir is not world readable
+    file:
+      path: '{{ getent_passwd[user][4] }}'
+      owner: '{{ user }}'
+      group: '{{ group }}'
+      mode: 0700

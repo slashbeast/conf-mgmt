@@ -1,6 +1,9 @@
-- name: autostart metalog on boot
-  service:
-    name: metalog
-    runlevel: boot
-    enabled: true
-
+- name: metalog
+  tags: [metalog]
+  block:
+  - name: autostart metalog on boot
+    service:
+      name: metalog
+      runlevel: boot
+      enabled: true
+  

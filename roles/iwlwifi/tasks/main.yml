@@ -1,9 +1,12 @@
-- name: /etc/modprobe.d/iwlwifi.conf
-  copy:
-    dest: /etc/modprobe.d/iwlwifi.conf
-    owner: root
-    group: root
-    mode: 0644
-    content: |
-      options iwlwifi swcrypto={{ swcrypto }} bt_coex_active={{ bt_coex_active }}
-
+- name: iwlwifi
+  tags: [iwlwifi]
+  block:
+  - name: /etc/modprobe.d/iwlwifi.conf
+    copy:
+      dest: /etc/modprobe.d/iwlwifi.conf
+      owner: root
+      group: root
+      mode: 0644
+      content: |
+        options iwlwifi swcrypto={{ swcrypto }} bt_coex_active={{ bt_coex_active }}
+  

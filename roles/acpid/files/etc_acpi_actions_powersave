@@ -47,26 +47,24 @@ snd_hda_intel() {
     esac
 }
 
-cpu_boost() {
-    local state_file boost_toggle
+sysfs_toggle() {
+    # sysfs_toggle <path> <restore|value>
 
-    boost_toggle='/sys/devices/system/cpu/cpufreq/boost'
-
-    if ! [ -f "${boost_toggle}" ]; then
+    if ! [ -f "${1}" ]; then
         return
     fi
 
-    state_file="${acpid_state}/original_cpu_boost_state"
+    state_file="${acpid_state}/saved_state_${1//\//_}"
 
-    case "$1" in
+    case "${2}" in
         'restore')
             if [ -f "${state_file}" ]; then
-                cat "${state_file}" >"${boost_toggle}"
+                cat "${state_file}" >"${1}"
             fi
         ;;
-        'off')
-            cat "${boost_toggle}" >"${state_file}"
-            echo 0 >"${boost_toggle}"
+        *)
+            cat "${1}" >"${state_file}"
+            echo "${2}" >"${1}"
         ;;
     esac
 }
@@ -131,13 +129,15 @@ case "${state}" in
         sata_link_power_mgmt performance
         pci_devices performance
         snd_hda_intel performance
-        cpu_boost restore
+        sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' 'restore'
+        sysfs_toggle '/sys/class/drm/card0/device/power_dpm_force_performance_level' 'restore'
     ;;
     'battery')
         sata_link_power_mgmt powersave
         pci_devices powersave
         snd_hda_intel powersave
-        cpu_boost off
+        sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' '0'
+        sysfs_toggle '/sys/class/drm/card0/device/power_dpm_force_performance_level' 'low'
     ;;
 esac
 

@@ -1,0 +1,13 @@
+- name: eselect-python
+  tags: [eselect-python]
+  block:
+  - name: Query python-exec config for system Python interpreter
+    changed_when: False
+    register: current_system_python_interpreter
+    shell: sed  -n '/^#/!{p;q}' /etc/python-exec/python-exec.conf
+    args:
+      warn: False
+  
+  - name: Set system python to {{ system_python_interpreter }}
+    when: current_system_python_interpreter.stdout != system_python_interpreter
+    shell: eselect python set {{ system_python_interpreter }}

@@ -10,7 +10,8 @@
       content: |
         %wheel ALL = NOPASSWD: /sbin/poweroff, /sbin/reboot
         %wheel ALL = NOPASSWD: /usr/bin/sshuttle
-  
+        %wheel ALL = NOPASSWD: /bin/dd status=none of=/sys/devices/system/cpu/cpufreq/boost
+
   - name: /etc/sudoers.d/ssh-agent
     copy:
       dest: /etc/sudoers.d/ssh-agent

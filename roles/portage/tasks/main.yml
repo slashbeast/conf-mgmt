@@ -13,7 +13,13 @@
         mode: 0750
       with_items:
       - /etc/portage
+      - /etc/portage/env
+      - /etc/portage/package.env
+      - /etc/portage/package.mask
+      - /etc/portage/package.unmask
       - /etc/portage/package.use
+      - /etc/portage/profile
+      - /etc/portage/profile/package.provided
     
     - name: /var/portage directory
       file:
@@ -22,7 +28,15 @@
         owner: root
         group: portage
         mode: 0775
-    
+
+    - name: /etc/portage/profile/package.provided/00_common
+      copy:
+        src: etc_portage_profile_package.provided_00_common
+        dest: /etc/portage/profile/package.provided/00_common
+        owner: root
+        group: root
+        mode: 0644
+
     - name: /etc/portage/package.use/00_common
       copy:
         src: etc_portage_package.use_00_common

@@ -1,0 +1,214 @@
+#!/bin/bash
+
+set -e
+
+# Jump to choosen window on any desktop.
+# Work best when shell is configured to alter terminal title with executed commands.
+
+eerror() {
+    echo ">>> [ERROR] $*"
+}
+
+die() {
+    eerror "$*"
+    exit 1
+}
+
+dmenu_wrapper() {
+    # A magic to position dmenu in the middle of screen.
+    read screen_w screen_h < <( xdpyinfo | sed -r '/dimensions:/!d; s/.*dimensions:[[:blank:]]+([0-9]+)x([0-9]+) pixels.*/\1 \2/')
+    dmenu_width="$2"
+    pull_up='140'
+    x_offset="$(( (screen_w - dmenu_width) / 2 ))"
+    y_offset="$(( (screen_h - pull_up) / 2 ))"
+
+    dmenu -i -l 10 \
+        -y "${y_offset}" -x "${x_offset}" -W "${dmenu_width}" \
+        -fn 'Droid Sans Mono:pixelsize=15'  \
+        -sb '#a13d12' \
+        -p "$1"
+}
+
+
+menu_window_select() {
+    declare -a windows
+
+    while read id desktop wm_class hostname window_title; do
+        if ! [ "${desktop}" -ge 0 ]; then
+            # Skip non-windows (conky, tint2 etc)
+            continue
+        fi
+    
+        app_name="${wm_class##*.}"
+    
+        if [ "${#app_name}" -ge 20 ]; then
+            app_name="${app_name:0:17}..."
+        fi
+    
+        printf -v i_wanna_sprintf "%-128s %s" "${window_title} - ${app_name}" "${id}"
+    
+        windows+=( "${i_wanna_sprintf}" )
+    
+    done < <(wmctrl -lx | sort -k 2)
+    
+    read dmenu_selection < <(dmenu_wrapper 'Select window:' '1000' < <(printf '%s\n' "${windows[@]}"))
+    dmenu_selection="${dmenu_selection##* }"
+    
+    case "${dmenu_selection}" in
+        '0x'*)
+            # Running wmctrl twice as a workaround. 
+            # Sometimes after putting window to front it fails 
+            # to set it to active.
+            wmctrl -ia "${dmenu_selection}"
+            wmctrl -ia "${dmenu_selection}"
+        ;;
+    esac
+}
+
+menu_alsa() {
+	mute_unmute() {
+	    local action="$1"
+	    local card="$2"
+	
+	    if amixer -c "${card}" sget Master >/dev/null 2>&1; then
+	        control='Master'
+	    elif amixer -c "${card}" sget PCM >/dev/null 2>&1; then
+	        control='PCM'
+	    else
+	        return 1
+	    fi
+	
+        # Some devices have PCM that cannot be muted (like amdgpu), so '|| true'.
+
+	    case "${action}" in
+	        'mute')
+	            amixer -c "${card}" -q set "${control}" mute || true
+	        ;;
+	        'unmute')
+	            amixer -c "${card}" -q set "${control}" unmute || true
+	        ;;
+	    esac
+	}
+	
+
+	cards() {
+	    awk -f - /proc/asound/cards <<-'END'
+			/^ *[0-9]+/ {
+				card = $1;
+				sub(/.*- /, "")
+				printf("%s %128s\n", $0, card)
+				printf("%s %128s\n", $0 " (no dmix)", card "-nodmix")
+			}
+		END
+	}
+	
+	read dmenu_selection < <(dmenu_wrapper 'Set default ALSA device to:' '500' < <(cards))
+	dmenu_selection="${dmenu_selection##* }"
+	
+	if ! [ "${dmenu_selection}" ]; then
+		exit 0
+	fi
+	
+	if [[ "${dmenu_selection}" =~ -nodmix$ ]]; then
+	    dmenu_selection="${dmenu_selection%%-*}"
+	    cat > ~/.asoundrc <<-END
+			pcm.!default {
+			    type plug
+			    slave.pcm hw
+			}
+	
+		END
+	else
+	    : > ~/.asoundrc
+	fi
+	
+	
+	card_id="$(cat "/proc/asound/card${dmenu_selection}/id")"
+	cat >> ~/.asoundrc <<-END
+	defaults.pcm.!card ${card_id};
+	defaults.ctl.!card ${card_id};
+	END
+	
+	while read -r card; do
+	    card="${card##* }"
+	    card="${card%%-*}"
+	    if [ "${card}" = "${dmenu_selection}" ]; then
+	        mute_unmute unmute "${card}"
+	    else
+	        mute_unmute mute "${card}"
+	    fi
+	done < <(cards)
+}
+
+menu_cpu_boost() {
+    declare -a menu_items
+
+    local boost_status
+    boost_status="$(< /sys/devices/system/cpu/cpufreq/boost)"
+
+    if [ "${boost_status}" == '1' ]; then
+        menu_items=(
+            '[x] Enable'
+            '[ ] Disable' 
+        )
+    else
+        menu_items=(
+            '[ ] Enable'
+            '[x] Disable' 
+        )
+    fi
+    
+    read dmenu_selection < <(dmenu_wrapper 'CPU frequency boost:' '500' < <(printf '%s\n' "${menu_items[@]}"))
+    dmenu_selection="${dmenu_selection##* }"
+    
+    case "${dmenu_selection##* }" in
+        'Enable')
+            echo 1 | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null
+        ;;
+        'Disable')
+            echo 0 | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null
+        ;;
+    esac
+}
+
+menu_screenshot() {
+    local menu_item
+    declare -a menu_items
+
+    scrot_wrapper() {
+        scrot \
+            "$@" \
+            "${TMPDIR:-/tmp}"/screenshot-'%Y-%m-%d_%H-%M-%S.png' \
+            -e 'notify-send $f'
+    }
+    
+    printf -v menu_item "%-128s %s" 'Capture full screen' 'fullscreen'
+    menu_items+=( "${menu_item}")
+
+    printf -v menu_item "%-128s %s" 'Select region or window to capture' 'select'
+    menu_items+=( "${menu_item}")
+
+    read dmenu_selection < <(dmenu_wrapper 'Take screenshot of:' '500' < <(printf '%s\n' "${menu_items[@]}"))
+    dmenu_selection="${dmenu_selection##* }"
+
+    case "${dmenu_selection}" in
+        'fullscreen')
+            scrot_wrapper
+        ;;
+        'select')
+            scrot_wrapper -s
+        ;;
+    esac
+}
+
+for i in wmctrl dmenu sudo scrot; do
+    if ! command -v "$i" >/dev/null 2>&1; then
+        die "Missing binary '$i'."
+    fi
+done
+
+case "$1" in
+    'window_select'|'alsa'|'cpu_boost'|'screenshot')
+        "menu_$1"
+    ;;
+esac

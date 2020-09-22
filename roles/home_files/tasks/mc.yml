@@ -1,0 +1,35 @@
+- name: ~/.config/mc
+  file:
+    path: '{{ user_home_dir }}/.config/mc'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ~/.local/share/mc/skins/
+  file:
+    path: '{{ user_home_dir }}/.local/share/mc/skins/'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    recurse: true
+
+- name: ~/.local/share/mc/skins/dark_custom.ini
+  copy:
+    src: DOTlocal_share_mc_skins_dark_custom.ini
+    dest: '{{ user_home_dir }}/.local/share/mc/skins/dark_custom.ini'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600
+
+- name: mc theme set to dark_custom
+  ini_file:
+    path: '{{ user_home_dir }}/.config/mc/ini'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600
+    section: 'Midnight-Commander'
+    option: 'skin'
+    value: 'dark_custom'
+    no_extra_spaces: true

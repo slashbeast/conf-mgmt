@@ -6,14 +6,18 @@
     owner: '{{ user }}'
     group: '{{ user_group_id }}'
 
-- name: ~/.local/share/mc/skins/
+- name: ~/.local/share/mc{,/skins}
   file:
-    path: '{{ user_home_dir }}/.local/share/mc/skins/'
+    path: '{{ user_home_dir }}/.local/share/{{ local_share_mc }}'
     state: directory
     mode: 0700
     owner: '{{ user }}'
     group: '{{ user_group_id }}'
-    recurse: true
+  loop_control:
+    loop_var: local_share_mc
+  with_items:
+  - mc
+  - mc/skins
 
 - name: ~/.local/share/mc/skins/dark_custom.ini
   copy:

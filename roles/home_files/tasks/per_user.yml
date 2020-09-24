@@ -23,10 +23,26 @@
       - 'group_id: {{ user_group_id }}'
       - 'home dir: {{ user_home_dir }}'
 
-# Create ~/.config regardless of passed arguments.
+# Create ~/.config and ~/.local/share regardless of passed arguments.
 - name: ~/.config directory
   file:
     path: '{{ user_home_dir }}/.config'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ~/.local directory
+  file:
+    path: '{{ user_home_dir }}/.local'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: ~/.local/share directory
+  file:
+    path: '{{ user_home_dir }}/.local/share'
     state: directory
     mode: 0700
     owner: '{{ user }}'

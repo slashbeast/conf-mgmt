@@ -3,9 +3,9 @@
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 
-dev-qt/qtquickcontrols2 widgets
+*/* alsa g3dvl x264 xvid vdpau mp3 vorbis flac ogg opus theora x265 aac wavpack
 
-media-*/* alsa g3dvl x264 xvid vdpau mp3 vorbis flac
+dev-qt/qtquickcontrols2 widgets
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
 media-sound/pulseaudio -* glib
@@ -19,8 +19,6 @@ media-video/mpv libmpv tools vulkan drm
 sys-fs/squashfs-tools lz4 xz lzo zstd
 sys-fs/squashfs-tools-ng lz4 xz lzo zstd
 sys-fs/squashfuse lz4 lzo zstd
-
-app-cdr/cuetools flac mp3 vorbis
 
 sys-libs/glibc nscd
 
@@ -52,7 +50,7 @@ media-libs/mesa vulkan
 
 media-sound/deadbeef -gtk2 gtk3 alac curl equalizer ffmpeg aac dts wma musepack wavpack
 
-media-video/ffmpeg fdk x265 openssl opus theora
+media-video/ffmpeg fdk openssl
 
 net-libs/zeromq drafts
 
@@ -71,7 +69,7 @@ sys-libs/zlib static-libs minizip
 x11-base/xorg-server elogind -suid
 
 x11-libs/cairo xcb
-x11-libs/libva utils vdpau
+x11-libs/libva utils
 x11-libs/libxcb xkb
 
 x11-terms/rxvt-unicode 256-color

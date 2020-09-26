@@ -49,10 +49,10 @@ control() {
 
     case "${action}" in
         up)
-            plus_minus_percent 0 "${max_brightness}" "${current_brightness}" +10% >"${control_directory}"/brightness
+            plus_minus_percent 0 "${max_brightness}" "${current_brightness}" +5% >"${control_directory}"/brightness
         ;;
         down)
-            plus_minus_percent 0 "${max_brightness}" "${current_brightness}" -10% >"${control_directory}"/brightness
+            plus_minus_percent 0 "${max_brightness}" "${current_brightness}" -5% >"${control_directory}"/brightness
         ;;
     esac
 }

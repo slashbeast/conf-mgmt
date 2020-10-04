@@ -3,7 +3,7 @@
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 
-*/* alsa g3dvl x264 xvid vdpau mp3 vorbis flac ogg opus theora x265 aac wavpack
+*/* alsa g3dvl x264 xvid vdpau mp3 vorbis flac ogg opus theora x265 aac wavpack ffmpeg
 
 dev-qt/qtquickcontrols2 widgets
 
@@ -47,8 +47,6 @@ media-libs/harfbuzz icu
 media-libs/libpng apng
 media-libs/libvpx postproc
 media-libs/mesa vulkan
-
-media-sound/deadbeef -gtk2 gtk3 alac curl equalizer ffmpeg aac dts wma musepack wavpack
 
 media-video/ffmpeg fdk openssl
 

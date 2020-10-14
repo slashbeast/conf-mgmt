@@ -201,14 +201,38 @@ menu_screenshot() {
     esac
 }
 
-for i in wmctrl dmenu sudo scrot; do
+
+menu_clipboard() {
+    local menu_item
+    declare -a menu_items
+
+    printf -v menu_item "%-128s %s" 'primary     =>   clipboard' 'to_clipboard'
+    menu_items+=( "${menu_item}")
+
+    printf -v menu_item "%-128s %s" 'clipboard   =>   primary' 'to_primary'
+    menu_items+=( "${menu_item}")
+
+    read dmenu_selection < <(dmenu_wrapper 'Copy X selections:' '400' < <(printf '%s\n' "${menu_items[@]}"))
+    dmenu_selection="${dmenu_selection##* }"
+
+    case "${dmenu_selection}" in
+        'to_primary')
+            xclip -o -selection clipboard | xclip -i -selection primary
+        ;;
+        'to_clipboard')
+            xclip -o -selection primary | xclip -i -selection clipboard
+        ;;
+    esac
+}
+
+for i in wmctrl dmenu sudo scrot xclip; do
     if ! command -v "$i" >/dev/null 2>&1; then
         die "Missing binary '$i'."
     fi
 done
 
 case "$1" in
-    'window_select'|'alsa'|'cpu_boost'|'screenshot')
+    'window_select'|'alsa'|'cpu_boost'|'screenshot'|'clipboard')
         "menu_$1"
     ;;
 esac

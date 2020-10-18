@@ -5,7 +5,8 @@
 
 */* alsa g3dvl x264 xvid vdpau mp3 vorbis flac ogg opus theora x265 aac wavpack ffmpeg
 
-dev-qt/qtquickcontrols2 widgets
+dev-qt/* multimedia gui network widgets
+dev-python/PyQt5 multimedia gui network widgetS
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
 media-sound/pulseaudio -* glib

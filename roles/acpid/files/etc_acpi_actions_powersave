@@ -2,6 +2,11 @@
 
 acpid_state='/run/acpid'
 
+if ! [ -d "${acpid_state}" ]; then
+    echo "The directory ${acpid_state} does not exists. Check (open)tmpfiles configuration."
+    exit 1
+fi
+
 sata_link_power_mgmt() {
     if ! compgen -G /sys/class/scsi_host/* >/dev/null 2>&1; then
         return

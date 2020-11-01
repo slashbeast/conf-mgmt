@@ -73,7 +73,7 @@ x11-libs/libxcb xkb
 
 x11-terms/rxvt-unicode 256-color
 
-app-emulation/qemu sdl
+app-emulation/qemu sdl spice
 
 dev-libs/boost icu
 
@@ -100,7 +100,7 @@ net-vpn/strongswan networkmanager
 # No need to pull in GUI.
 sys-boot/woeusb minimal
 
-net-misc/remmina rdp ssh vnc
+net-misc/remmina rdp ssh vnc spice
 
 media-gfx/geeqie exif gnu-accel gtk3
 

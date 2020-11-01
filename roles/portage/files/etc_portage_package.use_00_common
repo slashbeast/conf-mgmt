@@ -121,4 +121,6 @@ app-emulation/libvirt fuse libssh lxc virt-network
 
 app-emulation/virt-manager gtk
 
+net-misc/spice-gtk usbredir
+
 net-dns/dnsmasq script

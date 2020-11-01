@@ -1,5 +1,5 @@
 - name: restart connman
-  when: skip_handlers is not definedn
+  when: skip_handlers is not defined
   service:
     name: connman
     state: restarted

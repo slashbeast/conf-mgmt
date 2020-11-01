@@ -50,7 +50,19 @@
       option: 'NetworkInterfaceBlacklist'
       value: 'vmnet,vboxnet,virbr,vnet,ifb,enp,eth,veth,br,tap,tun,docker'
       no_extra_spaces: true
-  
+
+  - name: Disable ethernet autoconnect even if not configured.
+    notify: restart connman
+    ini_file:
+      path: /etc/connman/main.conf
+      owner: root
+      group: root
+      mode: 0600
+      section: 'General'
+      option: 'DefaultFavoriteTechnologies'
+      value: ''
+      no_extra_spaces: true
+
   - name: disable NTP client
     notify: restart connman
     ini_file:

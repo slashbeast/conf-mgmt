@@ -118,3 +118,5 @@ www-client/chromium -js-type-check -suid official widevine
 x11-misc/redshift gtk
 
 app-emulation/libvirt fuse libssh lxc virt-network
+
+net-dns/dnsmasq script

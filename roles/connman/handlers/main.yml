@@ -1,4 +1,4 @@
-- name: restart connma
+- name: restart connman
   when: skip_handlers is not definedn
   service:
     name: connman

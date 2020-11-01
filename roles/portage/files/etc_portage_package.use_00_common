@@ -119,4 +119,6 @@ x11-misc/redshift gtk
 
 app-emulation/libvirt fuse libssh lxc virt-network
 
+app-emulation/virt-manager gtk
+
 net-dns/dnsmasq script

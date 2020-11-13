@@ -65,7 +65,7 @@ sys-apps/pcsc-lite -libusb
 
 sys-libs/zlib static-libs minizip
 
-x11-base/xorg-server elogind -suid
+x11-base/xorg-server elogind -suid xvfb
 
 x11-libs/cairo xcb
 x11-libs/libva utils
@@ -124,3 +124,10 @@ app-emulation/virt-manager gtk
 net-misc/spice-gtk usbredir
 
 net-dns/dnsmasq script
+
+www-client/firefox lto pgo
+
+mail-client/thunderbird lto pgo
+
+media-video/guvcview qt5
+media-tv/v4l-utils qt5

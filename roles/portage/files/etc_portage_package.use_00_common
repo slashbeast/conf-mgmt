@@ -129,5 +129,7 @@ www-client/firefox lto pgo
 
 mail-client/thunderbird lto pgo
 
+sys-devel/gcc lto
+
 media-video/guvcview qt5
 media-tv/v4l-utils qt5

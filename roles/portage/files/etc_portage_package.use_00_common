@@ -1,5 +1,5 @@
 */* pic threads smp
-*/* X xft fontconfig opengl glamor vaapi cairo truetype jpeg png tiff
+*/* X xft fontconfig opengl vulkan glamor vaapi cairo truetype jpeg png tiff
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 

@@ -46,6 +46,7 @@ EMERGE_DEFAULT_OPTS="
     --with-bdeps y
     --binpkg-respect-use y
     --buildpkg-exclude 'virtual/* sys-kernel/*-sources games-*/* app-emulation/emul-linux-*'
+    --usepkg
     --backtrack=300
     --jobs 4
     --load-average {{ ansible_processor_vcpus }}

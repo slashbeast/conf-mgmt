@@ -8,6 +8,7 @@
   with_items:
   - .mpv
   - .mpv/scripts
+  - .mpv/shaders
   loop_control:
     loop_var: mpv_dir
 
@@ -23,6 +24,14 @@
   copy:
     src: DOTmpv_input.conf
     dest: '{{ user_home_dir }}/.mpv/input.conf'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600
+
+- name: .mpv/shaders/adaptive-sharpen.glsl deployment
+  copy:
+    src: DOTmpv_shaders_adaptive-sharpen.glsl
+    dest: '{{ user_home_dir }}/.mpv/shaders/adaptive-sharpen.glsl'
     owner: '{{ user }}'
     group: '{{ user_group_id }}'
     mode: 0600

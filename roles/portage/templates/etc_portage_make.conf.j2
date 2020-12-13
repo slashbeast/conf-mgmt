@@ -6,7 +6,7 @@
 {% endif %}
 CHOST="x86_64-pc-linux-gnu"
 
-CFLAGS="-O3 -pipe -march={{ target_cpu }}"
+CFLAGS="-O2 -pipe -march={{ target_cpu }}"
 CXXFLAGS="${CFLAGS}"
 RUSTFLAGS="-C target-cpu={{ target_cpu_rust }} -v"
 

@@ -125,9 +125,9 @@ net-misc/spice-gtk usbredir
 
 net-dns/dnsmasq script
 
-www-client/firefox lto pgo
+www-client/firefox lto pgo clang
 
-mail-client/thunderbird lto pgo
+mail-client/thunderbird lto pgo clang
 
 sys-devel/gcc lto
 

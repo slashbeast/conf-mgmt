@@ -125,8 +125,8 @@ if [ "${switch_bridge_interface}" ]; then
         ip addr add "${switch_bridge_ip}" dev "${switch_bridge_interface}"
     fi
 
-    # Allow all the traffic within particular bridged network.
-    iptables -A FORWARD -i "${switch_bridge_interface}" -o "${switch_bridge_interface}" -s "${switch_bridge_subnet}" -d "${switch_bridge_subnet}" -j ACCEPT
+    # Allow all the traffic within particular bridge.
+    iptables -A FORWARD -i "${switch_bridge_interface}" -o "${switch_bridge_interface}" -j ACCEPT
 
     for i in ${switch_bridge_member_interfaces}; do
         ip addr flush dev "${i}"

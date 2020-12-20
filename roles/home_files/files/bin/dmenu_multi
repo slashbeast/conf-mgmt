@@ -75,7 +75,7 @@ menu_alsa() {
 	    elif amixer -c "${card}" sget PCM >/dev/null 2>&1; then
 	        control='PCM'
 	    else
-	        return 1
+	        return 0
 	    fi
 	
         # Some devices have PCM that cannot be muted (like amdgpu), so '|| true'.

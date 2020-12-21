@@ -48,7 +48,7 @@
       mode: 0600
       section: 'General'
       option: 'NetworkInterfaceBlacklist'
-      value: 'vmnet,vboxnet,virbr,vnet,ifb,enp,eth,veth,br,tap,tun,docker'
+      value: 'vmnet,vboxnet,virbr,vnet,ifb,enp,eth,veth,br,tap,tun,docker,wg'
       no_extra_spaces: true
 
   - name: Disable ethernet autoconnect even if not configured.

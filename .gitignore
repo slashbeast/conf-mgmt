@@ -1,4 +1,5 @@
 venv
 *.pyc
 *.swp
-logs/
+logs
+inventory/group_vars/all

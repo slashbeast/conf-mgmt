@@ -1,4 +1,10 @@
+- name: check if /bin/zsh exists
+  register: stat_bin_zsh
+  stat:
+    path: /bin/zsh
+
 - name: set user's shell to /bin/zsh
+  when: stat_bin_zsh.stat.exists
   user:
     name: '{{ user }}'
     shell: /bin/zsh

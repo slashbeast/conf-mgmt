@@ -15,10 +15,17 @@ def get_ansible_root_directory():
 def main():
     ansible_root = get_ansible_root_directory()
 
+    hosts = [
+        "localhost"
+    ]
+
+    # Settng out-of-inventory host with  "-i hostname," ignores in-inventory group_vars.
+    # so instead we will add it dynamically in dynamic inventory.
+    if 'ANSIBLE_ADD_HOST' in os.environ:
+        hosts.append(os.environ['ANSIBLE_ADD_HOST'])
+
     inventory = {
-        'hosts': [
-            'localhost'
-        ],
+        'hosts': hosts,
         '_meta': {
             'hostvars': {
                 'localhost': {

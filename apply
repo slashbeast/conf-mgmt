@@ -26,6 +26,8 @@ edie() {
 }
 
 setup_and_load_venv() {
+    venv_dir="$1"
+
     if ! [ -d "${venv_dir}" ] || ! cmp "${work_dir}/requirements.txt" "${venv_dir}/requirements.txt"; then
         einfo 'Setting up new virtualenv ...'
         rm -rf "${venv_dir}"
@@ -34,6 +36,7 @@ setup_and_load_venv() {
         . "${venv_dir}/bin/activate"
         pip install -r "${work_dir}/requirements.txt"
         cp "${work_dir}/requirements.txt" "${venv_dir}/requirements.txt"
+        date >"${venv_dir}/.borg-exclude-dir"
     else
         einfo 'Loading virtualenv ...'
         . "${venv_dir}/bin/activate"
@@ -41,6 +44,10 @@ setup_and_load_venv() {
 }
 
 merge_with_private () {
+    public_dir="${work_dir}"
+    private_dir="${work_dir}/../${script_dir_name}-private"
+    merged_dir="$(mktemp -d -t conf-mgmt-merged.XXXXX)"
+
     test -d "${public_dir}"
     einfo "Merging into ${merged_dir} ..."
     rm -rf "${merged_dir}"
@@ -52,6 +59,9 @@ merge_with_private () {
 }
 
 apply_playbook() {
+    ansible_playbook="$1"
+    shift
+
     einfo "Running ${ansible_playbook} playbook ..."
     cd "${merged_dir}"
     if [ -f "${ansible_playbook}" ]; then
@@ -63,41 +73,77 @@ apply_playbook() {
 
 trap 'eerror "Error in $0 on line ${LINENO}."' ERR
 
-if [ "${FORCE_ANSIBLE_PLAYBOOK:-}" ]; then
-    ansible_playbook="${FORCE_ANSIBLE_PLAYBOOK}"
-else
-    HOSTNAME="$(hostname)"
-    # localhost.yml is just an example, never to be executed as-is.
-    if [ "${HOSTNAME}" == 'localhost' ]; then
-        edie "Your hostname is set to 'localhost'. Change it to a proper one before running this script."
-    fi
-    ansible_playbook="${HOSTNAME}.yml"
-fi
-
 if [ "${SSH_CLIENT:-}" ] && ! [ "${TMUX:-}" ]; then
     edie "Running over ssh and without tmux. Things may end up bad. Run under tmux."
 fi
 
 script_path="$(readlink -f "$0")"
 work_dir="${script_path%/*}"
-
 script_dir_name="${work_dir##*/}"
-
-public_dir="${work_dir}"
-private_dir="${work_dir}/../${script_dir_name}-private"
-merged_dir="$(mktemp -d -t conf-mgmt-merged.XXXXX)"
-
-venv_dir="${HOME}/src/conf-mgmt-venv"
 
 if [ -d "${work_dir}/logs" ]; then
     export ANSIBLE_LOG_PATH="${work_dir}/logs/$(date '+%Y-%m-%d_%H-%M-%S').log"
 fi
 
+
+args=()
+
+case "${1:-}" in
+    local)
+        shift
+        if [ "${FORCE_ANSIBLE_PLAYBOOK:-}" ]; then
+            ansible_playbook="${FORCE_ANSIBLE_PLAYBOOK}"
+        else
+            HOSTNAME="$(hostname)"
+            # localhost.yml is just an example, never to be executed as-is.
+            if [ "${HOSTNAME}" == 'localhost' ]; then
+                edie "Your hostname is set to 'localhost'. Change it to a proper one before running this script."
+            fi
+            ansible_playbook="${HOSTNAME}.yml"
+        fi
+
+        if [ "$*" ]; then
+            for arg in "$@"; do
+                args+=( "$arg" )
+            done
+        fi
+    ;;
+    remote)
+        name="$2"
+        host="$3"
+        shift 3
+
+        # Used in dynamic_inventory.py.
+        export ANSIBLE_ADD_HOST="${host}"
+
+        args+=(
+            "-u" "root"
+            "--limit" "${host}"
+        )
+
+        if [ "$*" ]; then
+            for arg in "$@"; do
+                args+=( "$arg" )
+            done
+        fi
+
+        ansible_playbook="${name}.yml"
+    ;;
+    *)
+        eerror "Run modes:"
+        eerror " Local, as root:"
+        eerror "    # apply local"
+        eerror " Remote, as any user:"
+        eerror "    % apply remote <playbook_name> <hostname_or_ip>"
+        exit 1
+    ;;
+esac
+
 merge_with_private
 
-setup_and_load_venv
+setup_and_load_venv "${HOME}/src/conf-mgmt-venv"
 
-apply_playbook "$@"
+apply_playbook "${ansible_playbook}" "${args[@]}"
 
 einfo 'Cleaning merged directory ...'
 rm -rf "${merged_dir}"

@@ -32,6 +32,12 @@ ewarn() {
     echo ">>> [WARN] $*" >&2
 }
 
+iptables_both() {
+    for ipt in iptables ip6tables; do
+        "${ipt}" "$@"
+    done
+}
+
 if [ "${vm_bridges}" ]; then
     if ! [ -d /sys/module/br_netfilter ]; then
         # br_netfilter is needed to actually limit network within bridges.
@@ -47,21 +53,18 @@ fi
 # On boot iptables are 'clean' enough to not purge them.
 if ! [ "$(ps -o comm= "${PPID}")" == 'openrc-run.sh' ]; then
     # Purge current rules.
-    iptables -F
-    iptables -X
-    iptables -t nat -F
-    iptables -t nat -X
-    iptables -t mangle -F
-    iptables -t mangle -X
-    #iptables -P INPUT ACCEPT
-    #iptables -P FORWARD ACCEPT
-    #iptables -P OUTPUT ACCEPT
+    iptables_both -F
+    iptables_both -X
+    iptables_both -t nat -F
+    iptables_both -t nat -X
+    iptables_both -t mangle -F
+    iptables_both -t mangle -X
 fi
 
 # Default policy, drop incoming, allow outgoing.
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
-iptables -P OUTPUT ACCEPT
+iptables_both -P INPUT DROP
+iptables_both -P FORWARD DROP
+iptables_both -P OUTPUT ACCEPT
 
 # Log the DROP.
 iptables -N LOGDROP
@@ -79,8 +82,8 @@ iptables -A FORWARD -m conntrack --ctstate INVALID -j DROP
 iptables -A OUTPUT -m conntrack --ctstate INVALID -j DROP
 
 # Don't kill already spared connections,
-iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables_both -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables_both -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Drop bogus packets
 iptables -A INPUT -p tcp -m tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
@@ -99,13 +102,19 @@ for i in ${outbound_reject_from_users}; do
 done
 
 # Allow all transfers on local interface
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
+iptables_both -A INPUT -i lo -j ACCEPT
+iptables_both -A OUTPUT -o lo -j ACCEPT
 
 # Respond to ping.
 if [ "${inbound_respond_to_ping}" = 'true' ]; then
     iptables -A INPUT -p icmp --icmp-type 8 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 fi
+
+# Accept all ICMP for IPv6.
+ip6tables -A INPUT -p ipv6-icmp -j ACCEPT
+
+# Accept DHCPv6 incoming traffic
+#ip6tables -A INPUT -d fe80::/64 -p udp -m udp --dport 546 -m state --state NEW -j ACCEPT
 
 # Open configured TCP ports.
 for port in ${inbound_open_tcp_ports}; do

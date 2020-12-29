@@ -27,18 +27,25 @@ sata_link_power_mgmt() {
 }
 
 pci_devices() {
-    case "$1" in
-        'powersave')
-            for i in /sys/bus/pci/devices/*/power/control; do
-                echo auto >"$i"
-            done
-        ;;
-        'performance')
-            for i in /sys/bus/pci/devices/*/power/control; do
-                echo on >"$i"
-            done
-        ;;
-    esac
+    for i in /sys/bus/pci/devices/*; do
+        if ! [ -f "${i}/power/control" ]; then
+            continue
+        fi
+
+        # Skip network devices, seems to break at least realtek devices.
+        if [ -d "${i}/net" ]; then
+            continue
+        fi
+
+        case "$1" in
+            'powersave')
+                echo auto >"${i}/power/control"
+            ;;
+            'performance')
+                echo on >"${i}/power/control"
+            ;;
+        esac
+    done
 }
 
 snd_hda_intel() {

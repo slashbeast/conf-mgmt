@@ -32,6 +32,15 @@ ewarn() {
     echo ">>> [WARN] $*" >&2
 }
 
+# There seems to be some xtables lock race condition on boot with Docker.
+iptables() {
+    command iptables -w 5 "$@"
+}
+
+ip6tables() {
+    command ip6tables -w 5 "$@"
+}
+
 iptables_both() {
     for ipt in iptables ip6tables; do
         "${ipt}" "$@"

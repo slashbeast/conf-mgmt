@@ -1,0 +1,10 @@
+- name: fstab
+  tags: fstab
+  block:
+  - name: /etc/fstab
+    template:
+      src: etc_fstab.j2
+      dest: /etc/fstab
+      owner: root
+      group: root
+      mode: 0644

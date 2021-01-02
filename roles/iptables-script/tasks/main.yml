@@ -1,0 +1,26 @@
+- name: iptables-script
+  tags: [iptables-script]
+  block:
+  - name: /etc/init.d/iptables-save
+    copy:
+      src: etc_init.d_iptables-script
+      dest: /etc/init.d/iptables-save
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: /usr/local/sbin/iptables-script
+    notify: restart iptables-script
+    template:
+      src: usr_local_sbin_iptables-script.j2
+      dest: /usr/local/sbin/iptables-script
+      owner: root
+      group: root
+      mode: 0700
+
+  - name: start iptables-script on boot
+    service:
+      name: iptables-script
+      runlevel: boot
+      enabled: true
+ 

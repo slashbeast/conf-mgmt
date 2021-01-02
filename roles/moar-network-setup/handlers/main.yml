@@ -1,3 +1,0 @@
-- name: apply moar-network-setup.start
-  when: skip_handlers is not defined
-  shell: /etc/local.d/moar-network-setup.start

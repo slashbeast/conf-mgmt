@@ -1,0 +1,5 @@
+- name: restart iptables-script
+  when: skip_handlers is not defined
+  service:
+    name: iptables-script
+    state: restarted

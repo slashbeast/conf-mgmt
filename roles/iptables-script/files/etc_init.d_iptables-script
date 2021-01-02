@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+
+name="iptables-script"
+
+depend() {
+    before net
+}
+
+start() {
+    ebegin "Running /usr/local/sbin/iptables-script"
+    /usr/local/sbin/iptables-script
+    eend $? "Failed to start ${name}"
+}

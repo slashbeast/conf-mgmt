@@ -1,10 +1,10 @@
 - name: iptables-script
   tags: [iptables-script]
   block:
-  - name: /etc/init.d/iptables-save
+  - name: /etc/init.d/iptables-script
     copy:
       src: etc_init.d_iptables-script
-      dest: /etc/init.d/iptables-save
+      dest: /etc/init.d/iptables-script
       owner: root
       group: root
       mode: 0755

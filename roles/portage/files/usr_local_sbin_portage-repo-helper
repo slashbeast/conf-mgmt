@@ -71,8 +71,10 @@ case "${1:-}" in
                     ;;
                 esac
 
-                # make.profile might be linked there, unless changed after the repo was deployed.
-                ln -s "${target_path}" /var/db/repos/gentoo
+                if [ "${target_path}" != "/var/db/repos/gentoo" ]; then
+                    # make.profile might be linked there, unless changed after the repo was deployed.
+                    ln -s "${target_path}" /var/db/repos/gentoo
+                fi
             ;;
             *)
                 git clone --depth 1 "${repo_source}" "${target_path}"

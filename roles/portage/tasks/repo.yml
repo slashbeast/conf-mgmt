@@ -1,0 +1,17 @@
+- name: checking current source of {{ repo.name }} repository
+  lineinfile:
+    path: '{{ repo.target }}/.repo_source'
+    line: '{{ repo.source }}'
+    state: present
+    create: true
+  check_mode: yes
+  register: repo_source
+
+- name: deploy {{ repo.name }} repository
+  when: repo_source.changed
+  shell: >
+    /usr/local/sbin/portage-repo-helper
+    deploy
+    '{{ repo.name }}'
+    '{{ repo.target }}'
+    '{{ repo.source }}'

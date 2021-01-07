@@ -1,0 +1,90 @@
+#!/bin/bash
+
+set -u
+set -e
+
+umask 022
+
+validate_target_path() {
+    target_path="$1"
+
+    if ! [[ "${target_path//[^\/]/}" =~ ^// ]]; then
+        echo 'Wrong target.'
+        exit 1
+    fi
+}
+
+gen_repos_conf() {
+    name="$1"
+    target_path="$2"
+    sync_url="$3"
+
+    cat >"/etc/portage/repos.conf/${name}.conf" <<-END
+		[${name}]
+		location = ${target_path}
+		sync-type = git
+		sync-uri = ${sync_url}
+		auto-sync = yes
+	END
+}
+
+
+case "${1:-}" in
+    'deploy')
+        name="$2"
+        target_path="$3"
+        repo_source="$4"
+
+        validate_target_path "${target_path}"
+
+        rm -rf "${target_path}"
+       
+        case "${name}" in
+            gentoo)
+                declare -A sync_urls
+                sync_urls["github.com"]="https://github.com/gentoo/gentoo.git"
+                sync_urls["git.gentoo.org"]="git@git.gentoo.org:repo/gentoo.git"
+
+                case "${repo_source}" in
+                    'github.com')
+                        # Tiny shallow clone
+                        git clone --depth 1 "${sync_urls["github.com"]}" "${target_path}"
+
+                        sync_url="${sync_urls["github.com"]}"
+                    ;;
+                    'git.gentoo.org')
+                        # Full clone, fetching from github and switching to git.gentoo.org for fastest fetch.
+                        git clone "https://github.com/gentoo/gentoo.git" "${target_path}"
+                        pushd "${target_path}" >/dev/null
+                        git remote set-url origin "${sync_urls["git.gentoo.org"]}"
+                        git fetch origin
+                        git rebase origin/master
+                        git config --local commit.gpgsign 1
+                        git config --local push.gpgsign 1
+                        git config --local pull.ff only
+                        popd >/dev/null
+                        
+                        sync_url="${sync_urls["git.gentoo.org"]}"
+                    ;;
+                    *)
+                        exit 1
+                    ;;
+                esac
+
+                # make.profile might be linked there, unless changed after the repo was deployed.
+                ln -s "${target_path}" /var/db/repos/gentoo
+            ;;
+            *)
+                git clone --depth 1 "${repo_source}" "${target_path}"
+                sync_url="${repo_source}"
+            ;;
+        esac
+
+        echo "${repo_source}" >"${target_path}/.repo_source"
+
+        gen_repos_conf "${name}" "${target_path}" "${sync_url}"
+    ;;
+    *)
+        exit 1
+    ;;
+esac

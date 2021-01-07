@@ -71,18 +71,6 @@
         mode: 0644
         directory_mode: 0755
     
-    - include_tasks: move_and_link.yml
-      with_items:
-      - from: /var/db/repos/gentoo
-        to: /var/portage/tree
-      - from: /var/cache/binpkgs
-        to: /var/portage/packages
-      - from: /var/cache/distfiles
-        to: /var/portage/distfiles
-      loop_control:
-        loop_var: move_and_link
-    
-    # the subdirectories of /var/portage/ could be created after migration.
     - name: /var/portage directories
       file:
         path: '{{ item }}'
@@ -93,5 +81,27 @@
       with_items:
       - /var/portage/packages
       - /var/portage/distfiles
-      - /var/portage/tree
       - /var/portage/tmp
+
+    - name: /etc/portage/repo.postsync.d/minify-shallow-clone
+      copy:
+        src: etc_portage_repo.postsync.d_minify-shallow-clone
+        dest: /etc/portage/repo.postsync.d/minify-shallow-clone
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: /usr/local/sbin/portage-repo-helper
+      copy:
+        src: usr_local_sbin_portage-repo-helper
+        dest: /usr/local/sbin/portage-repo-helper
+        owner: root
+        group: root
+        mode: 0700
+
+    - name: configure repositories
+      include_tasks: repo.yml
+      with_items: '{{ portage.repos }}'
+      loop_control:
+        loop_var: repo
+

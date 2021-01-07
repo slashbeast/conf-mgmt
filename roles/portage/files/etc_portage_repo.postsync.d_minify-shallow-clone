@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Script to minify the size of .git inside Portage tree and other git repositories.
+# /dev/shm (always tmpfs) and rsync used to somewhat minimalize amount of writes when merging minified .git/objects.
+
+set -e
+
+einfo() { echo ">>> $*"; }
+
+ersync() {
+    rsync --archive --checksum --no-whole-file --inplace --delete "$@"
+}
+
+repo_location="$3"
+
+umask 022
+
+cd "${3}" || exit 1
+
+# Skip non-git repositories, do not get fooled by repo location being nested inside some git worktree,
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 || ! [ "$(git rev-parse --show-toplevel)" = "${repo_location}"  ]; then
+    exit 0
+fi
+
+git_dir="$(readlink -f "$(git rev-parse --git-dir)")"
+
+# Minify only those that are shallow clone already.
+if ! [ -f "${git_dir}/shallow" ]; then
+    einfo "${repo_location}: not a shallow clone."
+    exit 0
+fi
+
+# Do not re-shallow clone too often. Only if commits in history >=256.
+if ! [ "$(git rev-list HEAD --count)" -ge 256 ]; then
+    einfo "${repo_location}: History not long enough to minify."
+    exit 0
+fi
+
+einfo "${repo_location}: Minifying ..."
+
+tmp_workdir="$(mktemp -d /dev/shm/tmp-portage-XXXXXX)"
+
+git clone --mirror --depth=1 "file://${repo_location}" "${tmp_workdir}/portage"
+ersync "${tmp_workdir}/portage/objects" "${git_dir}/"
+ersync "${tmp_workdir}/portage/shallow" "${git_dir}/"
+
+rm -rf "${tmp_workdir}"

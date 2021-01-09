@@ -1,0 +1,10 @@
+127.0.0.1   {{ hostname }} localhost
+::1         {{ hostname }} localhost
+
+{% if common_hosts is defined and network.dns.hosts.include_common_hosts is defined and network.dns.hosts.include_common_hosts %}
+{% for host in common_hosts %}
+{% if 'ip_address' in host and host.name != hostname %}
+{{ "%-18s" | format(host.ip_address) }}{{ host.name }}
+{% endif %}
+{% endfor %}
+{% endif %}

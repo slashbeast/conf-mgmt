@@ -5,19 +5,19 @@ listen-address=127.0.0.1
 # Local domain namespace.
 address=/local/127.0.0.1
 
-{% if upstream == "connman" %}
+{% if network.dns.upstream == "connman" %}
 # Use connman's resolv.conf.
 resolv-file=/var/run/connman/resolv.conf
 {% else %}
 # Dns servers.
 no-resolv
-{% if upstream == 'opendns' %}
+{% if network.dns.upstream == 'opendns' %}
 server=208.67.222.222
 server=208.67.220.220
-{% elif upstream == 'google' %}
+{% elif network.dns.upstream == 'google' %}
 server=8.8.8.8
 server=8.8.4.4
-{% elif upstream == 'cloudflare' %}
+{% elif network.dns.upstream == 'cloudflare' %}
 server=1.1.1.1
 {% endif %}
 {% endif %}

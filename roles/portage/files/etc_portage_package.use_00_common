@@ -71,7 +71,7 @@ x11-libs/cairo xcb
 x11-libs/libva utils
 x11-libs/libxcb xkb
 
-x11-terms/rxvt-unicode 256-color
+x11-terms/rxvt-unicode 256-color -perl
 
 app-emulation/qemu sdl spice usbredir
 

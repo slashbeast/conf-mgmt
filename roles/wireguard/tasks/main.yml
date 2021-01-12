@@ -16,29 +16,5 @@
       state: directory
 
   - name: deploy configuration files
-    copy:
-      src: "{{ item }}"
-      dest: "/etc/wireguard/{{ item | basename }}"
-      owner: root
-      group: root
-      mode: 0700
-    with_fileglob: "{{ ansible_play_name }}/*.conf"
-
-  - name: autostart tunnels on boot via systemd
-    when: ansible_service_mgr == 'systemd'
-    service:
-      name: "wg-quick@{{ item | basename | regex_replace('.conf$', '') }}"
-      enabled: true
-    with_fileglob: "{{ ansible_play_name }}/*.conf"
-
-  - name: autostart tunnels on boot via openrc's /etc/local.d
-    when: ansible_service_mgr == 'openrc'
-    copy:
-      owner: root
-      group: root
-      mode: 0700
-      dest: "/etc/local.d/{{ item | basename | regex_replace('.conf$', '') }}.start"
-      content: |
-        #!/bin/sh
-        wg-quick up {{ item | basename | regex_replace('.conf$', '') }}
+    include_tasks: service.yml
     with_fileglob: "{{ ansible_play_name }}/*.conf"

@@ -1,0 +1,32 @@
+- set_fact:
+    wg_tunnel_name: "{{ item | basename | regex_replace('.conf$', '') }}"
+
+- name: deploy configuration files
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/wireguard/{{ wg_tunnel_name }}.conf"
+    owner: root
+    group: root
+    mode: 0700
+
+- name: autostart {{ wg_tunnel_name }} on boot via systemd
+  when: ansible_service_mgr == 'systemd'
+  service:
+    name: "wg-quick@{{ wg_tunnel_name }}"
+    enabled: true
+
+- block:
+  - name: symlink wg-quick to wg-quick.{{ wg_tunnel_name }}
+    file:
+      state: link
+      dest: "/etc/init.d/wg-quick.{{ wg_tunnel_name }}"
+      src: wg-quick
+      owner: root
+      group: root
+  - name: enable wg-quick.{{ wg_tunnel_name }} openrc init script
+    service:
+      name: wg-quick.{{ wg_tunnel_name }}
+      enabled: true
+      runlevel: default
+  when: ansible_service_mgr == 'openrc'
+

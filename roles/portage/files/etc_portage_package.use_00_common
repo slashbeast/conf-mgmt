@@ -1,12 +1,11 @@
 */* pic threads smp
-*/* X xft fontconfig opengl vulkan glamor vaapi cairo truetype jpeg png tiff
+*/* X aac alsa cairo ffmpeg flac fontconfig g3dvl glamor jpeg mp3 ogg opengl opus png svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 xft xml xvid
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 
-*/* alsa g3dvl x264 xvid vdpau mp3 vorbis flac ogg opus theora x265 aac wavpack ffmpeg
 
 dev-qt/* multimedia gui network widgets
-dev-python/PyQt5 multimedia gui network widgets
+dev-python/PyQt5 multimedia gui network widgets printsupport webkit
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
 media-sound/pulseaudio -* glib
@@ -39,7 +38,7 @@ dev-db/sqlite secure-delete
 dev-lang/python sqlite
 
 dev-libs/elfutils static-libs
-dev-libs/libpcre2 pcre16
+dev-libs/libpcre2 pcre16 pcre32
 dev-libs/libxml2 python icu
 dev-libs/xmlsec nss
 app-arch/bzip2 static-libs

@@ -136,3 +136,5 @@ media-video/guvcview qt5
 media-tv/v4l-utils qt5
 
 dev-db/postgresql -server
+
+sys-apps/fwupd flashrom nvme synaptics tpm uefi

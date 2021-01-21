@@ -38,6 +38,14 @@
         group: root
         mode: 0644
 
+    - name: /etc/portage/package.mask/00_common
+      copy:
+        src: etc_portage_package.mask_00_common
+        dest: /etc/portage/package.mask/00_common
+        owner: root
+        group: root
+        mode: 0644
+
     - name: /etc/portage/package.use/00_common
       copy:
         src: etc_portage_package.use_00_common

@@ -1,0 +1,2 @@
+# Makes virtual pick the actual udev over eudev.
+sys-fs/eudev

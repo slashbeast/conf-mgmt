@@ -48,6 +48,7 @@ EMERGE_DEFAULT_OPTS="
     --usepkg
     --jobs 4
     --load-average {{ ansible_processor_vcpus }}
+    --backtrack 30
 "
 
 {% if buildpkg is undefined or buildpkg is sameas true %}

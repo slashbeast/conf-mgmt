@@ -1,4 +1,4 @@
 #!/bin/sh
 
-fstrim -a
+ionice -c idle fstrim -a
 

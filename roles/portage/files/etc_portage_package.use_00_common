@@ -137,4 +137,4 @@ media-tv/v4l-utils qt5
 
 dev-db/postgresql -server
 
-sys-apps/fwupd flashrom nvme synaptics tpm uefi
+sys-apps/fwupd flashrom nvme synaptics tpm uefi gnutls

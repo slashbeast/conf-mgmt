@@ -6,6 +6,7 @@
     apt:
       name: wireguard
       state: present
+      update_cache: yes
 
   - name: /etc/wireguard
     file:

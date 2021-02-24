@@ -9,11 +9,12 @@
     group: root
     mode: 0700
 
-- name: autostart {{ wg_tunnel_name }} on boot via systemd
+- name: start and enable autostart of  {{ wg_tunnel_name }} via systemd
   when: ansible_service_mgr == 'systemd'
   service:
     name: "wg-quick@{{ wg_tunnel_name }}"
     enabled: true
+    state: started
 
 - block:
   - name: symlink wg-quick to wg-quick.{{ wg_tunnel_name }}
@@ -23,10 +24,11 @@
       src: wg-quick
       owner: root
       group: root
-  - name: enable wg-quick.{{ wg_tunnel_name }} openrc init script
+  - name: start and enable autostart of wg-quick.{{ wg_tunnel_name }} via openrc
     service:
       name: wg-quick.{{ wg_tunnel_name }}
       enabled: true
+      state: started
       runlevel: default
   when: ansible_service_mgr == 'openrc'
 

@@ -1,0 +1,26 @@
+- name: net
+  tags: [net]
+  block:
+  - name: /etc/conf.d/net
+    template:
+      src: etc_conf.d_net.j2
+      dest: /etc/conf.d/net
+      owner: root
+      group: root
+      mode: 0600
+
+  - name: /etc/init.d/net.* symlinks
+    file:
+      state: link
+      dest: "/etc/init.d/net.{{ item.name }}"
+      src: net.lo
+      owner: root
+      group: root
+    with_items: "{{ network.interfaces }}"
+
+  - name: enable autostart of net.* scripts.
+    service:
+      name: "net.{{ item.name }}"
+      enabled: true
+      runlevel: default
+    with_items: "{{ network.interfaces }}"

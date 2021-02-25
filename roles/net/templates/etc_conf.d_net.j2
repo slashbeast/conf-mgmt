@@ -1,0 +1,3 @@
+{% for interface in network.interfaces %}
+config_{{ interface.name }}="{{ interface.address }}"
+{% endfor %}

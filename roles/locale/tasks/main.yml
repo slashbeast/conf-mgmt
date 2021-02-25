@@ -15,11 +15,11 @@
   - name: regenerate locales
     when: etc_locale_gen.changed
     command: locale-gen
-  
+ 
   - name: set English UTF-8 locales with ISO-ish date format
-    register: etc_env_d_02locale
+    register: locale_file
     copy:
-      dest: /etc/env.d/02locale
+      dest: '{{ locale_path[ansible_distribution] }}'
       owner: root
       group: root
       mode: 0600
@@ -30,5 +30,7 @@
         TIME_STYLE="long-iso"
   
   - name: updates environment settings
-    when: etc_env_d_02locale.changed
+    when:
+    - locale_file.changed
+    - ansible_distribution == 'Gentoo'
     command: env-update

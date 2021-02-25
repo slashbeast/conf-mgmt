@@ -1,0 +1,3 @@
+locale_path:
+  Gentoo: /etc/env.d/02locale
+  Ubuntu: /etc/default/locale

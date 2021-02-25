@@ -2,16 +2,15 @@
   tags: [sshd]
   block:
   - name: set sshd port
-    when: sshd_port is defined
+    when: network.sshd.port is defined
     lineinfile: 
       dest: /etc/ssh/sshd_config
       regexp: '^#?Port '
-      line: 'Port {{ sshd_port }}'
+      line: 'Port {{ network.sshd.port }}'
       state: present
     notify: restart sshd
   
   - name: set PermitRootLogin to prohibit-password
-    when: no_password_login|default(false) == true
     lineinfile: 
       dest: /etc/ssh/sshd_config
       regexp: '^#?PermitRootLogin'
@@ -20,7 +19,6 @@
     notify: restart sshd
   
   - name: set PasswordAuthentication to no
-    when: no_password_login|default(false)
     lineinfile: 
       dest: /etc/ssh/sshd_config
       regexp: '^#?PasswordAuthentication'
@@ -29,7 +27,6 @@
     notify: restart sshd
   
   - name: set ChallengeResponseAuthentication to no
-    when: no_password_login|default(false)
     lineinfile: 
       dest: /etc/ssh/sshd_config
       regexp: '^#?ChallengeResponseAuthentication'
@@ -37,8 +34,8 @@
       state: present
     notify: restart sshd
   
-  - name: autostart sshd on boot
+  - name: autostart sshd
     service:
       name: sshd
-      runlevel: default
+      runlevel: "{{ 'default' if ansible_distribution == 'Gentoo' else omit }}"
       enabled: true

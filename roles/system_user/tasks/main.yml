@@ -11,7 +11,7 @@
       name: '{{ user }}'
       group: '{{ group }}'
       groups: '{{ additional_groups | default(omit) }}'
-      append: yes
+      shell: '{{ shell | default("/bin/sh") }}'
   
   - name: query for home dir of user 
     getent:

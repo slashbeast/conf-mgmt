@@ -1,7 +1,16 @@
+- name: ensure ~/.config/dunst exist
+  file:
+    path: '{{ user_home_dir }}/.config/dunst'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+
 - name: dunstrc deployment
   copy:
     src: DOTconfig_dunstrc
-    dest: '{{ user_home_dir }}/.config/dunstrc'
+    dest: '{{ user_home_dir }}/.config/dunst/dunstrc'
     owner: '{{ user }}'
     group: '{{ user_group_id }}'
     mode: 0600

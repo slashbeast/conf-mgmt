@@ -1,0 +1,13 @@
+diff --git a/config.def.h b/config.def.h
+index 6f05dce..9bbda27 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -145,7 +145,7 @@ static unsigned int cursorshape = 2;
+  * Default columns and rows numbers
+  */
+ 
+-static unsigned int cols = 80;
++static unsigned int cols = 90;
+ static unsigned int rows = 24;
+ 
+ /*

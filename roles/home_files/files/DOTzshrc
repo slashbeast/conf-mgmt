@@ -189,7 +189,7 @@ begin_with() {
 
 termtitle() {
     case "$TERM" in
-        rxvt*|xterm*|nxterm|gnome|screen|screen-*)
+        rxvt*|xterm*|nxterm|gnome|screen|screen-*|st|st-*)
             local prompt_host="${(%):-%m}"
             local prompt_user="${(%):-%n}"
             local prompt_char="${(%):-%~}"
@@ -521,7 +521,18 @@ alias lla='ls --color=auto --human-readable --group-directories-first --classify
 
 
 # Keys.
-case $TERM in
+case "${TERM}" in
+    st|st-*)
+        bindkey "^[[H" beginning-of-line #Home key
+        bindkey "^[[4~" end-of-line #End key
+        bindkey "^[[P" delete-char #Del key
+        bindkey "^[[A" history-beginning-search-backward #Up Arrow
+        bindkey "^[[B" history-beginning-search-forward #Down Arrow
+        bindkey "^[[1;5C" forward-word # control + right arrow
+        bindkey "^[[1;5D" backward-word # control + left arrow
+        bindkey "^H" backward-kill-word # control + backspace
+        bindkey "^[[M" kill-word # control + delete
+    ;;
     rxvt*|xterm*)
         bindkey "^[[7~" beginning-of-line #Home key
         bindkey "^[[8~" end-of-line #End key

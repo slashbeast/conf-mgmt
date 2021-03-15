@@ -32,11 +32,11 @@ setup_and_load_venv() {
         einfo 'Setting up new virtualenv ...'
         rm -rf "${venv_dir}"
         mkdir -p "${venv_dir}"
+        date >"${venv_dir}/.borg-exclude-dir"
         virtualenv "${venv_dir}"
         . "${venv_dir}/bin/activate"
         pip install -r "${work_dir}/requirements.txt"
         cp "${work_dir}/requirements.txt" "${venv_dir}/requirements.txt"
-        date >"${venv_dir}/.borg-exclude-dir"
     else
         einfo 'Loading virtualenv ...'
         . "${venv_dir}/bin/activate"

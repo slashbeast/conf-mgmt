@@ -1,8 +1,7 @@
 */* pic threads smp
 */* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 xft xml xvid
-*/* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev
+*/* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
-
 
 dev-qt/* multimedia gui network widgets
 dev-python/PyQt5 multimedia gui network widgets printsupport webkit
@@ -100,6 +99,8 @@ net-vpn/strongswan networkmanager
 sys-boot/woeusb minimal
 
 net-misc/remmina rdp ssh vnc spice
+
+net-dns/avahi gtk
 
 media-gfx/geeqie exif gnu-accel gtk3
 

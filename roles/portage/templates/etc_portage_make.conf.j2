@@ -48,7 +48,7 @@ EMERGE_DEFAULT_OPTS="
     --binpkg-respect-use y
     --buildpkg-exclude 'virtual/* sys-kernel/*-sources games-*/* app-emulation/emul-linux-* app-emulation/virtualbox-modules net-misc/realtek-r8152'
     --usepkg
-    --jobs 4
+    --jobs {{ (ansible_processor_vcpus / 4) | int }}
     --load-average {{ ansible_processor_vcpus }}
     --backtrack 30
 "

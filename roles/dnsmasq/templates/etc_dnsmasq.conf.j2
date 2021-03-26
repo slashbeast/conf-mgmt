@@ -2,9 +2,6 @@
 #bind-interfaces
 listen-address=127.0.0.1
 
-# Local domain namespace.
-address=/local/127.0.0.1
-
 {% if network.dns.upstream == "connman" %}
 # Use connman's resolv.conf.
 resolv-file=/var/run/connman/resolv.conf

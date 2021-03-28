@@ -1,10 +1,12 @@
-{% if ssh_config_hosts is defined %}
-{% for host in ssh_config_hosts %}
-host {{ host }}
-{% for key, value in ssh_config_hosts[host].items() %}
+{% if common_hosts is defined %}
+{% for host in common_hosts %}
+{% if host.ssh is defined %}
+host {{ host.name }}
+{% for key, value in host.ssh.items() %}
     {{ key }} {{ value }}
 {% endfor %}
 
+{% endif %}
 {% endfor %}
 {% endif %}
 host *

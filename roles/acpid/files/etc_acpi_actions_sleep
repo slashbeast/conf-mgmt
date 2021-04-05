@@ -16,6 +16,9 @@ case "$2" in
         logger -t acpid 'Dropping filesystem caches ...'
         echo 1 >/proc/sys/vm/drop_caches
 
+        logger -t acpid 'Syncing filesystems (again) ...'
+        sync
+
         logger -t acpid 'Running hibernate ...'
         echo disk >/sys/power/state
 

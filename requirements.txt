@@ -4,9 +4,9 @@
 #
 #    pip-compile
 #
-ansible-base==2.10.6
+ansible-base==2.10.7
     # via ansible
-ansible==3.1.0
+ansible==3.2.0
     # via -r requirements.in
 appdirs==1.4.4
     # via virtualenv
@@ -14,7 +14,7 @@ cffi==1.14.5
     # via cryptography
 click==7.1.2
     # via pip-tools
-cryptography==3.4.6
+cryptography==3.4.7
     # via ansible-base
 distlib==0.3.1
     # via virtualenv
@@ -22,16 +22,16 @@ filelock==3.0.12
     # via
     #   tox
     #   virtualenv
-flake8-comprehensions==3.3.1
+flake8-comprehensions==3.4.0
     # via -r requirements.in
 flake8-tidy-imports==4.2.1
     # via -r requirements.in
-flake8==3.8.4
+flake8==3.9.0
     # via
     #   -r requirements.in
     #   flake8-comprehensions
     #   flake8-tidy-imports
-isort==5.7.0
+isort==5.8.0
     # via -r requirements.in
 jinja2==2.11.3
     # via ansible-base
@@ -47,19 +47,21 @@ packaging==20.9
     #   tox
 pathspec==0.8.1
     # via yamllint
+pep517==0.10.0
+    # via pip-tools
 pip-lock==2.2.1
     # via -r requirements.in
-pip-tools==6.0.0
+pip-tools==6.0.1
     # via -r requirements.in
 pluggy==0.13.1
     # via tox
 py==1.10.0
     # via tox
-pycodestyle==2.6.0
+pycodestyle==2.7.0
     # via flake8
 pycparser==2.20
     # via cffi
-pyflakes==2.2.0
+pyflakes==2.3.1
     # via flake8
 pyparsing==2.4.7
     # via packaging
@@ -74,10 +76,12 @@ six==1.15.0
     #   tox
     #   virtualenv
 toml==0.10.2
-    # via tox
+    # via
+    #   pep517
+    #   tox
 tox==3.23.0
     # via -r requirements.in
-virtualenv==20.4.2
+virtualenv==20.4.3
     # via tox
 yamllint==1.26.0
     # via -r requirements.in

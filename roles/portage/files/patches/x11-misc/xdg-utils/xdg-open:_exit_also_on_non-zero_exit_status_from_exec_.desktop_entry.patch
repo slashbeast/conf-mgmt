@@ -1,0 +1,43 @@
+From 0ad418b2543b532ec82298ac2660d3f222f10882 Mon Sep 17 00:00:00 2001
+From: KARBOWSKI Piotr <piotr.karbowski@gmail.com>
+Date: Sun, 23 Jun 2019 11:39:40 +0200
+Subject: [PATCH] xdg-open: Exit also on non-zero exit status from 'Exec'
+ .desktop entry.
+
+Currently if the tool that was taken out of .desktop file Exec field
+will exit with non-zero exit code, xdg-open will then fallback to
+open_generic() from search_desktop_file(), which will lead to opening
+again the same file with the same tool and ending on opening the file
+with web browser.
+
+This may lead to situation when for example text editor that fails to
+write file on exit, will open the unchanged file with web browsr.
+
+Another real life example is if one were to exit from mpv with
+control-C, xdg-open will again start mpv, then it will try to start
+x-web-browser and ending with starting a browser from list -- firefox in
+my case.
+
+This must be a bug as it's not docummented anywhere. If we got to the
+point where we exec $command_exec then xdg-open must exit even if
+whatever was executed by $command_exec returned non-zero exit status.
+---
+ scripts/xdg-open.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/scripts/xdg-open.in b/scripts/xdg-open.in
+index 202f3e3..7cfdde0 100644
+--- a/scripts/xdg-open.in
++++ b/scripts/xdg-open.in
+@@ -325,6 +325,8 @@ search_desktop_file()
+ 
+         if [ $? -eq 0 ]; then
+             exit_success
++        else
++            exit_failure_operation_failed
+         fi
+     fi
+ 
+-- 
+2.22.0
+

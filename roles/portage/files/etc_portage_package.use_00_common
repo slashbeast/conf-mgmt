@@ -143,3 +143,5 @@ sys-apps/fwupd flashrom nvme synaptics tpm uefi gnutls
 dev-util/ostree curl
 
 media-libs/opencv qt5 examples contrib contribdnn lto
+
+dev-lang/rust nightly parallel-compiler system-llvm 

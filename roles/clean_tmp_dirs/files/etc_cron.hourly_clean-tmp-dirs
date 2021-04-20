@@ -40,6 +40,7 @@ while IFS=: read -r _ _ uid gid _ home_dir user_shell; do
                     --symlinks \
                     --protect 'qtsingleapp-qBitto-*' \
                     --protect 'tmux-*' \
+                    --protect 'docker-squash-*' \
                     --protect 'bridge.*' \
                     --protect 'serverauth.*' \
                     24h \

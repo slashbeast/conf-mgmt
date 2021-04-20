@@ -129,8 +129,6 @@ www-client/firefox lto pgo clang
 
 mail-client/thunderbird lto pgo clang
 
-sys-devel/clang default-libcxx default-lld
-
 sys-devel/gcc lto
 
 media-video/guvcview qt5
@@ -144,4 +142,4 @@ dev-util/ostree curl
 
 media-libs/opencv qt5 examples contrib contribdnn lto
 
-dev-lang/rust nightly parallel-compiler system-llvm 
+dev-lang/rust nightly parallel-compiler system-llvm

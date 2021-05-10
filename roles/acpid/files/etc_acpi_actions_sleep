@@ -31,10 +31,11 @@ case "$2" in
             nscd -i hosts >/dev/null 2>&1
         fi
 
-        # While sleeping AC adapter status could change.
+        # Apply AC or battery powersave settings after hibernation
+        # regardless if AC adapter status changed or not since some
+        # could be lost anyway.
         if [ -f "${workdir}/powersave" ]; then
-            sleep 3
-            "${workdir}/powersave"
+            POWERSAVE_ALWAYS_APPLY=yes "${workdir}/powersave"
         fi
     ;;
 esac

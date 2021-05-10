@@ -148,7 +148,7 @@ fi
 # The events can be fired multiple times for one action.
 # If we already applied powersave state (and preserved original state of for example boost)
 # it's better to not re-apply 'battery' on the top of 'battery' and 'ac' on the top of 'ac'.
-if [ "${state}" = "$(cat "${acpid_state}/current_powersave_state" 2>/dev/null)" ]; then
+if [ "${POWERSAVE_ALWAYS_APPLY}" != "yes" ] && [ "${state}" = "$(cat "${acpid_state}/current_powersave_state" 2>/dev/null)" ]; then
     exit 0
 fi
 

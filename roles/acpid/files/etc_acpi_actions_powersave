@@ -157,7 +157,7 @@ case "${state}" in
         sata_link_power_mgmt performance
         pci_devices performance
         snd_hda_intel performance
-        sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' 'restore'
+        #sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' 'restore'
         #sysfs_toggle '/sys/class/drm/card0/device/power_dpm_force_performance_level' 'restore'
 
         # use the battery-like powersaving when on AC (less aggressive boost, less heat, less noise)
@@ -167,7 +167,7 @@ case "${state}" in
         sata_link_power_mgmt powersave
         pci_devices powersave
         snd_hda_intel powersave
-        sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' '0'
+        #sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' '0'
         #sysfs_toggle '/sys/class/drm/card0/device/power_dpm_force_performance_level' 'low'
     ;;
 esac

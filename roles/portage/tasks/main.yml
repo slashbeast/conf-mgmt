@@ -71,14 +71,19 @@
         mode: 0644
     
     - name: /etc/portage/patches
-      copy:
+      synchronize:
         src: patches/
         dest: /etc/portage/patches
-        owner: root
-        group: root
-        mode: 0644
-        directory_mode: 0755
-    
+        archive: no
+        checksum: yes
+        compress: no
+        recursive: yes
+        rsync_opts:
+          - "-gop"
+          - "--chown=root:portage"
+          - "--chmod=Fu=rw,Fg=r,Fo=,Du=rwx,Dg=rx,Do="
+          - "--copy-links"
+
     - name: /var/portage directories
       file:
         path: '{{ item }}'

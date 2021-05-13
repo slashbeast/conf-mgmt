@@ -7,13 +7,15 @@
     group: '{{ user_group_id }}'
 
 - name: ~/bin/ files deployment
-  copy:
-    src: '{{ bin_file }}'
-    dest: '{{ user_home_dir }}/bin/{{ bin_file | basename }}'
-    owner: '{{ user }}'
-    group: '{{ user_group_id }}'
-    mode: 0700
-  with_fileglob:
-    - bin/*
-  loop_control:
-    loop_var: bin_file
+  synchronize:
+    src: bin/
+    dest: '{{ user_home_dir }}/bin/'
+    archive: no
+    checksum: yes
+    compress: no
+    recursive: yes
+    rsync_opts:
+      - "-gop"
+      - "--chown={{ user }}:{{ user_group_id }}"
+      - "--chmod=Fu=rwx,Fg=,Fo="
+      - "--copy-links"

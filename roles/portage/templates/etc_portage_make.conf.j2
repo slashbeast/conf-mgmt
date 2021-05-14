@@ -20,8 +20,6 @@ LINGUAS="en en_US en_GB"
 
 FEATURES="parallel-fetch -config-protect-if-modified noinfo"
 
-GENTOO_MIRRORS="https://mirror.netcologne.de/gentoo/ https://ftp-stud.hs-esslingen.de/pub/Mirrors/gentoo/ https://ftp.fau.de/gentoo"
-
 MAKEOPTS="--quiet -j{{ ansible_processor_vcpus }} -l{{ (ansible_processor_vcpus * 1.2) | round | int }}"
 
 CPU_FLAGS_X86="{{ cpu_flags_x86 }}"

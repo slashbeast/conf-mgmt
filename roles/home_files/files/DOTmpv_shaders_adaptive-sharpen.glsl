@@ -1,5 +1,4 @@
 // Sourced from https://gist.github.com/igv/8a77e4eb8276753b54bb94c1c50c317e
-//
 // Copyright (c) 2015-2020, bacondither
 // All rights reserved.
 //
@@ -24,7 +23,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// Adaptive sharpen - version LQ-1Pass - 2020-11-14
+// Adaptive sharpen - version 2020-11-14
 // Tuned for use post-resize, EXPECTS FULL RANGE GAMMA LIGHT (requires ps >= 3.0)
 
 //!HOOK SCALED
@@ -35,6 +34,11 @@
 
 #define curve_height    1.0                  // Main control of sharpening strength [>0]
                                              // 0.3 <-> 2.0 is a reasonable range of values
+
+#define anime_mode      false                // Only darken edges
+
+#define overshoot_ctrl  false                // Allow for higher overshoot if the current edge pixel
+                                             // is surrounded by similar edge pixels
 
 #define video_level_out false                // True to preserve BTB & WTW (minor summation error)
                                              // Normally it should be set to false
@@ -53,8 +57,6 @@
 
 #define scale_lim       0.1                  // Abs max change before compression [>0.01]
 #define scale_cs        0.056                // Compression slope above scale_lim
-
-#define lowthr_mxw      0.1                  // Edge value for max lowthr weight [>0.01]
 
 #define pm_p            0.5                  // Power mean p-value [>0-1.0]
 //-------------------------------------------------------------------------------------------------
@@ -75,8 +77,9 @@
 #define sat(x)         ( clamp(x, 0.0, 1.0) )
 #define dxdy(val)      ( length(fwidth(val)) ) // edgemul = 2.2
 
-// Colour to luma, fast approx gamma, avg of rec. 709 & 601 luma coeffs
-#define CtL(RGB)       ( sqrt(dot(RGB*RGB, vec3(0.2558, 0.6511, 0.0931))) )
+#define CtL(RGB)       ( dot(RGB*RGB, vec3(0.2126, 0.7152, 0.0722)) )
+
+#define b_diff(pix)    ( abs(blur-c[pix]) )
 
 vec4 hook() {
 
@@ -93,57 +96,75 @@ vec4 hook() {
                         get(-1, 2), get( 3, 0), get( 2, 1), get( 2,-1), get(-3, 0),
                         get(-2, 1), get(-2,-1), get( 0,-3), get( 1,-2), get(-1,-2));
 
-    float e[25] = float[](dxdy(c[0]),  dxdy(c[1]),  dxdy(c[2]),  dxdy(c[3]),  dxdy(c[4]),
+    float e[13] = float[](dxdy(c[0]),  dxdy(c[1]),  dxdy(c[2]),  dxdy(c[3]),  dxdy(c[4]),
                           dxdy(c[5]),  dxdy(c[6]),  dxdy(c[7]),  dxdy(c[8]),  dxdy(c[9]),
-                          dxdy(c[10]), dxdy(c[11]), dxdy(c[12]), dxdy(c[13]), dxdy(c[14]),
-                          dxdy(c[15]), dxdy(c[16]), dxdy(c[17]), dxdy(c[18]), dxdy(c[19]),
-                          dxdy(c[20]), dxdy(c[21]), dxdy(c[22]), dxdy(c[23]), dxdy(c[24]));
+                          dxdy(c[10]), dxdy(c[11]), dxdy(c[12]));
 
-    // Allow for higher overshoot if the current edge pixel is surrounded by similar edge pixels
-    float maxedge = max4( max4(e[1],e[2],e[3],e[4]), max4(e[5],e[6],e[7],e[8]),
-                          max4(e[9],e[10],e[11],e[12]), e[0] );
+    // Blur, gauss 3x3
+    vec3  blur   = (2.0 * (c[2]+c[4]+c[5]+c[7]) + (c[1]+c[3]+c[6]+c[8]) + 4.0 * c[0]) / 16.0;
 
-    // [          x          ]
-    // [       z, x, w       ]
-    // [    z, z, x, w, w    ]
-    // [ y, y, y, 0, y, y, y ]
-    // [    w, w, x, z, z    ]
-    // [       w, x, z       ]
-    // [          x          ]
-    float sbe = soft_if(e[2],e[9], e[22])*soft_if(e[7],e[12],e[13])  // x dir
-              + soft_if(e[4],e[10],e[19])*soft_if(e[5],e[11],e[16])  // y dir
-              + soft_if(e[1],e[24],e[21])*soft_if(e[8],e[14],e[17])  // z dir
-              + soft_if(e[3],e[23],e[18])*soft_if(e[6],e[20],e[15]); // w dir
+    // Contrast compression, center = 0.5, scaled to 1/3
+    float c_comp = sat(0.266666681f + 0.9*exp2(dot(blur, vec3(-7.4/3.0))));
 
-    vec2 cs = mix( vec2(L_compr_low,  D_compr_low),
-                   vec2(L_compr_high, D_compr_high), sat(2.4002*sbe - 2.282) );
+    // Edge detection
+    // Relative matrix weights
+    // [          1          ]
+    // [      4,  5,  4      ]
+    // [  1,  5,  6,  5,  1  ]
+    // [      4,  5,  4      ]
+    // [          1          ]
+    float edge = length( 1.38*b_diff(0)
+                       + 1.15*(b_diff(2) + b_diff(4) + b_diff(5) + b_diff(7))
+                       + 0.92*(b_diff(1) + b_diff(3) + b_diff(6) + b_diff(8))
+                       + 0.23*(b_diff(9) + b_diff(10) + b_diff(11) + b_diff(12)) ) * c_comp;
+
+    vec2 cs = vec2(L_compr_low,  D_compr_low);
+
+    if (overshoot_ctrl) {
+        float maxedge = max4( max4(e[1],e[2],e[3],e[4]), max4(e[5],e[6],e[7],e[8]),
+                              max4(e[9],e[10],e[11],e[12]), e[0] );
+
+        // [          x          ]
+        // [       z, x, w       ]
+        // [    z, z, x, w, w    ]
+        // [ y, y, y, 0, y, y, y ]
+        // [    w, w, x, z, z    ]
+        // [       w, x, z       ]
+        // [          x          ]
+        float sbe = soft_if(e[2],e[9], dxdy(c[22]))*soft_if(e[7],e[12],dxdy(c[13]))  // x dir
+                  + soft_if(e[4],e[10],dxdy(c[19]))*soft_if(e[5],e[11],dxdy(c[16]))  // y dir
+                  + soft_if(e[1],dxdy(c[24]),dxdy(c[21]))*soft_if(e[8],dxdy(c[14]),dxdy(c[17]))  // z dir
+                  + soft_if(e[3],dxdy(c[23]),dxdy(c[18]))*soft_if(e[6],dxdy(c[20]),dxdy(c[15])); // w dir
+
+        cs = mix(cs, vec2(L_compr_high, D_compr_high), sat(2.4002*sbe - 2.282));
+    }
 
     // RGB to luma
-    float c0_Y = CtL(c[0]);
-
-    float luma[25] = float[](c0_Y, CtL(c[1]), CtL(c[2]), CtL(c[3]), CtL(c[4]), CtL(c[5]), CtL(c[6]),
+    float luma[25] = float[](CtL(c[0]), CtL(c[1]), CtL(c[2]), CtL(c[3]), CtL(c[4]), CtL(c[5]), CtL(c[6]),
                              CtL(c[7]),  CtL(c[8]),  CtL(c[9]),  CtL(c[10]), CtL(c[11]), CtL(c[12]),
                              CtL(c[13]), CtL(c[14]), CtL(c[15]), CtL(c[16]), CtL(c[17]), CtL(c[18]),
                              CtL(c[19]), CtL(c[20]), CtL(c[21]), CtL(c[22]), CtL(c[23]), CtL(c[24]));
+
+    float c0_Y = sqrt(luma[0]);
 
     // Precalculated default squared kernel weights
     const vec3 w1 = vec3(0.5,           1.0, 1.41421356237); // 0.25, 1.0, 2.0
     const vec3 w2 = vec3(0.86602540378, 1.0, 0.54772255751); // 0.75, 1.0, 0.3
 
     // Transition to a concave kernel if the center edge val is above thr
-    vec3 dW = pow(mix( w1, w2, sat(5.28*e[0] - 0.82)), vec3(2.0));
+    vec3 dW = pow(mix( w1, w2, sat(2.4*edge - 0.82)), vec3(2.0));
 
     // Use lower weights for pixels in a more active area relative to center pixel area
     // This results in narrower and less visible overshoots around sharp edges
     float modif_e0 = 3.0 * e[0] + 0.0090909;
 
     float weights[12]  = float[](( min(modif_e0/e[1],  dW.y) ),
-                                 ( dW.x ),                  
+                                 ( dW.x ),
                                  ( min(modif_e0/e[3],  dW.y) ),
-                                 ( dW.x ),                  
-                                 ( dW.x ),                  
+                                 ( dW.x ),
+                                 ( dW.x ),
                                  ( min(modif_e0/e[6],  dW.y) ),
-                                 ( dW.x ),                  
+                                 ( dW.x ),
                                  ( min(modif_e0/e[8],  dW.y) ),
                                  ( min(modif_e0/e[9],  dW.z) ),
                                  ( min(modif_e0/e[10], dW.z) ),
@@ -169,10 +190,10 @@ vec4 hook() {
         lowthrsum   += lowthr / 12.0;
     }
 
-    neg_laplace = neg_laplace / weightsum;
+    neg_laplace = inversesqrt(weightsum / neg_laplace);
 
     // Compute sharpening magnitude function
-    float sharpen_val = curve_height/(curve_height*curveslope*pow((e[0]*2.2), 3.5) + 0.625);
+    float sharpen_val = curve_height/(curve_height*curveslope*pow(edge, 3.5) + 0.625);
 
     // Calculate sharpening diff and scale
     float sharpdiff = (c0_Y - neg_laplace)*(lowthrsum*sharpen_val + 0.01);
@@ -216,8 +237,8 @@ vec4 hook() {
         luma[i2-1] = min(temp, luma[i2-1]);
     }
 
-    float nmax = (max(luma[23], c0_Y)*2.0 + luma[24])/3.0;
-    float nmin = (min(luma[1],  c0_Y)*2.0 + luma[0])/3.0;
+    float nmax = (max(sqrt(luma[23]), c0_Y)*2.0 + sqrt(luma[24]))/3.0;
+    float nmin = (min(sqrt(luma[1]),  c0_Y)*2.0 + sqrt(luma[0]))/3.0;
 
     float min_dist  = min(abs(nmax - c0_Y), abs(c0_Y - nmin));
     float pos_scale = min_dist + L_overshoot;
@@ -227,7 +248,8 @@ vec4 hook() {
     neg_scale = min(neg_scale, scale_lim*(1.0 - scale_cs) + neg_scale*scale_cs);
 
     // Soft limited anti-ringing with tanh, wpmean to control compression slope
-    sharpdiff = wpmean(max(sharpdiff, 0.0), soft_lim( max(sharpdiff, 0.0), pos_scale ), cs.x )
+    sharpdiff = (anime_mode ? 0. :
+                wpmean(max(sharpdiff, 0.0), soft_lim( max(sharpdiff, 0.0), pos_scale ), cs.x ))
               - wpmean(min(sharpdiff, 0.0), soft_lim( min(sharpdiff, 0.0), neg_scale ), cs.y );
 
     float sharpdiff_lim = sat(c0_Y + sharpdiff) - c0_Y;

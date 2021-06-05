@@ -143,3 +143,5 @@ dev-util/ostree curl
 media-libs/opencv qt5 examples contrib contribdnn lto
 
 dev-lang/rust nightly parallel-compiler system-llvm
+
+media-video/handbrake gtk

@@ -4,38 +4,38 @@
 #
 #    pip-compile
 #
-ansible-base==2.10.7
+ansible-core==2.11.1
     # via ansible
-ansible==3.2.0
+ansible==4.1.0
     # via -r requirements.in
 appdirs==1.4.4
     # via virtualenv
 cffi==1.14.5
     # via cryptography
-click==7.1.2
+click==8.0.1
     # via pip-tools
 cryptography==3.4.7
-    # via ansible-base
-distlib==0.3.1
+    # via ansible-core
+distlib==0.3.2
     # via virtualenv
 filelock==3.0.12
     # via
     #   tox
     #   virtualenv
-flake8-comprehensions==3.4.0
+flake8-comprehensions==3.5.0
     # via -r requirements.in
-flake8-tidy-imports==4.2.1
+flake8-tidy-imports==4.3.0
     # via -r requirements.in
-flake8==3.9.0
+flake8==3.9.2
     # via
     #   -r requirements.in
     #   flake8-comprehensions
     #   flake8-tidy-imports
 isort==5.8.0
     # via -r requirements.in
-jinja2==2.11.3
-    # via ansible-base
-markupsafe==1.1.1
+jinja2==3.0.1
+    # via ansible-core
+markupsafe==2.0.1
     # via jinja2
 mccabe==0.6.1
     # via flake8
@@ -43,7 +43,7 @@ multilint==5.0.1
     # via -r requirements.in
 packaging==20.9
     # via
-    #   ansible-base
+    #   ansible-core
     #   tox
 pathspec==0.8.1
     # via yamllint
@@ -51,7 +51,7 @@ pep517==0.10.0
     # via pip-tools
 pip-lock==2.2.1
     # via -r requirements.in
-pip-tools==6.0.1
+pip-tools==6.1.0
     # via -r requirements.in
 pluggy==0.13.1
     # via tox
@@ -69,9 +69,11 @@ python-gnupg==0.4.7
     # via -r requirements.in
 pyyaml==5.4.1
     # via
-    #   ansible-base
+    #   ansible-core
     #   yamllint
-six==1.15.0
+resolvelib==0.5.4
+    # via ansible-core
+six==1.16.0
     # via
     #   tox
     #   virtualenv
@@ -79,13 +81,12 @@ toml==0.10.2
     # via
     #   pep517
     #   tox
-tox==3.23.0
+tox==3.23.1
     # via -r requirements.in
-virtualenv==20.4.3
+virtualenv==20.4.7
     # via tox
-yamllint==1.26.0
+yamllint==1.26.1
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
-# setuptools

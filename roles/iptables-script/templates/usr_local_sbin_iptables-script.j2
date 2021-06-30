@@ -78,6 +78,14 @@ iptables_both -I INPUT -p udp --dport 5353 -j ACCEPT
 {% endif %}
 {% endif %}
 
+{% if network.iptables_script.forward.enabled is defined and network.iptables_script.forward.enabled %}
+# forward
+echo 1 >/proc/sys/net/ipv4/ip_forward
+{% for subnet in network.iptables_script.forward.destination_subnets %}
+iptables -A FORWARD -d {{ subnet }} -j ACCEPT
+{% endfor %}
+{% endif %}
+
 # Drop all outgoing traffic from specified users.
 for i in ${outbound_reject_from_users}; do
     if getent passwd "$i" >/dev/null; then

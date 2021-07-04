@@ -4,7 +4,7 @@
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 
 dev-qt/* multimedia gui network widgets
-dev-python/PyQt5 multimedia gui network widgets printsupport webkit
+dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
 media-sound/pulseaudio -* glib
@@ -147,3 +147,5 @@ dev-lang/rust nightly parallel-compiler system-llvm
 media-video/handbrake gtk
 
 dev-libs/libdbusmenu gtk3
+
+dev-python/numpy lapack

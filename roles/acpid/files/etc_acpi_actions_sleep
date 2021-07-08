@@ -10,6 +10,14 @@ fi
 
 case "$2" in
     'SBTN'|'PBTN')
+        logger -t acpid 'Setting CPU to performance mode ...'
+        # CPU settings will be set to whatever should be there
+        # by 'powersave' script after resume.
+        # Also, this boosts hibernation from 500 MBps to over
+        # 1200 MBps on Ryzen 4750U.
+        cpupower frequency-set -g performance
+        ryzenadj --max-performance || true
+
         logger -t acpid 'Syncing filesystems ...'
         sync
 

@@ -160,6 +160,8 @@ case "${state}" in
         #sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' 'restore'
         #sysfs_toggle '/sys/class/drm/card0/device/power_dpm_force_performance_level' 'restore'
 
+        cpupower frequency-set -g schedutil
+
         # use the battery-like powersaving when on AC (less aggressive boost, less heat, less noise)
         ryzen_control powersave
     ;;
@@ -167,6 +169,12 @@ case "${state}" in
         sata_link_power_mgmt powersave
         pci_devices powersave
         snd_hda_intel powersave
+
+        cpupower frequency-set -g schedutil
+
+        # this is set by firmware, but lets keep it here to re-apply it anyway, hibernation script could change it to max-performance while on battery.
+        ryzen_control powersave
+
         #sysfs_toggle '/sys/devices/system/cpu/cpufreq/boost' '0'
         #sysfs_toggle '/sys/class/drm/card0/device/power_dpm_force_performance_level' 'low'
     ;;

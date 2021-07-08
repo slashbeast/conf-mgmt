@@ -149,3 +149,4 @@ media-video/handbrake gtk
 dev-libs/libdbusmenu gtk3
 
 dev-python/numpy lapack
+media-libs/freetype harfbuzz

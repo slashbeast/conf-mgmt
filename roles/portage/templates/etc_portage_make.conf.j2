@@ -20,7 +20,7 @@ LINGUAS="en en_US en_GB"
 
 FEATURES="parallel-fetch -config-protect-if-modified noinfo"
 
-MAKEOPTS="--quiet -j{{ ansible_processor_vcpus }} -l{{ (ansible_processor_vcpus * 1.2) | round | int }}"
+MAKEOPTS="-j{{ ansible_processor_vcpus }} -l{{ (ansible_processor_vcpus * 1.2) | round | int }}"
 
 CPU_FLAGS_X86="{{ cpu_flags_x86 }}"
 
@@ -44,7 +44,7 @@ RESUMECOMMAND="axel --num-connections=4 --timeout=30 --alternate --no-clobber --
 EMERGE_DEFAULT_OPTS="
     --with-bdeps y
     --binpkg-respect-use y
-    --buildpkg-exclude 'virtual/* sys-kernel/*-sources games-*/* app-emulation/emul-linux-* app-emulation/virtualbox-modules net-misc/realtek-r8152 dev-util/sysdig-kmod'
+    --buildpkg-exclude 'virtual/* sys-kernel/*-sources games-*/* app-emulation/emul-linux-* app-emulation/virtualbox-modules net-misc/realtek-r8152 dev-util/sysdig-kmod app-admin/ryzen_smu'
     --usepkg
     --jobs {{ (ansible_processor_vcpus / 4) | int }}
     --load-average {{ ansible_processor_vcpus }}

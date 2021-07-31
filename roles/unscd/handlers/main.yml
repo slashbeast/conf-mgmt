@@ -1,5 +1,0 @@
-- name: restart unscd
-  when: skip_handlers is not defined
-  service:
-    name: unscd
-    state: restarted

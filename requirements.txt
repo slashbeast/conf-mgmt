@@ -4,13 +4,13 @@
 #
 #    pip-compile
 #
-ansible-core==2.11.1
+ansible-core==2.11.3
     # via ansible
-ansible==4.1.0
+ansible==4.3.0
     # via -r requirements.in
-appdirs==1.4.4
+backports.entry-points-selectable==1.1.0
     # via virtualenv
-cffi==1.14.5
+cffi==1.14.6
     # via cryptography
 click==8.0.1
     # via pip-tools
@@ -31,7 +31,7 @@ flake8==3.9.2
     #   -r requirements.in
     #   flake8-comprehensions
     #   flake8-tidy-imports
-isort==5.8.0
+isort==5.9.3
     # via -r requirements.in
 jinja2==3.0.1
     # via ansible-core
@@ -41,18 +41,20 @@ mccabe==0.6.1
     # via flake8
 multilint==5.0.1
     # via -r requirements.in
-packaging==20.9
+packaging==21.0
     # via
     #   ansible-core
     #   tox
-pathspec==0.8.1
+pathspec==0.9.0
     # via yamllint
-pep517==0.10.0
+pep517==0.11.0
     # via pip-tools
-pip-lock==2.2.1
+pip-lock==2.3.0
     # via -r requirements.in
-pip-tools==6.1.0
+pip-tools==6.2.0
     # via -r requirements.in
+platformdirs==2.2.0
+    # via virtualenv
 pluggy==0.13.1
     # via tox
 py==1.10.0
@@ -78,15 +80,18 @@ six==1.16.0
     #   tox
     #   virtualenv
 toml==0.10.2
-    # via
-    #   pep517
-    #   tox
-tox==3.23.1
-    # via -r requirements.in
-virtualenv==20.4.7
     # via tox
+tomli==1.2.0
+    # via pep517
+tox==3.24.1
+    # via -r requirements.in
+virtualenv==20.7.0
+    # via tox
+wheel==0.36.2
+    # via pip-tools
 yamllint==1.26.1
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
+# setuptools

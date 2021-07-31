@@ -140,37 +140,6 @@ menu_alsa() {
 	done < <(cards)
 }
 
-menu_cpu_boost() {
-    declare -a menu_items
-
-    local boost_status
-    boost_status="$(< /sys/devices/system/cpu/cpufreq/boost)"
-
-    if [ "${boost_status}" == '1' ]; then
-        menu_items=(
-            '[x] Enable'
-            '[ ] Disable' 
-        )
-    else
-        menu_items=(
-            '[ ] Enable'
-            '[x] Disable' 
-        )
-    fi
-    
-    read dmenu_selection < <(dmenu_wrapper 'CPU frequency boost:' '500' < <(printf '%s\n' "${menu_items[@]}"))
-    dmenu_selection="${dmenu_selection##* }"
-    
-    case "${dmenu_selection##* }" in
-        'Enable')
-            echo 1 | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null
-        ;;
-        'Disable')
-            echo 0 | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null
-        ;;
-    esac
-}
-
 menu_screenshot() {
     local menu_item
     declare -a menu_items
@@ -232,7 +201,7 @@ for i in wmctrl dmenu sudo scrot xclip; do
 done
 
 case "$1" in
-    'window_select'|'alsa'|'cpu_boost'|'screenshot'|'clipboard')
+    'window_select'|'alsa'|'screenshot'|'clipboard')
         "menu_$1"
     ;;
 esac

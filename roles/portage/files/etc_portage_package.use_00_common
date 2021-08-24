@@ -3,7 +3,7 @@
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 
-dev-qt/* multimedia gui network widgets
+dev-qt/* multimedia gui network widgets qml
 dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
@@ -44,7 +44,7 @@ app-arch/bzip2 static-libs
 
 media-libs/harfbuzz icu
 media-libs/libpng apng
-media-libs/libvpx postproc
+media-libs/libvpx postproc svc
 media-libs/mesa vulkan
 
 media-video/ffmpeg fdk openssl

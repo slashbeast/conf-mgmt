@@ -45,7 +45,8 @@ no-resume-playback
 # Put mpv window in the center.
 geometry=50%:50%
 
-# Make youtube-dl prefer the <=720p
+# use yt-dlp instead of youtube-dl
+script-opts=ytdl_hook-ytdl_path=yt-dlp
 ytdl-format=best[height<=1080]
 
 screenshot-format=png

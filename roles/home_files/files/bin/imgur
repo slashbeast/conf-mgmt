@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Client-ID once published on api.imgur.com, still works.
-auth_header='Authorization: Client-ID 3e7a4deb7ac67da'
+auth_header='Authorization: Client-ID c3d5102cafbba4c'
 
 img="$1"
 

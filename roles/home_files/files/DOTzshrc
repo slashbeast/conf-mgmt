@@ -496,7 +496,7 @@ case "$(uname -o)" in
 esac
 
 # Aliases
-alias cp='cp -iv'
+alias cp='cp -iv --reflink=auto'
 alias rcp='rsync -v --progress'
 alias rmv='rsync -v --progress --remove-source-files'
 alias mv='mv -iv'

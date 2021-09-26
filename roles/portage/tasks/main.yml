@@ -14,6 +14,7 @@
       with_items:
       - /etc/portage
       - /etc/portage/env
+      - /etc/portage/sets
       - /etc/portage/package.env
       - /etc/portage/package.mask
       - /etc/portage/package.unmask
@@ -29,6 +30,20 @@
         owner: root
         group: portage
         mode: 0775
+
+    - name: /etc/portage/sets
+      synchronize:
+        src: etc_portage_sets/
+        dest: /etc/portage/sets
+        archive: no
+        checksum: yes
+        compress: no
+        recursive: yes
+        rsync_opts:
+          - "-gop"
+          - "--chown=root:portage"
+          - "--chmod=Fu=rw,Fg=r,Fo=,Du=rwx,Dg=rx,Do="
+          - "--copy-links"
 
     - name: /etc/portage/profile/package.provided/00_common
       copy:

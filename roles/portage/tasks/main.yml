@@ -87,7 +87,7 @@
     
     - name: /etc/portage/patches
       synchronize:
-        src: patches/
+        src: etc_portage_patches/
         dest: /etc/portage/patches
         archive: no
         checksum: yes

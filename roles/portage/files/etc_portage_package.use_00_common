@@ -58,7 +58,7 @@ net-p2p/syncthing tools
 
 net-vpn/openvpn iproute2 lz4
 
-sys-apps/busybox static
+sys-apps/busybox static -pam
 sys-apps/pcsc-lite -libusb
 
 sys-libs/zlib static-libs minizip

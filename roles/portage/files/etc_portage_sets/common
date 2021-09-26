@@ -29,7 +29,6 @@ app-emulation/docker
 app-emulation/docker-compose
 app-emulation/libvirt
 app-emulation/qemu
-app-emulation/virt-manager
 app-eselect/eselect-repository
 app-misc/colordiff
 app-misc/jq

@@ -45,6 +45,7 @@ app-portage/gpyutils
 app-portage/nattka
 app-portage/pkg-testing-tools
 app-portage/portage-utils
+app-portage/repoman
 app-shells/ash-bb
 app-shells/fzy
 app-shells/gentoo-zsh-completions

@@ -32,12 +32,13 @@
 
 //--------------------------------------- Settings ------------------------------------------------
 
-#define curve_height    1.0                  // Main control of sharpening strength [>0]
-                                             // 0.3 <-> 2.0 is a reasonable range of values
+//#define curve_height    1.0                  // Main control of sharpening strength [>0]
+#define curve_height    0.5                  // Main control of sharpening strength [>0]
 
 #define anime_mode      false                // Only darken edges
 
-#define overshoot_ctrl  false                // Allow for higher overshoot if the current edge pixel
+//#define overshoot_ctrl  false                // Allow for higher overshoot if the current edge pixel
+#define overshoot_ctrl  true                // Allow for higher overshoot if the current edge pixel
                                              // is surrounded by similar edge pixels
 
 #define video_level_out false                // True to preserve BTB & WTW (minor summation error)

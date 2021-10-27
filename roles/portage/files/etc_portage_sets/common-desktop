@@ -41,7 +41,7 @@ x11-apps/xmodmap
 x11-apps/xset
 x11-base/xorg-server
 x11-misc/arandr
-x11-misc/compton
+x11-misc/picom
 x11-misc/dmenu
 x11-misc/dunst
 x11-misc/gmrun

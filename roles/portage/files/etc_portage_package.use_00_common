@@ -72,7 +72,7 @@ x11-terms/rxvt-unicode 256-color -perl
 
 app-emulation/qemu sdl spice usbredir
 
-dev-libs/boost icu
+dev-libs/boost icu context
 
 dev-lang/luajit lua52compat
 

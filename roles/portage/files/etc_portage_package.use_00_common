@@ -149,3 +149,5 @@ dev-libs/libdbusmenu gtk3
 
 dev-python/numpy lapack
 media-libs/freetype harfbuzz
+
+app-arch/brotli python

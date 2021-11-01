@@ -21,8 +21,8 @@ case "$2" in
         logger -t acpid 'Syncing filesystems ...'
         sync
 
-        logger -t acpid 'Dropping filesystem caches ...'
-        echo 1 >/proc/sys/vm/drop_caches
+        logger -t acpid 'Dropping kernel memory caches ...'
+        echo 3 >/proc/sys/vm/drop_caches
 
         logger -t acpid 'Syncing filesystems (again) ...'
         sync

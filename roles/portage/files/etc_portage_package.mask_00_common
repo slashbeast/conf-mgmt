@@ -2,5 +2,5 @@
 sys-fs/eudev
 
 # https://bugs.gentoo.org/821505, https://bugs.gentoo.org/821898
-=dev-lang/rust-1.56.1
-=virtual/rust-1.56.1
+=dev-lang/rust-1.56*
+=virtual/rust-1.56*

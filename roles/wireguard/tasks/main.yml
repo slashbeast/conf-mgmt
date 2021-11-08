@@ -16,6 +16,9 @@
       mode: 0700
       state: directory
 
-  - name: deploy configuration files
-    include_tasks: service.yml
-    with_fileglob: "{{ ansible_play_name }}/*.conf"
+  - name: deploy connections
+    include_tasks: connection.yml
+    with_items: '{{ wireguard.connections }}'
+    loop_control:
+      loop_var: connection
+      label: '{{ connection.name }}'

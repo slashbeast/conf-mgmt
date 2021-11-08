@@ -1,0 +1,30 @@
+- name: deploy configuration files
+  template:
+    src: connection.conf.j2
+    dest: "/etc/wireguard/{{ connection.name }}.conf"
+    owner: root
+    group: root
+    mode: 0600
+
+- name: start and enable autostart of  {{ connection.name }} via systemd
+  when: ansible_service_mgr == 'systemd'
+  service:
+    name: "wg-quick@{{ connection.name }}"
+    enabled: true
+    state: started
+
+- block:
+  - name: symlink wg-quick to wg-quick.{{ connection.name }}
+    file:
+      state: link
+      dest: "/etc/init.d/wg-quick.{{ connection.name }}"
+      src: wg-quick
+      owner: root
+      group: root
+  - name: start and enable autostart of wg-quick.{{ connection.name }} via openrc
+    service:
+      name: wg-quick.{{ connection.name }}
+      enabled: true
+      state: started
+      runlevel: default
+  when: ansible_service_mgr == 'openrc'

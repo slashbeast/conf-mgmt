@@ -1,0 +1,49 @@
+{% set network_cidr = ( connection.address | ansible.netcommon.ipaddr('network') ) + '/' + ( connection.address | ansible.netcommon.ipaddr('prefix') | string() ) %}
+[Interface]
+ListenPort = {{ connection.listenport }}
+PrivateKey = {{ secrets['wireguard'][connection.name]['hosts'][ansible_play_name]['privatekey'] }}
+Address = {{ connection.address }}
+Table = off
+
+{% if connection.type is defined and connection.type == 'relay' %}
+PreUp = iptables -P FORWARD DROP
+
+# Allow all related traffic, huge chance it already is, thus -C first.
+PreUp = iptables -C INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT || iptables -I INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+PreUp = iptables -C FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT || iptables -I FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Allow traffic between wireguard clients and to the internet
+PreUp = iptables -I FORWARD -i %i -j ACCEPT
+PreUp = iptables -t nat -A POSTROUTING -s {{ network_cidr }} ! -d {{ network_cidr }} -j MASQUERADE
+
+# Router, accept incoming traffic sent to IPs that don't belong to this host.
+PreUp = sysctl -w net.ipv4.ip_forward=1
+
+# Block syncthing over wireguard, so it can only access it over local network.
+PreUp = iptables -I FORWARD -i %i -o %i -p tcp --dport 22000 -j REJECT
+PreUp = iptables -I FORWARD -i %i -o %i -p udp --dport 21027 -j REJECT
+
+# Cleanup, keep the default DROP policy on FORWARD though.
+PostDown = iptables -D FORWARD -i %i -o %i -j ACCEPT
+PostDown = iptables -D FORWARD -i %i -o %i -p tcp --dport 22000 -j REJECT
+PostDown = iptables -D FORWARD -i %i -o %i -p udp --dport 21027 -j REJECT
+PostDown = iptables -t nat -D POSTROUTING -s {{ network_cidr }} ! -d {{ network_cidr }} -j MASQUERADE
+{% endif %}
+{% if connection.peers is defined %}
+{% for peer in connection.peers %}
+
+# {{ peer.name }}
+[Peer]
+{% if peer.endpoint is defined %}
+Endpoint = {{ peer.endpoint }}
+{%endif %}
+AllowedIPs = {{ peer.allowedips }}
+{% if secrets['wireguard'][connection.name]['presharedkey'] is defined %}
+PresharedKey = {{ secrets['wireguard'][connection.name]['presharedkey'] }}
+{%endif %}
+PublicKey = {{ secrets['wireguard'][connection.name]['hosts'][peer.name]['publickey'] }}
+{% if peer.persistentkeepalive is defined %}
+PersistentKeepalive = {{ peer.persistentkeepalive }}
+{%endif %}
+{% endfor %}
+{% endif %}

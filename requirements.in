@@ -9,3 +9,4 @@ tox
 yamllint
 pip-lock
 python-gnupg
+netaddr

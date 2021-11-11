@@ -18,6 +18,7 @@
       - /etc/portage/package.env
       - /etc/portage/package.mask
       - /etc/portage/package.unmask
+      - /etc/portage/package.accept_keywords
       - /etc/portage/package.use
       - /etc/portage/profile
       - /etc/portage/profile/package.provided
@@ -69,6 +70,14 @@
         group: root
         mode: 0644
     
+    - name: /etc/portage/package.accept_keywords/00_common
+      copy:
+        src: etc_portage_package.accept_keywords_00_common
+        dest: /etc/portage/package.accept_keywords/00_common
+        owner: root
+        group: root
+        mode: 0644
+
     - name: /etc/portage/package.use/01_local_use_flags
       copy:
         dest: /etc/portage/package.use/01_local_use_flags

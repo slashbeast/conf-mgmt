@@ -94,6 +94,7 @@ net-analyzer/iftop
 net-analyzer/nethogs
 net-analyzer/nettop
 net-analyzer/ngrep
+net-analyzer/tcpdump
 net-analyzer/nmap
 net-analyzer/tcptraceroute
 net-analyzer/traceroute
@@ -113,7 +114,6 @@ net-misc/httpie
 net-misc/httpstat
 net-misc/iperf
 net-misc/rclone
-net-misc/realtek-r8152
 net-misc/socat
 net-misc/telnet-bsd
 net-misc/whois

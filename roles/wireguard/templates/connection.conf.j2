@@ -5,6 +5,12 @@ PrivateKey = {{ secrets['wireguard'][connection.name]['hosts'][ansible_play_name
 Address = {{ connection.address }}
 Table = off
 
+{% if connection.additional_routes is defined %}
+{% for route in connection.additional_routes %}
+PostUp = ip route add {{ route }} dev {{ connection.name }}
+{% endfor %}
+{% endif %}
+
 {% if connection.type is defined and connection.type == 'relay' %}
 PreUp = iptables -P FORWARD DROP
 

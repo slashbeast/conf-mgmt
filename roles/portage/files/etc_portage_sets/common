@@ -107,7 +107,6 @@ net-ftp/lftp
 net-irc/irssi
 net-libs/nodejs
 net-misc/aria2
-net-misc/axel
 net-misc/chrony
 net-misc/connman
 net-misc/httpie

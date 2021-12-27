@@ -26,8 +26,8 @@ app-cdr/dvd+rw-tools
 app-crypt/ccid
 app-crypt/yubikey-manager
 app-editors/vim
-app-emulation/docker
-app-emulation/docker-compose
+app-containers/docker
+app-containers/docker-compose
 app-emulation/libvirt
 app-emulation/qemu
 app-eselect/eselect-repository

@@ -31,6 +31,7 @@ app-containers/docker-compose
 app-emulation/libvirt
 app-emulation/qemu
 app-eselect/eselect-repository
+app-eselect/eselect-python
 app-misc/colordiff
 app-misc/jq
 app-misc/mc

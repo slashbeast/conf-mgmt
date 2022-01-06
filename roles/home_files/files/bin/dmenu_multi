@@ -82,62 +82,71 @@ menu_alsa() {
 
 	    case "${action}" in
 	        'mute')
-	            amixer -c "${card}" -q set "${control}" mute || true
+	            if ! amixer -c "${card}" -q set "${control}" mute 2>/dev/null; then
+                    amixer -c "${card}" -q set "${control}" 0%
+                fi
 	        ;;
 	        'unmute')
-	            amixer -c "${card}" -q set "${control}" unmute || true
+	            if ! amixer -c "${card}" -q set "${control}" unmute 2>/dev/null; then
+                    amixer -c "${card}" -q set "${control}" 40% 
+                fi
 	        ;;
 	    esac
 	}
-	
 
-	cards() {
-	    awk -f - /proc/asound/cards <<-'END'
-			/^ *[0-9]+/ {
-				card = $1;
-				sub(/.*- /, "")
-				printf("%s %128s\n", $0, card)
-				printf("%s %128s\n", $0 " (no dmix)", card "-nodmix")
-			}
-		END
-	}
-	
-	read dmenu_selection < <(dmenu_wrapper 'Set default ALSA device to:' '500' < <(cards))
+    gen_alsa_devices_choices() {
+        while read -r line; do
+            pattern='^ *([0-9]+) +\[[^]]+\]:.* - (.*)$'
+            if ! [[ "${line}" =~ $pattern  ]]; then
+                continue
+            fi
+
+            card_index="${BASH_REMATCH[1]}"
+            card_name="${BASH_REMATCH[2]}"
+            card_name="${card_name%.}"
+
+            for device_info in "/proc/asound/card${card_index}/pcm"*"p/info"; do
+                # we loop only on playback devices (pcm*p), capture-only (pcm*c) are ignored.
+                test -f "${device_info}" || continue
+
+                read device_index < <(grep 'device:' "${device_info}")
+                device_index="${device_index#device: }"
+                read device_name < <(grep 'name:' "${device_info}")
+                device_name="${device_name#name: }"
+
+                printf "%s %128s\n" "${card_name}, ${device_name}" "${card_index},${device_index}"
+            done
+        done < /proc/asound/cards
+    }
+
+	read dmenu_selection < <(dmenu_wrapper 'Set default ALSA device to:' '500' < <(gen_alsa_devices_choices))
 	dmenu_selection="${dmenu_selection##* }"
 	
 	if ! [ "${dmenu_selection}" ]; then
 		exit 0
 	fi
 	
-	if [[ "${dmenu_selection}" =~ -nodmix$ ]]; then
-	    dmenu_selection="${dmenu_selection%%-*}"
-	    cat > ~/.asoundrc <<-END
-			pcm.!default {
-			    type plug
-			    slave.pcm hw
-			}
-	
-		END
-	else
-	    : > ~/.asoundrc
-	fi
-	
-	
-	card_id="$(cat "/proc/asound/card${dmenu_selection}/id")"
-	cat >> ~/.asoundrc <<-END
+
+
+    IFS=, read -r card_index device_index <<<"${dmenu_selection}"
+	card_id="$(cat "/proc/asound/card${card_index}/id")"
+	cat > ~/.asoundrc <<-END
+	defaults.pcm.dmix.rate 96000
 	defaults.pcm.!card ${card_id};
 	defaults.ctl.!card ${card_id};
+	defaults.pcm.!device ${device_index};
 	END
-	
+
+    mute_unmute unmute "${card_index}"
+
+    # Mute all the cards beside the default one.
 	while read -r card; do
-	    card="${card##* }"
-	    card="${card%%-*}"
-	    if [ "${card}" = "${dmenu_selection}" ]; then
-	        mute_unmute unmute "${card}"
-	    else
-	        mute_unmute mute "${card}"
-	    fi
-	done < <(cards)
+        IFS=, read iter_card _ <<< "${card##* }"
+
+        if [ "${iter_card}" != "${card_index}" ]; then
+            mute_unmute mute "${iter_card}"
+        fi
+	done < <(gen_alsa_devices_choices)
 }
 
 menu_screenshot() {

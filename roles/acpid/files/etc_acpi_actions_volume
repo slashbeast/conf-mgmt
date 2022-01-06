@@ -71,6 +71,8 @@ case "$2" in
         amixer -q set "${control}" "${step}-" unmute
     ;;
     'MUTE')
-        amixer -q set "${control}" mute
+        if ! amixer -q set "${control}" mute; then
+            amixer -q set "${control}" 0%
+        fi
     ;;
 esac

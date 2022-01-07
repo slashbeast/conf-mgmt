@@ -131,7 +131,7 @@ menu_alsa() {
     IFS=, read -r card_index device_index <<<"${dmenu_selection}"
 	card_id="$(cat "/proc/asound/card${card_index}/id")"
 	cat > ~/.asoundrc <<-END
-	defaults.pcm.dmix.rate 96000
+	#defaults.pcm.dmix.rate 96000
 	defaults.pcm.!card ${card_id};
 	defaults.ctl.!card ${card_id};
 	defaults.pcm.!device ${device_index};

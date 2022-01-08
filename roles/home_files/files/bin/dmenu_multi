@@ -137,6 +137,7 @@ menu_alsa() {
 	defaults.pcm.!device ${device_index};
 	END
 
+    ### running unmute on not muted HDMI device without mute control changes volume, should check if volume is 0 maybe
     mute_unmute unmute "${card_index}"
 
     # Mute all the cards beside the default one.

@@ -189,3 +189,4 @@ sys-process/parallel
 sys-process/runit
 sys-process/time
 www-servers/nginx
+dev-util/xdelta

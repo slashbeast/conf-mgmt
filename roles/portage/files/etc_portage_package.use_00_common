@@ -34,7 +34,7 @@ app-text/xmlto text
 
 dev-db/sqlite secure-delete
 
-dev-lang/python sqlite
+dev-lang/python sqlite lto pgo
 
 dev-libs/elfutils static-libs
 dev-libs/libpcre2 pcre16 pcre32

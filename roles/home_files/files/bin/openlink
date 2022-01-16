@@ -24,23 +24,11 @@ def main():
     mpv_url = None
 
     if len(clipboard.split('\n')) == 1 and clipboard.startswith(('http://', 'https://')):
-        if clipboard.split('//')[1].startswith((
-            'www.youtube.com/watch',
-            'youtube.com/watch',
-            'www.youtu.be',
-            'youtu.be',
-            'streamable.com'
-        )):
-            mpv_url = clipboard
-        else:
-            url = clipboard
+        url = clipboard
     else:
         url = 'https://duckduckgo.com/?q={}'.format(quote(clipboard))
 
-    if url:
-        cmd = ['firefox', '--new-tab', url]
-    elif mpv_url:
-        cmd = ['mpv', mpv_url]
+    cmd = ['firefox', '--new-tab', url]
 
     sys.exit(run(cmd))
 

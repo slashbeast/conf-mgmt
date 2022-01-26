@@ -73,6 +73,7 @@ dev-python/tox
 dev-python/twine
 dev-python/virtualenv
 dev-python/xmltodict
+dev-python/jc
 dev-util/ccache
 dev-util/clinfo
 dev-util/patchelf

@@ -3,10 +3,18 @@
 ListenPort = {{ connection.listenport }}
 PrivateKey = {{ secrets['wireguard'][connection.name]['hosts'][ansible_play_name]['privatekey'] }}
 Address = {{ connection.address }}
+{% if connection.table is defined %}
+Table = {{ connection.table }}
+# Make sure traffic that had our wireguard IP as destination gets response via the wireguard interface.
+# Usecase: traffic/port forwarding with original source IP in packets, that is not in our local broadcast domains.
+PostUp = ip rule add from {{ connection.address | ansible.netcommon.ipaddr('address') }} table {{ connection.table }}
+PostDown = ip rule del from {{ connection.address | ansible.netcommon.ipaddr('address') }} table {{ connection.table }}
+{% else %}
 Table = off
+{% endif %}
 
-{% if connection.additional_routes is defined %}
-{% for route in connection.additional_routes %}
+{% if connection.additional_main_routes is defined %}
+{% for route in connection.additional_main_routes %}
 PostUp = ip route add {{ route }} dev {{ connection.name }}
 {% endfor %}
 {% endif %}
@@ -40,8 +48,8 @@ PostDown = iptables -t nat -D POSTROUTING -s {{ network_cidr }} ! -d {{ network_
 
 # {{ peer.name }}
 [Peer]
-{% if peer.endpoint is defined %}
-Endpoint = {{ peer.endpoint }}
+{% if secrets['wireguard'][connection.name]['hosts'][peer.name]['endpoint'] is defined %}
+Endpoint = {{ secrets['wireguard'][connection.name]['hosts'][peer.name]['endpoint'] }}
 {%endif %}
 AllowedIPs = {{ peer.allowedips }}
 {% if secrets['wireguard'][connection.name]['presharedkey'] is defined %}

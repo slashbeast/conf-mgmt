@@ -26,5 +26,5 @@
       name: wg-quick.{{ connection.name }}
       enabled: true
       state: started
-      runlevel: default
+      runlevel: boot
   when: ansible_service_mgr == 'openrc'

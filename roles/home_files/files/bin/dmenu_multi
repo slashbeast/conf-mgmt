@@ -154,11 +154,11 @@ menu_screenshot() {
     local menu_item
     declare -a menu_items
 
-    scrot_wrapper() {
-        scrot \
-            "$@" \
-            "${TMPDIR:-/tmp}"/screenshot-'%Y-%m-%d_%H-%M-%S.png' \
-            -e 'notify-send $f'
+    maim_wrapper() {
+        screenshot_file="${TMPDIR:-/tmp}/screenshot-$(date '+%Y-%m-%d_%H-%M-%S').png"
+        maim \
+            "$@" "${screenshot_file}" && \
+            notify-send "The ${screenshot_file} created."
     }
     
     printf -v menu_item "%-128s %s" 'Capture full screen' 'fullscreen'
@@ -172,10 +172,10 @@ menu_screenshot() {
 
     case "${dmenu_selection}" in
         'fullscreen')
-            scrot_wrapper
+            maim_wrapper
         ;;
         'select')
-            scrot_wrapper -s
+            maim_wrapper -s
         ;;
     esac
 }
@@ -204,7 +204,7 @@ menu_clipboard() {
     esac
 }
 
-for i in wmctrl dmenu sudo scrot xclip; do
+for i in wmctrl dmenu sudo maim xclip; do
     if ! command -v "$i" >/dev/null 2>&1; then
         die "Missing binary '$i'."
     fi

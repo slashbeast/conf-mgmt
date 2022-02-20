@@ -8,6 +8,12 @@ if ! [ -f /sys/power/disk ]; then
     exit 0
 fi
 
+if ! grep -qE '\<swsusp\>' /proc/cmdline; then
+    # Resume from hibernation better-initramfs hook is not enabled.
+    # therefore the system is supposedly not supposed to go into sleep/hibernate.
+    exit 0
+fi
+
 case "$2" in
     'SBTN'|'PBTN')
         logger -t acpid 'Setting CPU to performance mode ...'

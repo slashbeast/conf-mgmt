@@ -139,6 +139,7 @@ sys-apps/dstat
 sys-apps/ethtool
 sys-apps/fwupd
 sys-apps/gptfdisk
+sys-apps/hd-idle
 sys-apps/hdparm
 sys-apps/kexec-tools
 sys-apps/lm-sensors

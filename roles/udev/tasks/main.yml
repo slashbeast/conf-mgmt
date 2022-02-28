@@ -36,3 +36,16 @@
       owner: root
       group: root
       mode: 0644
+
+  - name: Disable spin down timer
+    notify:
+    - reload udev rules
+    - apply udev storage rules
+    copy:
+      dest: /etc/udev/rules.d/80-storage-powersaving.rules
+      src: etc_udev_rules.d_80-storage-powersaving.rules
+      owner: root
+      group: root
+      mode: 0644
+
+

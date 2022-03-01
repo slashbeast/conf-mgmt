@@ -1,2 +1,2 @@
 # Disable automated spindown of spinning rust. Let hd-idle do its better job.
-ACTION=="add|change", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", RUN+="/usr/bin/hdparm -B 254 -S 0 /dev/%k"
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", RUN+="/sbin/hdparm -B 254 -S 0 /dev/%k"

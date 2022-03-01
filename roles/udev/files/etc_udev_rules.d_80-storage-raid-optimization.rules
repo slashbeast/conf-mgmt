@@ -1,0 +1,2 @@
+# Bump stripe_cache_size to 8192. For raid5 and raid6 arrays.
+ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="md*", TEST=="md/stripe_cache_size", ATTR{md/stripe_cache_size}="8192"

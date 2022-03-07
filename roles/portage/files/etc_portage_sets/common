@@ -102,6 +102,7 @@ net-analyzer/nmap
 net-analyzer/tcpdump
 net-analyzer/tcptraceroute
 net-analyzer/traceroute
+net-dialup/picocom
 net-dns/bind-tools
 net-dns/dnsmasq
 net-fs/autofs

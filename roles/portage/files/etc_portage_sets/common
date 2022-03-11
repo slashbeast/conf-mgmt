@@ -142,6 +142,7 @@ sys-apps/fwupd
 sys-apps/gptfdisk
 sys-apps/hd-idle
 sys-apps/hdparm
+sys-apps/inxi
 sys-apps/kexec-tools
 sys-apps/lm-sensors
 sys-apps/lshw

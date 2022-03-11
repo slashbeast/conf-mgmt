@@ -22,6 +22,7 @@ media-gfx/geeqie
 media-gfx/gimp
 media-gfx/gpicview
 media-gfx/maim
+media-gfx/prusaslicer
 media-gfx/xsane
 media-sound/deadbeef
 media-tv/v4l-utils
@@ -41,11 +42,12 @@ x11-apps/xmodmap
 x11-apps/xset
 x11-base/xorg-server
 x11-misc/arandr
-x11-misc/picom
+x11-misc/autorandr
 x11-misc/dmenu
 x11-misc/dunst
 x11-misc/gmrun
 x11-misc/i3lock
+x11-misc/picom
 x11-misc/qt5ct
 x11-misc/redshift
 x11-misc/tint2
@@ -59,4 +61,3 @@ x11-themes/adwaita-icon-theme
 x11-themes/tango-icon-theme
 x11-themes/zuki-themes
 x11-wm/openbox
-x11-misc/autorandr

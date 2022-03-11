@@ -151,3 +151,5 @@ dev-python/numpy lapack
 media-libs/freetype harfbuzz
 
 app-arch/brotli python
+
+media-libs/qhull static-libs

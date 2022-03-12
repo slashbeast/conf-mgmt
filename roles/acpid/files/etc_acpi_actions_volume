@@ -10,6 +10,10 @@
 
 step='2'
 
+# We parse output, make it deterministic.
+export LANG=C
+export LC_ALL=C
+
 set_X_user() {
     # If X is running, run amixer as the running user.
     # So if the user changed current default card in ~/.asoundrc, it will be used.
@@ -59,7 +63,18 @@ if amixer sget Master >/dev/null 2>&1; then
 elif amixer sget PCM >/dev/null 2>&1; then
 	control='PCM'
 else
-	exit 1
+    # No Master, no PCM, but perhaps there's just one simple controller? Last chance.
+    mapfile -t scontrols < <(amixer scontrols)
+    if [ "${#scontrols[@]}" = 1 ]; then
+        if [[ ${scontrols[0]} =~ ^Simple\ mixer\ control\ \'([0-9a-zA-Z]+)\',[0-9]+$ ]]; then
+            control="${BASH_REMATCH[1]}"
+        else
+            exit 1
+        fi
+    else
+        exit 1
+    fi
+    
 fi
 
 

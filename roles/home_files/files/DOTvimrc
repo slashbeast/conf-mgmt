@@ -60,3 +60,6 @@ set foldlevelstart=20
 
 " space bar as insert mode key, for keyboards without insert key.
 :nnoremap <Space> i
+
+" Make FIXME and TODO be highlighted like regular comment.
+:highlight Todo NONE term=bold ctermfg=14 guifg=green

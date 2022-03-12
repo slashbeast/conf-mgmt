@@ -54,6 +54,9 @@ amixer() {
     fi
 }
 
+# FIXME: Might be better to use "loginctl list-sessions --no-legend" here,
+#        and finding user with seat0 with tty. Will work for wayland this way too.
+
 if set_X_user; then
     set_X_user_home
 fi

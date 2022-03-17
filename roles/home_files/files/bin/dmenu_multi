@@ -38,22 +38,22 @@ menu_window_select() {
             # Skip non-windows (conky, tint2 etc)
             continue
         fi
-    
+
         app_name="${wm_class##*.}"
-    
+
         if [ "${#app_name}" -ge 20 ]; then
             app_name="${app_name:0:17}..."
         fi
-    
+
         printf -v i_wanna_sprintf "%-128s %s" "${window_title} - ${app_name}" "${id}"
-    
+
         windows+=( "${i_wanna_sprintf}" )
-    
+
     done < <(wmctrl -lx | sort -k 2)
-    
+
     read dmenu_selection < <(dmenu_wrapper 'Select window:' '1000' < <(printf '%s\n' "${windows[@]}"))
     dmenu_selection="${dmenu_selection##* }"
-    
+
     case "${dmenu_selection}" in
         '0x'*)
             # Running wmctrl twice as a workaround. 
@@ -66,15 +66,15 @@ menu_window_select() {
 }
 
 menu_alsa() {
-	mute_unmute() {
-	    local action="$1"
-	    local card="$2"
-	
-	    if amixer -c "${card}" sget Master >/dev/null 2>&1; then
-	        control='Master'
-	    elif amixer -c "${card}" sget PCM >/dev/null 2>&1; then
-	        control='PCM'
-	    else
+    mute_unmute() {
+        local action="$1"
+        local card="$2"
+
+        if amixer -c "${card}" sget Master >/dev/null 2>&1; then
+            control='Master'
+        elif amixer -c "${card}" sget PCM >/dev/null 2>&1; then
+            control='PCM'
+        else
             # No Master, no PCM, just use the first one from playback as fallback.
             mapfile -t scontrols < <(amixer -c "${card}" scontrols)
             if [ "${scontrols[0]}" ] && [[ ${scontrols[0]} =~ ^Simple\ mixer\ control\ \'([^\']+)\',[0-9]+$ ]]; then
@@ -82,23 +82,23 @@ menu_alsa() {
             else
                 return 0
             fi
-	    fi
-	
+        fi
+
         # Some devices have PCM that cannot be muted (like amdgpu), so '|| true'.
 
-	    case "${action}" in
-	        'mute')
-	            if ! amixer -c "${card}" -q set "${control}" mute 2>/dev/null; then
+        case "${action}" in
+            'mute')
+                if ! amixer -c "${card}" -q set "${control}" mute 2>/dev/null; then
                     amixer -c "${card}" -q set "${control}" 0%
                 fi
-	        ;;
-	        'unmute')
-	            if ! amixer -c "${card}" -q set "${control}" unmute 2>/dev/null; then
+            ;;
+            'unmute')
+                if ! amixer -c "${card}" -q set "${control}" unmute 2>/dev/null; then
                     amixer -c "${card}" -q set "${control}" 40% 
                 fi
-	        ;;
-	    esac
-	}
+            ;;
+        esac
+    }
 
     gen_alsa_devices_choices() {
         while read -r line; do
@@ -125,35 +125,35 @@ menu_alsa() {
         done < /proc/asound/cards
     }
 
-	read dmenu_selection < <(dmenu_wrapper 'Set default ALSA device to:' '500' < <(gen_alsa_devices_choices))
-	dmenu_selection="${dmenu_selection##* }"
-	
-	if ! [ "${dmenu_selection}" ]; then
-		exit 0
-	fi
-	
+    read dmenu_selection < <(dmenu_wrapper 'Set default ALSA device to:' '500' < <(gen_alsa_devices_choices))
+    dmenu_selection="${dmenu_selection##* }"
+
+    if ! [ "${dmenu_selection}" ]; then
+        exit 0
+    fi
+
 
 
     IFS=, read -r card_index device_index <<<"${dmenu_selection}"
-	card_id="$(cat "/proc/asound/card${card_index}/id")"
-	cat > ~/.asoundrc <<-END
-	#defaults.pcm.dmix.rate 96000
-	defaults.pcm.!card ${card_id};
-	defaults.ctl.!card ${card_id};
-	defaults.pcm.!device ${device_index};
+    card_id="$(cat "/proc/asound/card${card_index}/id")"
+    cat > ~/.asoundrc <<-END
+		#defaults.pcm.dmix.rate 96000
+		defaults.pcm.!card ${card_id};
+		defaults.ctl.!card ${card_id};
+		defaults.pcm.!device ${device_index};
 	END
 
     ### running unmute on not muted HDMI device without mute control changes volume, should check if volume is 0 maybe
     mute_unmute unmute "${card_index}"
 
     # Mute all the cards beside the default one.
-	while read -r card; do
+    while read -r card; do
         IFS=, read iter_card _ <<< "${card##* }"
 
         if [ "${iter_card}" != "${card_index}" ]; then
             mute_unmute mute "${iter_card}"
         fi
-	done < <(gen_alsa_devices_choices)
+    done < <(gen_alsa_devices_choices)
 }
 
 menu_screenshot() {
@@ -166,7 +166,7 @@ menu_screenshot() {
             "$@" "${screenshot_file}" && \
             notify-send "The ${screenshot_file} created."
     }
-    
+
     printf -v menu_item "%-128s %s" 'Capture full screen' 'fullscreen'
     menu_items+=( "${menu_item}")
 

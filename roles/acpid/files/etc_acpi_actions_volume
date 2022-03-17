@@ -66,18 +66,13 @@ if amixer sget Master >/dev/null 2>&1; then
 elif amixer sget PCM >/dev/null 2>&1; then
 	control='PCM'
 else
-    # No Master, no PCM, but perhaps there's just one simple controller? Last chance.
+    # No Master, no PCM, just use the first one from playback as fallback.
     mapfile -t scontrols < <(amixer scontrols)
-    if [ "${#scontrols[@]}" = 1 ]; then
-        if [[ ${scontrols[0]} =~ ^Simple\ mixer\ control\ \'([0-9a-zA-Z]+)\',[0-9]+$ ]]; then
-            control="${BASH_REMATCH[1]}"
-        else
-            exit 1
-        fi
+    if [ "${scontrols[0]}" ] && [[ ${scontrols[0]} =~ ^Simple\ mixer\ control\ \'([^\']+)\',[0-9]+$ ]]; then
+        control="${BASH_REMATCH[1]}"
     else
         exit 1
     fi
-    
 fi
 
 

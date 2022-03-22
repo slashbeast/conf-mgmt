@@ -56,6 +56,7 @@ app-text/fzy
 app-text/wgetpaste
 dev-db/mysql
 dev-db/postgresql
+dev-db/redis
 dev-java/icedtea
 dev-python/bcrypt
 dev-python/beautifulsoup4
@@ -69,6 +70,7 @@ dev-python/jc
 dev-python/jikanpy
 dev-python/python-gnupg
 dev-python/python-magic
+dev-python/redis-py
 dev-python/setproctitle
 dev-python/tox
 dev-python/twine

@@ -1,5 +1,5 @@
 // Sourced from https://gist.github.com/igv/8a77e4eb8276753b54bb94c1c50c317e
-// commit 873786b2bae5eb96133c06a3cd83b52a8bdec564
+// Revision 2022-02-20
 // Copyright (c) 2015-2021, bacondither
 // All rights reserved.
 //
@@ -247,10 +247,10 @@ vec4 hook() {
     sharpdiff = (anime_mode ? 0. :
                 wpmean(max(sharpdiff, 0.0), soft_lim( max(sharpdiff, 0.0), pn_scale.x ), cs.x ))
               - wpmean(min(sharpdiff, 0.0), soft_lim( min(sharpdiff, 0.0), pn_scale.y ), cs.y );
-
+    /*
     float sharpdiff_lim = sat(c0_Y + sharpdiff) - c0_Y;
     float satmul = (c0_Y + max(sharpdiff_lim*0.9, sharpdiff_lim)*0.3 + 0.03)/(c0_Y + 0.03);
-    vec3 res = c0_Y + sharpdiff + (c[0] - c0_Y)*satmul;
-
-    return vec4(res, HOOKED_texOff(0).a);
+    vec3 res = c0_Y + sharpdiff_lim + (c[0] - c0_Y)*satmul;
+    */
+    return vec4(sharpdiff + c[0], HOOKED_texOff(0).a);
 }

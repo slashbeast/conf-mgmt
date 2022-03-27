@@ -4,21 +4,19 @@
 #
 #    pip-compile
 #
-ansible==4.8.0
+ansible==5.5.0
     # via -r requirements.in
-ansible-core==2.11.6
+ansible-core==2.12.3
     # via ansible
-backports.entry-points-selectable==1.1.0
-    # via virtualenv
 cffi==1.15.0
     # via cryptography
-click==8.0.3
+click==8.0.4
     # via pip-tools
-cryptography==35.0.0
+cryptography==36.0.2
     # via ansible-core
-distlib==0.3.3
+distlib==0.3.4
     # via virtualenv
-filelock==3.3.2
+filelock==3.6.0
     # via
     #   tox
     #   virtualenv
@@ -27,15 +25,15 @@ flake8==4.0.1
     #   -r requirements.in
     #   flake8-comprehensions
     #   flake8-tidy-imports
-flake8-comprehensions==3.7.0
+flake8-comprehensions==3.8.0
     # via -r requirements.in
-flake8-tidy-imports==4.5.0
+flake8-tidy-imports==4.6.0
     # via -r requirements.in
-isort==5.10.0
+isort==5.10.1
     # via -r requirements.in
-jinja2==3.0.2
+jinja2==3.1.1
     # via ansible-core
-markupsafe==2.0.1
+markupsafe==2.1.1
     # via jinja2
 mccabe==0.6.1
     # via flake8
@@ -43,7 +41,7 @@ multilint==5.0.1
     # via -r requirements.in
 netaddr==0.8.0
     # via -r requirements.in
-packaging==21.2
+packaging==21.3
     # via
     #   ansible-core
     #   tox
@@ -51,11 +49,11 @@ pathspec==0.9.0
     # via yamllint
 pep517==0.12.0
     # via pip-tools
-pip-lock==2.5.0
+pip-lock==2.8.1
     # via -r requirements.in
-pip-tools==6.4.0
+pip-tools==6.5.1
     # via -r requirements.in
-platformdirs==2.4.0
+platformdirs==2.5.1
     # via virtualenv
 pluggy==1.0.0
     # via tox
@@ -67,9 +65,9 @@ pycparser==2.21
     # via cffi
 pyflakes==2.4.0
     # via flake8
-pyparsing==2.4.7
+pyparsing==3.0.7
     # via packaging
-python-gnupg==0.4.7
+python-gnupg==0.4.8
     # via -r requirements.in
 pyyaml==6.0
     # via
@@ -83,13 +81,13 @@ six==1.16.0
     #   virtualenv
 toml==0.10.2
     # via tox
-tomli==1.2.2
+tomli==2.0.1
     # via pep517
-tox==3.24.4
+tox==3.24.5
     # via -r requirements.in
-virtualenv==20.10.0
+virtualenv==20.14.0
     # via tox
-wheel==0.37.0
+wheel==0.37.1
     # via pip-tools
 yamllint==1.26.3
     # via -r requirements.in

@@ -46,6 +46,7 @@ app-portage/gpyutils
 app-portage/nattka
 app-portage/pkg-testing-tools
 app-portage/portage-utils
+app-portage/pram
 app-portage/repoman
 app-shells/ash-bb
 app-shells/gentoo-zsh-completions
@@ -58,6 +59,7 @@ dev-db/mysql
 dev-db/postgresql
 dev-db/redis
 dev-java/icedtea
+dev-perl/Parallel-ForkManager
 dev-python/bcrypt
 dev-python/beautifulsoup4
 dev-python/boto3
@@ -179,6 +181,7 @@ sys-fs/mergerfs
 sys-fs/multipath-tools
 sys-fs/ncdu
 sys-fs/ntfs3g
+sys-fs/simple-mtpfs
 sys-fs/squashfs-tools
 sys-fs/squashfs-tools-ng
 sys-fs/squashfuse

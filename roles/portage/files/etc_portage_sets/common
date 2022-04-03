@@ -67,6 +67,7 @@ dev-python/dnspython
 dev-python/flake8
 dev-python/flask
 dev-python/fuzzywuzzy
+dev-python/ipython
 dev-python/isort
 dev-python/jc
 dev-python/jikanpy

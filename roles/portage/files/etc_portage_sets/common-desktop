@@ -3,6 +3,7 @@ app-admin/keepassxc
 app-emulation/virt-manager
 app-office/libreoffice
 app-text/zathura-meta
+dev-libs/libratbag
 lxde-base/lxappearance
 lxde-base/lxrandr
 mail-client/thunderbird

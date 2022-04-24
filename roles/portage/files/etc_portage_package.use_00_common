@@ -72,7 +72,7 @@ x11-terms/rxvt-unicode 256-color -perl
 
 app-emulation/qemu sdl spice usbredir virtfs virgl
 
-dev-libs/boost icu context
+dev-libs/boost icu context python
 
 dev-lang/luajit lua52compat
 
@@ -153,3 +153,13 @@ media-libs/freetype harfbuzz
 app-arch/brotli python
 
 media-libs/qhull static-libs
+
+dev-libs/xerces-c icu
+
+sci-libs/med python
+
+sci-libs/opencascade vtk
+
+sci-libs/vtk boost python qt5
+
+sci-libs/hdf5 -threads

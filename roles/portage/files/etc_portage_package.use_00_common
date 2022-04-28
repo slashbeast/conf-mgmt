@@ -163,3 +163,5 @@ sci-libs/opencascade vtk
 sci-libs/vtk boost python qt5
 
 sci-libs/hdf5 -threads
+
+net-misc/aria2 -gnutls bittorrent ssh

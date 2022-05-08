@@ -12,6 +12,7 @@ host {{ host.name }}
 host *
     TCPKeepAlive yes
     ServerAliveInterval 59
+    ConnectTimeout 10
 #    ControlMaster auto
 #    ControlPath ~/.ssh/sockets/%r@%h-%p
 #    ControlPersist 600

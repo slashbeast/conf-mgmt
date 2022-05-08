@@ -70,7 +70,7 @@ x11-libs/libxcb xkb
 
 x11-terms/rxvt-unicode 256-color -perl
 
-app-emulation/qemu sdl spice usbredir virtfs virgl
+app-emulation/qemu sdl spice usbredir virtfs virgl static-user
 
 dev-libs/boost icu context python
 
@@ -165,3 +165,8 @@ sci-libs/vtk boost python qt5
 sci-libs/hdf5 -threads
 
 net-misc/aria2 -gnutls bittorrent ssh
+
+dev-libs/glib static-libs
+sys-apps/attr static-libs
+dev-libs/libpcre static-libs
+

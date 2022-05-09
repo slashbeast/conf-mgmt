@@ -193,6 +193,7 @@ sys-power/RyzenAdj
 sys-power/acpi
 sys-power/acpid
 sys-power/cpupower
+sys-power/upower
 sys-process/cronie
 sys-process/glances
 sys-process/htop

@@ -161,6 +161,7 @@ sci-libs/med python
 sci-libs/opencascade vtk
 
 sci-libs/vtk boost python qt5
+sci-libs/gdal python
 
 sci-libs/hdf5 -threads
 

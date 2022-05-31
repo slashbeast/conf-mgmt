@@ -1,6 +1,4 @@
 // Taken from https://gist.github.com/igv/8a77e4eb8276753b54bb94c1c50c317e
-// gist commit id 418af4f
-//
 // Copyright (c) 2015-2021, bacondither
 // All rights reserved.
 //
@@ -42,7 +40,7 @@
 
 // Defined values under this row are "optimal" DO NOT CHANGE IF YOU DO NOT KNOW WHAT YOU ARE DOING!
 
-#define curveslope      0.1                  // Sharpening curve slope, high edge values
+#define curveslope      0.5                  // Sharpening curve slope, high edge values
 
 #define L_compr_low     0.167                // Light compression, default (0.167=~6x)
 #define L_compr_high    0.334                // Light compression, surrounded by edges (0.334=~3x)
@@ -108,10 +106,10 @@ vec4 hook() {
     // [  1,  5,  6,  5,  1  ]
     // [      4,  5,  4      ]
     // [          1          ]
-    float edge = sqrt(dot( 1.38*b_diff(0)
-                         + 1.15*(b_diff(2) + b_diff(4) + b_diff(5) + b_diff(7))
-                         + 0.92*(b_diff(1) + b_diff(3) + b_diff(6) + b_diff(8))
-                         + 0.23*(b_diff(9) + b_diff(10) + b_diff(11) + b_diff(12)), vec3(1.))) * c_comp;
+    float edge = length( 1.38*b_diff(0)
+                       + 1.15*(b_diff(2) + b_diff(4) + b_diff(5) + b_diff(7))
+                       + 0.92*(b_diff(1) + b_diff(3) + b_diff(6) + b_diff(8))
+                       + 0.23*(b_diff(9) + b_diff(10) + b_diff(11) + b_diff(12)) ) * c_comp;
 
     vec2 cs = vec2(L_compr_low,  D_compr_low);
 

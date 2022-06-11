@@ -55,6 +55,7 @@ app-text/ansifilter
 app-text/dos2unix
 app-text/fzy
 app-text/wgetpaste
+sys-devel/mold
 dev-db/mysql
 dev-db/postgresql
 dev-db/redis

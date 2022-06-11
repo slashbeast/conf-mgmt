@@ -1,14 +1,8 @@
-{# rust did not yet got znver2 support #}
-{% if target_cpu == 'znver2' %}
-{%     set target_cpu_rust = 'znver1' %}
-{% else %}
-{%     set target_cpu_rust = target_cpu %}
-{% endif %}
 CHOST="x86_64-pc-linux-gnu"
 
 CFLAGS="-O3 -pipe -march={{ target_cpu }}"
 CXXFLAGS="${CFLAGS}"
-RUSTFLAGS="-C target-cpu={{ target_cpu_rust }} -v"
+RUSTFLAGS="-C target-cpu={{ target_cpu }} -v"
 
 ACCEPT_KEYWORDS="~amd64"
 

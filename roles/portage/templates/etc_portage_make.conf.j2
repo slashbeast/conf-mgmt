@@ -55,12 +55,6 @@ EMERGE_DEFAULT_OPTS="
 FEATURES="${FEATURES} buildpkg"
 {% endif %}
 
-{% if ccache is undefined or ccache is sameas true %}
-FEATURES="${FEATURES} ccache"
-CCACHE_DIR="/var/portage/tmp/ccache"
-CCACHE_SIZE="3G"
-{% endif %}
-
 BINPKG_COMPRESS="zstd"
 
 VIDEO_CARDS="amdgpu radeonsi radeon intel i965"

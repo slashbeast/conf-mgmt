@@ -1,5 +1,5 @@
 */* pic threads smp
-*/* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 xft xml xvid
+*/* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 xft xml xvid bluetooth
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 

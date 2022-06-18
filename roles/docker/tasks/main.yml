@@ -1,0 +1,8 @@
+- name: docker
+  tags: [docker]
+  block:
+  - name: autostart docker on system startup
+    service:
+      name: docker
+      runlevel: default
+      enabled: true

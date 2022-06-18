@@ -1,0 +1,8 @@
+- name: bluetooth
+  tags: [bluetooth]
+  block:
+  - name: autostart bluetooth on system startup
+    service:
+      name: bluetooth
+      runlevel: default
+      enabled: true

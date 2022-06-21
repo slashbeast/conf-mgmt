@@ -1,0 +1,5 @@
+# Spinning rust that is waken up from standby might take longer to respond, stop throwing failures into kernel logs.
+# Triple the defaults.
+ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", TEST=="device/eh_timeout", ATTR{device/eh_timeout}="30"
+ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", TEST=="device/timeout", ATTR{device/timeout}="90"
+

@@ -2,6 +2,7 @@
 */* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 xft xml xvid bluetooth
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
+*/* lto pgo
 
 dev-qt/* multimedia gui network widgets qml
 dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
@@ -34,7 +35,7 @@ app-text/xmlto text
 
 dev-db/sqlite secure-delete
 
-dev-lang/python sqlite lto pgo
+dev-lang/python sqlite
 
 dev-libs/elfutils static-libs
 dev-libs/libpcre2 pcre16 pcre32
@@ -125,11 +126,9 @@ net-misc/spice-gtk usbredir
 
 net-dns/dnsmasq script
 
-www-client/firefox lto pgo clang hwaccel
+www-client/firefox clang hwaccel
 
-mail-client/thunderbird lto pgo clang
-
-sys-devel/gcc lto
+mail-client/thunderbird clang
 
 media-video/guvcview qt5
 media-tv/v4l-utils qt5
@@ -140,7 +139,7 @@ sys-apps/fwupd flashrom nvme synaptics tpm uefi gnutls
 
 dev-util/ostree curl
 
-media-libs/opencv qt5 examples contrib contribdnn lto
+media-libs/opencv qt5 examples contrib contribdnn
 
 dev-lang/rust nightly parallel-compiler system-llvm
 

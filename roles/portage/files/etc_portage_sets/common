@@ -71,7 +71,6 @@ dev-python/fuzzywuzzy
 dev-python/ipython
 dev-python/isort
 dev-python/jc
-dev-python/jikanpy
 dev-python/python-gnupg
 dev-python/python-magic
 dev-python/redis-py

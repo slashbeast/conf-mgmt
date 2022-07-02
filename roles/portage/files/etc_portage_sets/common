@@ -48,7 +48,6 @@ app-portage/pkg-testing-tools
 app-portage/portage-utils
 app-portage/pram
 app-portage/repoman
-app-shells/ash-bb
 app-shells/gentoo-zsh-completions
 app-shells/zsh
 app-text/ansifilter

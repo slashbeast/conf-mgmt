@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# oggenc give up on some .flac files, where ffmpeg just works.
+# though ffmpeg have much less user friendly interface, chance this script.
+
+set -e
+
+input="$1"
+target="${input%.*}.ogg"
+
+if ! [ -f "${input}" ]; then
+    echo "Wrong input." >&2
+    exit 1
+fi
+
+if [ -f "${target}" ]; then
+    rm -f "${target}"
+fi
+
+ffmpeg -i "${input}" -c:a libvorbis -qscale:a 10 "${target}"
+
+rm -f "${input}"

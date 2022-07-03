@@ -37,11 +37,6 @@ if ! [[ "${PATH}" =~ "^${HOME}/bin" ]]; then
     export PATH="${HOME}/bin:${PATH}"
 fi
 
-# Not all servers have terminfo for rxvt-256color. :<
-if [ "${TERM}" = 'rxvt-256color' ] && ! [ -f '/usr/share/terminfo/r/rxvt-256color' ] && ! [ -f '/lib/terminfo/r/rxvt-256color' ] && ! [ -f "${HOME}/.terminfo/r/rxvt-256color" ]; then
-    export TERM='rxvt-unicode'
-fi
-
 # Colors.
 red='\e[0;31m'
 RED='\e[1;31m'
@@ -105,7 +100,6 @@ run_under_tmux() {
     fi
 }
 
-t() { run_under_tmux rtorrent 'nice -n 19 ionice -c 3 rtorrent'; }
 irc() { run_under_tmux irssi "TERM='screen' command irssi"; }
 
 over_ssh() {
@@ -118,14 +112,6 @@ over_ssh() {
 
 reload () {
     exec "${SHELL}" "$@"
-}
-
-escape() {
-    # Uber useful when you need to translate weird as fuck path into single-argument string.
-    local escape_string_input
-    echo -n "String to escape: "
-    read escape_string_input
-    printf '%q\n' "$escape_string_input"
 }
 
 confirm() {
@@ -160,31 +146,6 @@ hibernate() { confirm_wrapper --root $0 "$@"; }
 
 startx() {
     exec =startx "$@"
-}
-
-has() {
-    local string="${1}"
-    shift
-    local element=''
-    for element in "$@"; do
-        if [ "${string}" = "${element}" ]; then
-            return 0
-        fi
-    done
-    return 1
-}
-
-begin_with() {
-    local string="${1}"
-    shift
-    local element=''
-    for element in "$@"; do
-        if [[ "${string}" =~ "^${element}" ]]; then
-            return 0
-        fi
-    done
-    return 1
-
 }
 
 termtitle() {
@@ -244,25 +205,11 @@ precmd() {
 
     # Set optional git part of prompt.
     setup_git_prompt
-
-# Maybe to be used someday, too annoying with vim and other interactive apps.
-#   # $REPORTTIME is about cpu time, not real time.
-#   if [ "${executed_on}" ]; then
-#       local current_timestamp=${(%):-'%D{%s}'}
-#       local last_cmd_took=$(( current_timestamp - executed_on ))
-#       if [ "${last_cmd_took}" -gt 60 ]; then
-#           printf "\n>>> [INFO] Execution took %ss\n\n" "$last_cmd_took"
-#       fi
-#       unset executed_on
-#   fi
 }
 
 preexec() {
     # Set terminal title along with current executed command pass as second argument
     termtitle preexec "${(V)1}"
-
-#   # Save timestamp when we executed this command
-#   executed_on=${(%):-'%D{%s}'}
 }
 
 man() {
@@ -272,26 +219,6 @@ man() {
         command man "$@"
     fi
 }
-
-
-dot_progress() {
-    # Fancy progress function from Landley's Aboriginal Linux.
-    # Useful for long rm, tar and such.
-    # Usage: 
-    #     rm -rfv /foo | dot_progress
-    local i='0'
-    local line=''
-
-    while read line; do
-        i="$((i+1))"
-        if [ "${i}" = '25' ]; then
-            printf '.'
-            i='0'
-        fi
-    done
-    printf '\n'
-}
-
 
 # Le features!
 # extended globbing, awesome!
@@ -488,13 +415,6 @@ _open_new_terminal_here(){
 zle -N _open_new_terminal_here
 bindkey "^A" _open_new_terminal_here
 
-# Fix for tmux on linux.
-case "$(uname -o)" in
-    'GNU/Linux')
-        export EVENT_NOEPOLL=1
-    ;;
-esac
-
 # Aliases
 alias cp='cp -iv --reflink=auto'
 alias rcp='rsync -v --progress'
@@ -506,18 +426,17 @@ alias ln='ln -v'
 alias chmod="chmod -c"
 alias chown="chown -c"
 alias mkdir="mkdir -v"
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+alias ls='ls --color=auto --human-readable --group-directories-first --classify'
+alias ll='ls --color=auto --human-readable --group-directories-first --classify -l'
+alias lla='ls --color=auto --human-readable --group-directories-first --classify -la'
 
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nuar"
 else
     alias diff="diff -Nuar"
 fi
-
-alias grep='grep --colour=auto'
-alias egrep='egrep --colour=auto'
-alias ls='ls --color=auto --human-readable --group-directories-first --classify'
-alias ll='ls --color=auto --human-readable --group-directories-first --classify -l'
-alias lla='ls --color=auto --human-readable --group-directories-first --classify -la'
 
 
 # Keys.
@@ -568,7 +487,6 @@ case "${TERM}" in
     ;;
 esac
 
-# Replaced with _history_search_with_fzy
 bindkey "^R" history-incremental-pattern-search-backward 
 bindkey "^S" history-incremental-pattern-search-forward
 

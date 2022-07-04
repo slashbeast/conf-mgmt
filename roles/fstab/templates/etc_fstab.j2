@@ -1,3 +1,3 @@
 {% for entry in fstab %}
-{{ "%-24s" | format( entry.device) }} {{ "%-16s" | format(entry.target) }} {{ "%-6s" | format(entry.type) }} {{ "%-24s" | format(entry.opts) }} {{ entry.dump }} {{ entry.fsck }}
+{{ "%-24s" | format( entry.device) }} {{ "%-20s" | format(entry.target) }} {{ "%-6s" | format(entry.type) }} {{ "%-24s" | format(entry.opts) }} {{ entry.dump }} {{ entry.fsck }}
 {% endfor %}

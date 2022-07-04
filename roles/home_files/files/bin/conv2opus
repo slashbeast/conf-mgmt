@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+input="$1"
+target="${input%.*}.opus"
+
+if ! [ -f "${input}" ]; then
+    echo "Wrong input." >&2
+    exit 1
+fi
+
+if [ -f "${target}" ]; then
+    rm -f "${target}"
+fi
+
+ffmpeg -i "${input}" -c:a libopus -b:a 500000 "${target}"
+
+rm -f "${input}"

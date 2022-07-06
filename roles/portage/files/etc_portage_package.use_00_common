@@ -105,7 +105,7 @@ net-dns/avahi gtk
 
 media-gfx/geeqie exif gnu-accel gtk3
 
-net-misc/curl http2 ssh zstd
+net-misc/curl http2 ssh zstd adns -threads
 
 # gkr-pam integration breaks `passwd USERNAME` from root. 
 gnome-base/gnome-keyring -pam

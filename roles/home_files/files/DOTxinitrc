@@ -38,4 +38,8 @@ if [ -f .config/tint2/tint2rc ]; then
     tint2 >/dev/null 2>&1 &
 fi
 
+if command -v autorandr >/dev/null 2>&1; then
+    autorandr --change
+fi
+
 openbox

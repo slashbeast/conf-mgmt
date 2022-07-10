@@ -178,7 +178,6 @@ sys-fs/lvm2
 sys-fs/mdadm
 sys-fs/mergerfs
 sys-fs/multipath-tools
-sys-fs/ncdu
 sys-fs/ntfs3g
 sys-fs/simple-mtpfs
 sys-fs/squashfs-tools

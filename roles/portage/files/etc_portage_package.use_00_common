@@ -3,6 +3,7 @@
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 */* lto pgo
+*/* lzma zstd
 
 dev-qt/* multimedia gui network widgets qml
 dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
@@ -82,8 +83,6 @@ net-libs/webkit-gtk -geolocation gstreamer
 
 media-libs/babl introspection
 
-dev-util/xdelta lzma
-
 dev-python/requests socks5
 
 # networkmanager-strongswan require libnm-gtk provided by nm-applet.
@@ -158,7 +157,7 @@ dev-libs/xerces-c icu
 
 sci-libs/med python
 
-sci-libs/opencascade vtk
+sci-libs/opencascade vtk json
 
 sci-libs/vtk boost python qt5
 sci-libs/gdal python
@@ -171,3 +170,4 @@ dev-libs/glib static-libs
 sys-apps/attr static-libs
 dev-libs/libpcre static-libs
 
+dev-python/pyside2 webchannel webengine location positioning quick qml printsupport

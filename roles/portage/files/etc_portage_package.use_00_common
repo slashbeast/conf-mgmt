@@ -4,7 +4,6 @@
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 */* lto pgo
 */* lzma zstd
-*/* static-libs
 
 dev-qt/* multimedia gui network widgets qml
 dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
@@ -39,9 +38,11 @@ dev-db/sqlite secure-delete
 
 dev-lang/python sqlite
 
+dev-libs/elfutils static-libs
 dev-libs/libpcre2 pcre16 pcre32
 dev-libs/libxml2 python icu
 dev-libs/xmlsec nss
+app-arch/bzip2 static-libs
 
 media-libs/harfbuzz icu
 media-libs/libpng apng
@@ -62,7 +63,7 @@ net-vpn/openvpn iproute2 lz4
 
 sys-apps/pcsc-lite -libusb
 
-sys-libs/zlib minizip
+sys-libs/zlib static-libs minizip
 
 x11-base/xorg-server elogind -suid xvfb
 
@@ -150,6 +151,8 @@ media-libs/freetype harfbuzz
 
 app-arch/brotli python
 
+media-libs/qhull static-libs
+
 dev-libs/xerces-c icu
 
 sci-libs/med python
@@ -163,12 +166,8 @@ sci-libs/hdf5 -threads
 
 net-misc/aria2 -gnutls bittorrent ssh
 
+dev-libs/glib static-libs
+sys-apps/attr static-libs
+dev-libs/libpcre static-libs
+
 dev-python/pyside2 webchannel webengine location positioning quick qml printsupport
-
-sys-apps/pciutils -static-libs
-dev-libs/libusb -static-libs
-sys-fs/lvm2 -static-libs
-sys-fs/cryptsetup -static-libs
-
-# Static libs do not work due to too new eigen.
-sci-libs/libigl -static-libs

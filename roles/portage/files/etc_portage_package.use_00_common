@@ -167,6 +167,8 @@ dev-python/pyside2 webchannel webengine location positioning quick qml printsupp
 
 sys-apps/pciutils -static-libs
 dev-libs/libusb -static-libs
+sys-fs/lvm2 -static-libs
+sys-fs/cryptsetup -static-libs
 
 # Static libs do not work due to too new eigen.
 sci-libs/libigl -static-libs

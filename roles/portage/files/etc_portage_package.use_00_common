@@ -164,3 +164,6 @@ sci-libs/hdf5 -threads
 net-misc/aria2 -gnutls bittorrent ssh
 
 dev-python/pyside2 webchannel webengine location positioning quick qml printsupport
+
+sys-apps/pciutils -static-libs
+dev-libs/libusb -static-libs

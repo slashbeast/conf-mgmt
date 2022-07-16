@@ -17,6 +17,6 @@ if [ -f "${target}" ]; then
     rm -f "${target}"
 fi
 
-ffmpeg -i "${input}" -c:a libvorbis -qscale:a 10 "${target}"
+ffmpeg -i "${input}" -vn -c:a libvorbis -qscale:a 10 "${target}"
 
 rm -f "${input}"

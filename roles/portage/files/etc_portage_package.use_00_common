@@ -171,3 +171,6 @@ sys-apps/attr static-libs
 dev-libs/libpcre static-libs
 
 dev-python/pyside2 webchannel webengine location positioning quick qml printsupport
+
+app-arch/xz-utils static-libs
+app-arch/zstd static-libs

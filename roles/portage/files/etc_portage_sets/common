@@ -60,6 +60,7 @@ dev-java/icedtea
 dev-perl/Parallel-ForkManager
 dev-python/bcrypt
 dev-python/beautifulsoup4
+dev-python/black
 dev-python/boto3
 dev-python/dnspython
 dev-python/flake8

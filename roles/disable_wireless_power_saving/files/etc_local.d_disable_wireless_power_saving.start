@@ -1,9 +1,0 @@
-#!/bin/sh
-
-cd /sys/class/net
-
-for i in *; do
-    test -e "$i/wireless" && iwconfig "$i" power off
-done
-
-exit 0

@@ -1,0 +1,11 @@
+- name: intel-wifi
+  tags: [intel-wifi]
+  block:
+  - name: /etc/modprobe.d/iwlmvm.conf
+    copy:
+      dest: /etc/modprobe.d/iwlmvm.conf
+      owner: root
+      group: root
+      mode: 0644
+      content: |
+        options iwlmvm power_scheme={{ power_scheme }}

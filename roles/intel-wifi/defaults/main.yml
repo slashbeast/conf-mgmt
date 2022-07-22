@@ -1,0 +1,2 @@
+# Default to active power rather than 'balanced'
+power_scheme: 1

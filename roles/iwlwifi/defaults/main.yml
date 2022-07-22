@@ -1,0 +1,9 @@
+# On recent kernels of >=4.20, including 5.2, iwlwifi throws lots of
+#     Microcode SW error detected.  Restarting 0x2000000
+# which greatly impact network performance. enabling software crypto
+# seems like a working workaround.
+#swcrypto: 1
+swcrypto: 0
+
+# And here I suspect other of my issues are bluetooth related, but I don't even use bluetooth.
+bt_coex_active: N

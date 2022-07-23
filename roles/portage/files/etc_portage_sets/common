@@ -149,6 +149,7 @@ sys-apps/inxi
 sys-apps/kexec-tools
 sys-apps/lm-sensors
 sys-apps/lshw
+sys-apps/moreutils
 sys-apps/nvme-cli
 sys-apps/pciutils
 sys-apps/pmount
@@ -197,7 +198,6 @@ sys-process/glances
 sys-process/htop
 sys-process/iotop
 sys-process/lsof
-sys-process/parallel
 sys-process/runit
 sys-process/time
 www-servers/nginx

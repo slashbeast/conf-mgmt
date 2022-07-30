@@ -85,6 +85,7 @@ dev-util/strace
 dev-util/vmtouch
 dev-util/xdelta
 dev-vcs/git
+dev-vcs/stgit
 media-gfx/graphviz
 media-gfx/waifu2x-ncnn-vulkan
 media-libs/mutagen

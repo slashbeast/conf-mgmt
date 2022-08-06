@@ -61,3 +61,14 @@
       owner: root
       group: root
       mode: 0644
+
+  - name: Enlarge spinning rust readahead
+    notify:
+    - reload udev rules
+    - apply udev storage rules
+    copy:
+      dest: /etc/udev/rules.d/80-storage-spinning-rust-longer-readahead.rules
+      src: etc_udev_rules.d_80-storage-spinning-rust-longer-readahead.rules
+      owner: root
+      group: root
+      mode: 0644

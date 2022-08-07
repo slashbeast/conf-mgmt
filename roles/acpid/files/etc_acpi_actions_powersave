@@ -1,115 +1,15 @@
 #!/bin/bash
 
+scriptpath="$(readlink -f "$0")"
+workdir="${scriptpath%/*}"
+. "${workdir}/common_functions"
+
 acpid_state='/run/acpid'
 
 if ! [ -d "${acpid_state}" ]; then
     echo "The directory ${acpid_state} does not exists. Check (open)tmpfiles configuration."
     exit 1
 fi
-
-sata_link_power_mgmt() {
-    if ! compgen -G /sys/class/scsi_host/* >/dev/null 2>&1; then
-        return
-    fi
-
-    case "$1" in
-        'powersave')
-            for i in /sys/class/scsi_host/host*/link_power_management_policy; do
-                echo min_power >"$i"
-            done
-        ;;
-        'performance')
-            for i in /sys/class/scsi_host/host*/link_power_management_policy; do
-                echo max_performance >"$i"
-            done
-        ;;
-    esac
-}
-
-pci_devices() {
-    for i in /sys/bus/pci/devices/*; do
-        if ! [ -f "${i}/power/control" ]; then
-            continue
-        fi
-
-        # Skip network devices, seems to break at least realtek devices.
-        if [ -d "${i}/net" ]; then
-            continue
-        fi
-
-        case "$1" in
-            'powersave')
-                echo auto >"${i}/power/control"
-            ;;
-            'performance')
-                echo on >"${i}/power/control"
-            ;;
-        esac
-    done
-}
-
-snd_hda_intel() {
-    case "$1" in
-        'powersave')
-            echo 1 >/sys/module/snd_hda_intel/parameters/power_save
-        ;;
-        'performance')
-            echo 0 >/sys/module/snd_hda_intel/parameters/power_save
-        ;;
-    esac
-}
-
-sysfs_toggle() {
-    # sysfs_toggle <path> <restore|value>
-
-    if ! [ -f "${1}" ]; then
-        return
-    fi
-
-    state_file="${acpid_state}/saved_state_${1//\//_}"
-
-    case "${2}" in
-        'restore')
-            if [ -f "${state_file}" ]; then
-                cat "${state_file}" >"${1}"
-            fi
-        ;;
-        *)
-            cat "${1}" >"${state_file}"
-            echo "${2}" >"${1}"
-        ;;
-    esac
-}
-
-ryzen_control() {
-    # The power-saving mode forces CPU to boost no more than 2.5 GHz for the first 10s of load.
-    # max-performance always boost fully.
-
-    command -v ryzenadj >/dev/null 2>&1 || return 0
-
-    case "$1" in
-        'powersave')
-            ryzenadj --power-saving
-        ;;
-        'performance')
-            ryzenadj --max-performance
-        ;;
-    esac
-}
-
-get_lock() {
-    lock_path="${acpid_state}/action_powersave.lock"
-
-    while :; do 
-        if ( set -o noclobber; echo "$$" > "${lock_path}") 2> /dev/null; then 
-            break
-        else 
-            sleep 1
-        fi;
-    done
-
-    trap 'rm -f "${lock_path}"' INT TERM EXIT
-}
 
 get_lock
 
@@ -162,8 +62,11 @@ case "${state}" in
 
         cpupower frequency-set -g schedutil
 
-        # use the battery-like powersaving when on AC (less aggressive boost, less heat, less noise)
+        # Trigger the on-battery logic that prevents CPU from boosting too high unless the load is prolonged.
         ryzen_control powersave
+
+        # Vendor-controlled power mode
+        acpi_platform_profile low-power
     ;;
     'battery')
         sata_link_power_mgmt powersave

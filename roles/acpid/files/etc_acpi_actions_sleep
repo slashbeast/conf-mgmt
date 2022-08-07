@@ -2,6 +2,7 @@
 
 scriptpath="$(readlink -f "$0")"
 workdir="${scriptpath%/*}"
+. "${workdir}/common_functions"
 
 if ! [ -f /sys/power/disk ]; then
     # No hibernation support.
@@ -22,7 +23,8 @@ case "$2" in
         # Also, this boosts hibernation from 500 MBps to over
         # 1200 MBps on Ryzen 4750U.
         cpupower frequency-set -g performance
-        ryzenadj --max-performance || true
+        ryzen_control performance
+        acpi_platform_profile performance
 
         logger -t acpid 'Syncing filesystems ...'
         sync

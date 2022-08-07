@@ -37,6 +37,7 @@
       group: root
       mode: 0755
     with_items:
+    - common_functions
     - brightness
     - lid
     - powersave

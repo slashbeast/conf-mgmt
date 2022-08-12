@@ -204,3 +204,4 @@ sys-process/lsof
 sys-process/runit
 sys-process/time
 www-servers/nginx
+<sys-fs/ncdu-2

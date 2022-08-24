@@ -1,0 +1,11 @@
+- name: apt
+  tags: [apt]
+  block:
+  - name: /etc/apt/sources.list
+    template:
+      src: "{{ ansible_distribution | lower }}/etc_apt_sources.list.j2"
+      dest: "/etc/apt/sources.list"
+      owner: root
+      group: root
+      mode: 0644
+

@@ -1,6 +1,13 @@
 - name: mdns
   tags: [mdns]
   block:
+  - name: install avahi-daemon via apt
+    when: ansible_pkg_mgr == "apt"
+    apt:
+      name: avahi-daemon
+      state: present
+      update_cache: yes
+
   - name: enable hostname lookup using mdns
     lineinfile:
       dest: /etc/nsswitch.conf

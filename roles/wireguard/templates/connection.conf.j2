@@ -5,8 +5,12 @@ PrivateKey = {{ secrets['wireguard'][connection.name]['hosts'][ansible_play_name
 Address = {{ connection.address }}
 {% if connection.table is defined %}
 Table = {{ connection.table }}
-# Make sure traffic that had our wireguard IP as destination gets response via the wireguard interface.
-# Usecase: traffic/port forwarding with original source IP in packets, that is not in our local broadcast domains.
+# Route responses to traffic sent to our IP on VPN network via the VPN itself regardless of destination.
+# Required when VPN forward packets with original source IP, so we do not try to respond to this traffic via default gateway without VPN.
+# Like 
+#     remote Public IP packets -> 
+#     VPN with port forwarding, keeping the original remote public IP as source in packets headers -> 
+#     our private IP on VPN network 
 PostUp = ip rule add from {{ connection.address | ansible.netcommon.ipaddr('address') }} table {{ connection.table }}
 PostDown = ip rule del from {{ connection.address | ansible.netcommon.ipaddr('address') }} table {{ connection.table }}
 {% else %}

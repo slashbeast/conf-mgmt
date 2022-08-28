@@ -1,6 +1,17 @@
 - name: docker
   tags: [docker]
   block:
+  - name: install docker packages on apt-enabled distros
+    when: ansible_pkg_mgr == "apt"
+    apt:
+      name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+      state: present
+      update_cache: yes
+
   - name: autostart docker on system startup
     service:
       name: docker

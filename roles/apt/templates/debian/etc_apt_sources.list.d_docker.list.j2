@@ -1,0 +1,6 @@
+{% if ansible_machine == "aarch64"    %}
+{%     set deb_arch = "arm64"         %}
+{% else                               %}
+{%     set deb_arch = ansible_machine %}
+{% endif                              %}
+deb [arch={{ deb_arch }}] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable

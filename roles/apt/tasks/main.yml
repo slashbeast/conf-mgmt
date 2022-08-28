@@ -1,11 +1,38 @@
 - name: apt
   tags: [apt]
   block:
-  - name: /etc/apt/sources.list
-    template:
-      src: "{{ ansible_distribution | lower }}/etc_apt_sources.list.j2"
-      dest: "/etc/apt/sources.list"
-      owner: root
-      group: root
-      mode: 0644
+  - name: debian specific
+    when: ansible_distribution == 'Debian'
+    block:
+    - name: /etc/apt/sources.list
+      template:
+        src: debian/etc_apt_sources.list.j2
+        dest: "/etc/apt/sources.list"
+        owner: root
+        group: root
+        mode: 0644
 
+    - name: common dependencies for 3rd party repositories
+      apt:
+        name:
+        - ca-certificates
+        - gnupg
+        - lsb-release
+        state: present
+        update_cache: yes
+
+    - name: /etc/apt/trusted.gpg.d/docker.gpg
+      get_url:
+        url: https://download.docker.com/linux/debian/gpg
+        dest: /etc/apt/trusted.gpg.d/docker.gpg
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: /etc/apt/sources.list.d/docker.list
+      template:
+        src: debian/etc_apt_sources.list.d_docker.list.j2
+        dest: "/etc/apt/sources.list.d/docker.list"
+        owner: root
+        group: root
+        mode: 0644

@@ -1,4 +1,3 @@
 =sys-libs/glibc-2.34-r1 **
 =sys-fs/go-mtpfs-9999 **
 =dev-libs/go-usb-9999 **
-<sys-devel/gcc-12.2.9999 **

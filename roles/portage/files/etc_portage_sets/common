@@ -1,3 +1,4 @@
+<sys-fs/ncdu-2
 acct-group/vboxusers
 app-admin/apache-tools
 app-admin/awscli
@@ -43,6 +44,7 @@ app-portage/foobashrc
 app-portage/genlop
 app-portage/gentoolkit
 app-portage/gpyutils
+app-portage/iwdevtools
 app-portage/nattka
 app-portage/pkg-testing-tools
 app-portage/portage-utils
@@ -204,4 +206,3 @@ sys-process/lsof
 sys-process/runit
 sys-process/time
 www-servers/nginx
-<sys-fs/ncdu-2

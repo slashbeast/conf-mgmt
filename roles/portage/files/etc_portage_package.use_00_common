@@ -39,7 +39,7 @@ dev-db/sqlite secure-delete
 dev-lang/python sqlite
 
 dev-libs/elfutils static-libs
-dev-libs/libpcre2 pcre16 pcre32
+dev-libs/libpcre2 pcre16 pcre32 static-libs
 dev-libs/libxml2 python icu
 dev-libs/xmlsec nss
 app-arch/bzip2 static-libs
@@ -54,6 +54,8 @@ media-video/ffmpeg fdk openssl
 net-libs/zeromq drafts
 
 net-misc/connman iptables -nftables wifi
+
+net-wireless/wpa_supplicant tkip
 
 net-p2p/qbittorrent webui
 

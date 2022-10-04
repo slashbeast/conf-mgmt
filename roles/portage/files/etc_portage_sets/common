@@ -158,7 +158,6 @@ sys-apps/moreutils
 sys-apps/nvme-cli
 sys-apps/pciutils
 sys-apps/pmount
-sys-apps/proot
 sys-apps/pv
 sys-apps/ripgrep
 sys-apps/smartmontools

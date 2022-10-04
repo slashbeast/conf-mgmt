@@ -166,6 +166,8 @@ sci-libs/gdal python
 
 sci-libs/hdf5 -threads
 
+sci-libs/cgnslib hdf5
+
 net-misc/aria2 -gnutls bittorrent ssh
 
 dev-libs/glib static-libs
@@ -176,3 +178,7 @@ dev-python/pyside2 webchannel webengine location positioning quick qml printsupp
 
 app-arch/xz-utils static-libs
 app-arch/zstd static-libs
+
+gui-libs/wlroots tinywl
+
+

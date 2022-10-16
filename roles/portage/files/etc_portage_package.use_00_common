@@ -70,7 +70,7 @@ sys-libs/zlib static-libs minizip
 x11-base/xorg-server elogind -suid xvfb
 
 x11-libs/cairo xcb
-x11-libs/libva utils
+media-libs/libva utils
 x11-libs/libxcb xkb
 
 x11-terms/rxvt-unicode 256-color -perl

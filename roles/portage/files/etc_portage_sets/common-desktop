@@ -1,7 +1,6 @@
 app-admin/conky
 app-admin/keepassxc
-media-gfx/freecad
-media-gfx/superslicer
+app-cdr/xfburn
 app-emulation/virt-manager
 app-office/libreoffice
 app-text/zathura-meta
@@ -21,10 +20,12 @@ media-fonts/terminus-font
 media-fonts/unifont
 media-fonts/urw-fonts
 media-gfx/feh
+media-gfx/freecad
 media-gfx/geeqie
 media-gfx/gimp
 media-gfx/gpicview
 media-gfx/maim
+media-gfx/superslicer
 media-gfx/xsane
 media-sound/deadbeef
 media-tv/v4l-utils

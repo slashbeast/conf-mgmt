@@ -181,4 +181,4 @@ app-arch/zstd static-libs
 
 gui-libs/wlroots tinywl
 
-
+media-sound/abcde musicbrainz

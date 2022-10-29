@@ -182,3 +182,5 @@ app-arch/zstd static-libs
 gui-libs/wlroots tinywl
 
 media-sound/abcde musicbrainz
+
+app-misc/mime-types nginx

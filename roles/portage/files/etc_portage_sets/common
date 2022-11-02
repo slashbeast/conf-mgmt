@@ -176,6 +176,7 @@ sys-devel/clang
 sys-devel/gdb
 sys-devel/lld
 sys-devel/mold
+sys-fs/android-file-transfer-linux
 sys-fs/cryptsetup
 sys-fs/dosfstools
 sys-fs/duperemove

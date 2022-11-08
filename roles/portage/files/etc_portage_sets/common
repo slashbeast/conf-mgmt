@@ -60,6 +60,7 @@ dev-db/postgresql
 dev-db/redis
 dev-java/icedtea
 dev-perl/Parallel-ForkManager
+dev-python/aiohttp
 dev-python/bcrypt
 dev-python/beautifulsoup4
 dev-python/black

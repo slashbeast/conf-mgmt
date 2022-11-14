@@ -30,6 +30,7 @@ media-gfx/xsane
 media-sound/deadbeef
 media-tv/v4l-utils
 media-video/guvcview
+media-video/makemkv
 media-video/mpv
 net-misc/remmina
 net-p2p/nicotine+

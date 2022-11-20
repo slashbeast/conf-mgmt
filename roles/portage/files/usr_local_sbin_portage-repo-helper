@@ -25,6 +25,7 @@ gen_repos_conf() {
 		sync-type = git
 		sync-uri = ${sync_url}
 		auto-sync = yes
+		sync-depth = 0
 	END
 }
 

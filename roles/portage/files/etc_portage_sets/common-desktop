@@ -3,6 +3,7 @@ app-admin/keepassxc
 app-cdr/xfburn
 app-emulation/virt-manager
 app-office/libreoffice
+app-text/fbreader
 app-text/zathura-meta
 dev-libs/libratbag
 lxde-base/lxappearance

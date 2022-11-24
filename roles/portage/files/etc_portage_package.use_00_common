@@ -186,3 +186,5 @@ media-sound/abcde musicbrainz
 app-misc/mime-types nginx
 
 sys-fs/android-file-transfer-linux fuse
+
+media-video/mkvtoolnix gui

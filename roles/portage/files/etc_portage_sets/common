@@ -92,6 +92,7 @@ dev-util/xdelta
 dev-vcs/git
 dev-vcs/stgit
 media-gfx/graphviz
+media-gfx/realesrgan-ncnn-vulkan
 media-gfx/waifu2x-ncnn-vulkan
 media-libs/mutagen
 media-sound/abcde

@@ -1,2 +1,2 @@
 # Spinning rust is mainly used for large datasets and long term storage, 8x the default readahead witll help significantly.
-ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", ATTR{bdi/read_ahead_kb}="1024"
+ACTION=="add|change", SUBSYSTEM=="block", ATTRS{queue/rotational}=="1", ATTR{bdi/read_ahead_kb}="512"

@@ -1,18 +1,30 @@
 - name: pam_limits
   tags: [pam_limits]
   block:
-  - name: limit max per-user's opened files to 4096
+  - name: nofile soft limit set to 65536
+    pam_limits:
+      domain: '*'
+      limit_type: soft
+      limit_item: nofile
+      value: "65536"
+
+  - name: nofile hard limit set to 65536
     pam_limits:
       domain: '*'
       limit_type: hard
       limit_item: nofile
-      value: "4096"
+      value: "65536"
   
-  - name: limit max per-user's processes to 4096
+  - name: nproc soft limit set to 65536
+    pam_limits:
+      domain: '*'
+      limit_type: soft
+      limit_item: nproc
+      value: "65536"
+  
+  - name: nproc hard limit set to 65536
     pam_limits:
       domain: '*'
       limit_type: hard
       limit_item: nproc
-      value: "4096"
-  
-  
+      value: "65536"

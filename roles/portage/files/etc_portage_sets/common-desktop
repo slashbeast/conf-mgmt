@@ -62,7 +62,6 @@ x11-misc/wmctrl
 x11-misc/xclip
 x11-misc/xsel
 x11-terms/rxvt-unicode
-x11-terms/st
 x11-terms/xterm
 x11-themes/adwaita-icon-theme
 x11-themes/tango-icon-theme

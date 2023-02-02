@@ -2,6 +2,7 @@ app-admin/conky
 app-admin/keepassxc
 app-cdr/xfburn
 app-emulation/virt-manager
+app-mobilephone/scrcpy
 app-office/libreoffice
 app-text/fbreader
 app-text/zathura-meta

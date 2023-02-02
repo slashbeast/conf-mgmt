@@ -1,11 +1,11 @@
 */* pic threads smp
-*/* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 svt-av1 xft xml xvid bluetooth
-*/* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf
+*/* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 svt-av1 xft xml xvid
+*/* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf icu qml bluetooth
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 */* lto pgo
 */* lzma zstd
 
-dev-qt/* multimedia gui network widgets qml
+dev-qt/* multimedia gui network widgets
 dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
@@ -40,11 +40,11 @@ dev-lang/python sqlite
 
 dev-libs/elfutils static-libs
 dev-libs/libpcre2 pcre16 pcre32 static-libs
-dev-libs/libxml2 python icu
+dev-libs/libxml2 python
 dev-libs/xmlsec nss
 app-arch/bzip2 static-libs
 
-media-libs/harfbuzz icu
+media-libs/harfbuzz
 media-libs/libpng apng
 media-libs/libvpx postproc svc
 media-libs/mesa vulkan
@@ -77,7 +77,7 @@ x11-terms/rxvt-unicode 256-color -perl
 
 app-emulation/qemu sdl spice usbredir virtfs virgl static-user
 
-dev-libs/boost icu context python
+dev-libs/boost context python
 
 dev-lang/luajit lua52compat
 
@@ -157,8 +157,6 @@ app-arch/brotli python
 
 media-libs/qhull static-libs
 
-dev-libs/xerces-c icu
-
 sci-libs/med python
 
 sci-libs/opencascade vtk json
@@ -176,7 +174,7 @@ dev-libs/glib static-libs
 sys-apps/attr static-libs
 dev-libs/libpcre static-libs
 
-dev-python/pyside2 webchannel webengine location positioning quick qml printsupport
+dev-python/pyside2 webchannel webengine location positioning quick printsupport
 
 app-arch/xz-utils static-libs
 app-arch/zstd static-libs

@@ -7,6 +7,7 @@ app-office/libreoffice
 app-text/fbreader
 app-text/zathura-meta
 dev-libs/libratbag
+kde-misc/kdeconnect
 lxde-base/lxappearance
 lxde-base/lxrandr
 mail-client/thunderbird

@@ -11,7 +11,6 @@ app-admin/ps_mem
 app-admin/pwgen
 app-admin/ryzen_monitor
 app-admin/sudo
-app-admin/tmpreaper
 app-arch/cpio
 app-arch/p7zip
 app-arch/rar

@@ -42,30 +42,30 @@ iptables_both -P FORWARD DROP
 iptables_both -P OUTPUT ACCEPT
 
 # Log the DROP.
-iptables -N LOGDROP
-iptables -A LOGDROP -j LOG --log-level 4 --log-prefix '[LOG DROP] '
-iptables -A LOGDROP -j DROP
+iptables_both -N LOGDROP
+iptables_both -A LOGDROP -j LOG --log-level 4 --log-prefix '[LOG DROP] '
+iptables_both -A LOGDROP -j DROP
 
 # Log the REJECT
-iptables -N LOGREJECT
-iptables -A LOGREJECT -j LOG --log-level 4 --log-prefix '[LOG REJECT] '
-iptables -A LOGREJECT -j REJECT
+iptables_both -N LOGREJECT
+iptables_both -A LOGREJECT -j LOG --log-level 4 --log-prefix '[LOG REJECT] '
+iptables_both -A LOGREJECT -j REJECT
 
 # Drop junk
-iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
-iptables -A FORWARD -m conntrack --ctstate INVALID -j DROP
-iptables -A OUTPUT -m conntrack --ctstate INVALID -j DROP
+iptables_both -A INPUT -m conntrack --ctstate INVALID -j DROP
+iptables_both -A FORWARD -m conntrack --ctstate INVALID -j DROP
+iptables_both -A OUTPUT -m conntrack --ctstate INVALID -j DROP
 
 # Don't kill already spared connections,
 iptables_both -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables_both -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Drop bogus packets
-iptables -A INPUT -p tcp -m tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
-iptables -A INPUT -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP
+iptables_both -A INPUT -p tcp -m tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
+iptables_both -A INPUT -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP
 
 # Drop excessive RST packets to avoid SMURF attacks, by given the next real data packet in the sequence a better chance to arrive first.
-iptables -A INPUT -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+iptables_both -A INPUT -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
 
 {% if network.iptables_script.mdns.enabled is defined and network.iptables_script.mdns.enabled %}
 # mdns

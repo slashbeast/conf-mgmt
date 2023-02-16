@@ -1,4 +1,4 @@
-*/* pic threads smp
+*/* pic threads smp opencv
 */* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 svt-av1 xft xml xvid
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf icu qml bluetooth
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome

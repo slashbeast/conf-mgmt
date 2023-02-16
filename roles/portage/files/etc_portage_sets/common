@@ -75,7 +75,7 @@ dev-python/polib
 dev-python/pyelftools
 dev-python/python-gnupg
 dev-python/python-magic
-dev-python/redis-py
+dev-python/redis
 dev-python/setproctitle
 dev-python/tox
 dev-python/twine
@@ -89,6 +89,7 @@ dev-util/strace
 dev-util/vmtouch
 dev-util/xdelta
 dev-vcs/git
+dev-vcs/git-lfs
 dev-vcs/stgit
 media-gfx/graphviz
 media-gfx/realesrgan-ncnn-vulkan
@@ -164,6 +165,7 @@ sys-apps/ripgrep
 sys-apps/smartmontools
 sys-apps/usbutils
 sys-apps/usermode-utilities
+sys-apps/yarn
 sys-auth/nss-mdns
 sys-auth/oath-toolkit
 sys-block/nbd

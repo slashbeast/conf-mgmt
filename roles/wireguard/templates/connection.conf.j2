@@ -39,11 +39,13 @@ PreUp = sysctl -w net.ipv4.ip_forward=1
 
 # Block syncthing over wireguard, so it can only access it over local network.
 PreUp = iptables -I FORWARD -i %i -o %i -p tcp --dport 22000 -j REJECT
+PreUp = iptables -I FORWARD -i %i -o %i -p udp --dport 22000 -j REJECT
 PreUp = iptables -I FORWARD -i %i -o %i -p udp --dport 21027 -j REJECT
 
 # Cleanup, keep the default DROP policy on FORWARD though.
 PostDown = iptables -D FORWARD -i %i -o %i -j ACCEPT
 PostDown = iptables -D FORWARD -i %i -o %i -p tcp --dport 22000 -j REJECT
+PostDown = iptables -D FORWARD -i %i -o %i -p udp --dport 22000 -j REJECT
 PostDown = iptables -D FORWARD -i %i -o %i -p udp --dport 21027 -j REJECT
 PostDown = iptables -t nat -D POSTROUTING -s {{ network_cidr }} ! -d {{ network_cidr }} -j MASQUERADE
 {% endif %}

@@ -1,7 +1,7 @@
-- name: Don't purge VFS cache that often.
+- name: Deprioritize reclaiming inodes cache at cost of page caches
   sysctl:
     name: vm.vfs_cache_pressure
-    value: "50"
+    value: "25"
 
 - name: Set dirty_bytes to 512M
   sysctl:

@@ -51,8 +51,6 @@ media-libs/mesa vulkan
 
 media-video/ffmpeg fdk openssl
 
-net-libs/zeromq drafts
-
 net-misc/connman iptables -nftables wifi
 
 net-wireless/wpa_supplicant tkip

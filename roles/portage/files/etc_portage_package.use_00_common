@@ -123,7 +123,7 @@ app-emulation/libvirt fuse libssh lxc virt-network
 
 net-libs/libssh server
 
-app-emulation/virt-manager gtk
+app-emulation/virt-manager gui
 
 net-misc/spice-gtk usbredir
 

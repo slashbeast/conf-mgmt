@@ -16,7 +16,7 @@
     when: etc_locale_gen.changed
     command: locale-gen
  
-  - name: set English UTF-8 locales with ISO-ish date format
+  - name: English locale with ISO 8601 dates and metric system
     register: locale_file
     copy:
       dest: '{{ locale_path[ansible_distribution] }}'
@@ -24,9 +24,7 @@
       group: root
       mode: 0600
       content: |
-        LC_COLLATE="C"
-        LANG="C.UTF-8"
-        LC_TIME="en_DK.UTF-8"
+        LANG="en_DK.UTF-8"
         TIME_STYLE="long-iso"
   
   - name: updates environment settings

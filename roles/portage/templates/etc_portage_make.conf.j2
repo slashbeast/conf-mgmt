@@ -40,7 +40,7 @@ RESUMECOMMAND="aria2c -j 4 -x 4 -s 4 -k 1M -d \"\${DISTDIR}\" -o \"\${FILE}\" \"
 EMERGE_DEFAULT_OPTS="
     --with-bdeps y
     --binpkg-respect-use y
-    --buildpkg-exclude 'virtual/* sys-kernel/*-sources app-emulation/emul-linux-* app-emulation/virtualbox-modules net-misc/realtek-r8152 dev-util/sysdig-kmod app-admin/ryzen_smu'
+    --buildpkg-exclude 'virtual/* sys-kernel/*-sources app-emulation/emul-linux-* app-emulation/virtualbox-modules net-misc/realtek-r8152 dev-util/sysdig-kmod app-admin/ryzen_smu x11-drivers/nvidia-drivers'
     --usepkg
     --jobs {{ (ansible_processor_vcpus / 4) | int }}
     --load-average {{ ansible_processor_vcpus }}

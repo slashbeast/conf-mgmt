@@ -40,6 +40,8 @@ control() {
         control_directory='/sys/class/backlight/intel_backlight'
     elif [ -d '/sys/class/backlight/amdgpu_bl0' ]; then
         control_directory='/sys/class/backlight/amdgpu_bl0'
+    elif [ -d '/sys/class/backlight/amdgpu_bl1' ]; then
+        control_directory='/sys/class/backlight/amdgpu_bl1'
     else
         exit 1
     fi

@@ -24,16 +24,8 @@ if [ -f .xmodmap ]; then
     xmodmap .xmodmap
 fi
 
-#if [ -f .config/redshift.conf ]; then
-#    redshift-gtk &
-#fi
-
 if [ -f .config/dunstrc ]; then
     dunst &
-fi
-
-if [ -f .compton.conf ]; then
-    compton  -b &
 fi
 
 if [ -f .config/tint2/tint2rc ]; then

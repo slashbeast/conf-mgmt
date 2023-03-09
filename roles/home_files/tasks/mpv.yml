@@ -35,3 +35,11 @@
     owner: '{{ user }}'
     group: '{{ user_group_id }}'
     mode: 0600
+
+- name: .mpv/shaders/SSimSuperRes.glsl deployment
+  copy:
+    src: DOTmpv_shaders_SSimSuperRes.glsl
+    dest: '{{ user_home_dir }}/.mpv/shaders/SSimSuperRes.glsl'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

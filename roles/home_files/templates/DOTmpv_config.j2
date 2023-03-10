@@ -51,4 +51,6 @@ ytdl-format=best[height<=1080]
 
 screenshot-format=png
 
-glsl-shaders=~/.mpv/shaders/SSimSuperRes.glsl:~/.mpv/shaders/adaptive-sharpen.glsl
+linear-downscaling=no
+
+glsl-shaders=~/.mpv/shaders/KrigBilateral.glsl:~/.mpv/shaders/SSimSuperRes.glsl:~/.mpv/shaders/SSimDownscaler.glsl:~/.mpv/shaders/adaptive-sharpen.glsl

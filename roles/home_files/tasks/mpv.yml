@@ -28,18 +28,16 @@
     group: '{{ user_group_id }}'
     mode: 0600
 
-- name: .mpv/shaders/adaptive-sharpen.glsl deployment
-  copy:
-    src: DOTmpv_shaders_adaptive-sharpen.glsl
-    dest: '{{ user_home_dir }}/.mpv/shaders/adaptive-sharpen.glsl'
-    owner: '{{ user }}'
-    group: '{{ user_group_id }}'
-    mode: 0600
-
-- name: .mpv/shaders/SSimSuperRes.glsl deployment
-  copy:
-    src: DOTmpv_shaders_SSimSuperRes.glsl
-    dest: '{{ user_home_dir }}/.mpv/shaders/SSimSuperRes.glsl'
-    owner: '{{ user }}'
-    group: '{{ user_group_id }}'
-    mode: 0600
+- name: ~/.mpv/shaders
+  synchronize:
+    src: DOTmpv_shaders/
+    dest: '{{ user_home_dir }}/.mpv/shaders'
+    archive: no
+    checksum: yes
+    compress: no
+    recursive: yes
+    rsync_opts:
+      - "-gop"
+      - "--chown={{ user }}:{{ user_group_id }}"
+      - "--chmod=Fu=rw,Fg=,Fo=,Du=rwx,Dg=,Do="
+      - "--copy-links"

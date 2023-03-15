@@ -20,7 +20,7 @@ ZDOTDIR=${ZDOTDIR:-${HOME}}
 ZSHDDIR="${HOME}/.config/zsh.d"
 HISTFILE="${ZDOTDIR}/.zsh_history"
 HISTSIZE='128000'
-SAVEHIST='96000'
+SAVEHIST='128000'
 export EDITOR="/usr/bin/vim"
 export TMP="$HOME/tmp"
 export TEMP="$TMP"
@@ -297,11 +297,7 @@ setopt pushd_minus
 setopt interactivecomments
 
 # Ignore duplicate in history.
-setopt hist_expire_dups_first
 setopt hist_ignore_dups
-setopt hist_ignore_all_dups
-setopt hist_find_no_dups
-setopt hist_save_no_dups
 
 # Prevent record in history entry if preceding them with at least one space
 setopt hist_ignore_space

@@ -13,6 +13,10 @@ if [ -f .Xdefaults ]; then
     xrdb -merge .Xdefaults
 fi
 
+if [ -f .compton.conf ]; then
+    compton  -b &
+fi
+
 if [ -f .fehbg ]; then
     sh ~/.fehbg
 fi

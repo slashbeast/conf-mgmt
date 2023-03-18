@@ -1,8 +1,5 @@
 #!/bin/sh
 
-inbound_open_tcp_ports='{{ network.iptables_script.inbound_open_tcp_ports | default("")}}'
-inbound_open_udp_ports='{{ network.iptables_script.inbound_open_udp_ports  | default("")}}'
-inbound_respond_to_ping='{{ network.iptables_script.inbound_respond_to_ping  | default("")}}'
 outbound_reject_from_users='{{ network.iptables_script.outbound_reject_from_users  | default("")}}'
 
 set -e
@@ -99,10 +96,10 @@ done
 iptables_both -A INPUT -i lo -j ACCEPT
 iptables_both -A OUTPUT -o lo -j ACCEPT
 
+{% if network.iptables_script.ping_response is defined and network.iptables_script.ping_response %}
 # Respond to ping.
-if [ "${inbound_respond_to_ping}" = 'true' ]; then
-    iptables -A INPUT -p icmp --icmp-type 8 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-fi
+iptables -A INPUT -p icmp --icmp-type 8 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+{% endif %}
 
 # Accept all ICMP IPv6.
 ip6tables -A INPUT -p ipv6-icmp -j ACCEPT
@@ -110,10 +107,10 @@ ip6tables -A INPUT -p ipv6-icmp -j ACCEPT
 # Accept DHCPv6 incoming traffic
 #ip6tables -A INPUT -d fe80::/64 -p udp -m udp --dport 546 -m state --state NEW -j ACCEPT
 
+{% if network.iptables_script.open_ports is defined %}
 # Accept inbound connections on specified ports.
-for port in ${inbound_open_tcp_ports}; do
-    iptables -A INPUT -p tcp --dport "${port}" -j ACCEPT
-done
-for port in ${inbound_open_udp_ports}; do
-    iptables -A INPUT -p udp --dport "${port}" -j ACCEPT
-done
+{% for port in network.iptables_script.open_ports %}
+iptables_both -A INPUT -p tcp --dport {{ port }} -j ACCEPT
+iptables_both -A INPUT -p udp --dport {{ port }} -j ACCEPT
+{% endfor %}
+{% endif %}

@@ -188,3 +188,5 @@ sys-fs/android-file-transfer-linux fuse
 media-video/mkvtoolnix gui
 
 app-doc/doxygen dot
+
+x11-misc/polybar curl ipc mpd network

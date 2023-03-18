@@ -1,4 +1,3 @@
-<sys-fs/ncdu-2
 acct-group/vboxusers
 app-admin/apache-tools
 app-admin/awscli
@@ -148,6 +147,7 @@ sys-apps/busybox
 sys-apps/dmidecode
 sys-apps/dstat
 sys-apps/ethtool
+sys-apps/flatpak
 sys-apps/fwupd
 sys-apps/gptfdisk
 sys-apps/hd-idle
@@ -190,6 +190,7 @@ sys-fs/lvm2
 sys-fs/mdadm
 sys-fs/mergerfs
 sys-fs/multipath-tools
+<sys-fs/ncdu-2
 sys-fs/ntfs3g
 sys-fs/simple-mtpfs
 sys-fs/squashfs-tools
@@ -198,10 +199,10 @@ sys-fs/squashfuse
 sys-fs/udisks
 sys-fs/xfsprogs
 sys-kernel/linux-firmware
-sys-power/RyzenAdj
 sys-power/acpi
 sys-power/acpid
 sys-power/cpupower
+sys-power/RyzenAdj
 sys-power/upower
 sys-process/cronie
 sys-process/glances

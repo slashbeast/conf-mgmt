@@ -142,7 +142,7 @@ dev-util/ostree curl
 
 media-libs/opencv qt5 examples contrib contribdnn
 
-dev-lang/rust nightly parallel-compiler system-llvm
+dev-lang/rust system-llvm wasm rust-analyzer rust-src rustfmt
 
 media-video/handbrake gtk
 

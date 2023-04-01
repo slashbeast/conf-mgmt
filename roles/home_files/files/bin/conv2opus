@@ -14,6 +14,6 @@ if [ -f "${target}" ]; then
     rm -f "${target}"
 fi
 
-ffmpeg -i "${input}" -vn -c:a libopus -b:a 500000 "${target}"
+ffmpeg -i "${input}" -vn -c:a libopus -b:a 256000 "${target}"
 
 rm -f "${input}"

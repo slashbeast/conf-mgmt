@@ -69,6 +69,7 @@ dev-python/fuzzywuzzy
 dev-python/ipython
 dev-python/isort
 dev-python/jc
+dev-python/jinja
 dev-python/polib
 dev-python/pyelftools
 dev-python/python-gnupg

@@ -262,6 +262,11 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
+if command -v terraform >/dev/null 2>&1; then
+    autoload -U +X bashcompinit && bashcompinit
+    complete -o nospace -C $(command -v terraform) terraform
+fi
+
 # If running as root and nice >0, renice to 0.
 if [ "$USER" = 'root' ] && [ "$(cut -d ' ' -f 19 /proc/$$/stat)" -gt 0 ]; then
     renice -n 0 -p "$$" && echo "# Adjusted nice level for current shell to 0."

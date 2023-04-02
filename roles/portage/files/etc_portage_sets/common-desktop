@@ -19,6 +19,8 @@ media-fonts/dejavu
 media-fonts/droid
 media-fonts/inconsolata
 media-fonts/libertine
+media-fonts/noto
+media-fonts/noto-emoji
 media-fonts/terminus-font
 media-fonts/unifont
 media-fonts/urw-fonts

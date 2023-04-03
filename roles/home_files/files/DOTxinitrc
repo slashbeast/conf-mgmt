@@ -32,12 +32,15 @@ if [ -f .config/dunstrc ]; then
     dunst &
 fi
 
-if [ -f .config/polybar/config.ini ]; then
-    polybar >/dev/null 2>&1 &
-fi
-
 if command -v autorandr >/dev/null 2>&1; then
     autorandr --change
+fi
+
+if [ -f .config/polybar/config.ini ]; then
+    # Run polybar after openbox is started
+    # so the xwindow module will work as it should.
+    # TODO: move most of .xinitrc to openbox startup script...
+    ( sleep 1 && polybar >/dev/null 2>&1  ) &
 fi
 
 openbox

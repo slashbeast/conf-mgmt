@@ -32,8 +32,8 @@ if [ -f .config/dunstrc ]; then
     dunst &
 fi
 
-if [ -f .config/tint2/tint2rc ]; then
-    tint2 >/dev/null 2>&1 &
+if [ -f .config/polybar/config.ini ]; then
+    polybar >/dev/null 2>&1 &
 fi
 
 if command -v autorandr >/dev/null 2>&1; then

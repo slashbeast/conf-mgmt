@@ -1,0 +1,15 @@
+- name: ensure ~/.config/polybar exist
+  file:
+    path: '{{ user_home_dir }}/.config/polybar'
+    state: directory
+    mode: 0700
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+
+- name: config.ini deployment
+  copy:
+    src: DOTconfig_polybar_config.ini
+    dest: '{{ user_home_dir }}/.config/polybar/config.ini'
+    owner: '{{ user }}'
+    group: '{{ user_group_id }}'
+    mode: 0600

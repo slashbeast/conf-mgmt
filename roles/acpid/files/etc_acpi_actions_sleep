@@ -35,8 +35,8 @@ case "$2" in
         logger -t acpid 'Syncing filesystems (again) ...'
         sync
 
-        logger -t acpid 'Attempting hybrid suspend ...'
-        echo suspend >/sys/power/disk
+        logger -t acpid 'Hibernating to disk ...'
+        echo platform >/sys/power/disk
         echo disk >/sys/power/state
 
         logger -t acpid 'Resumed from hibernation.'

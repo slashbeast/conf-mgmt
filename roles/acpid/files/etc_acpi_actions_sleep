@@ -36,7 +36,7 @@ case "$2" in
         sync
 
         logger -t acpid 'Hibernating to disk ...'
-        echo shutdown >/sys/power/disk
+        echo platform >/sys/power/disk
         echo disk >/sys/power/state
 
         logger -t acpid 'Resumed from hibernation.'

@@ -220,6 +220,13 @@ man() {
     fi
 }
 
+# Mapping command completion to another name.
+compdefas () {
+  if (($+_comps[$1])); then
+    compdef $_comps[$1] ${^@[2,-1]}=$1
+  fi
+}
+
 # Le features!
 # extended globbing, awesome!
 setopt extendedGlob
@@ -265,6 +272,10 @@ zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 if command -v terraform >/dev/null 2>&1; then
     autoload -U +X bashcompinit && bashcompinit
     complete -o nospace -C $(command -v terraform) terraform
+
+    if command -v tf >/dev/null 2>&1; then
+        compdefas terraform tf
+    fi
 fi
 
 # If running as root and nice >0, renice to 0.

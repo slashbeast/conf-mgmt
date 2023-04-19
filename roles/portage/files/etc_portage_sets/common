@@ -137,7 +137,6 @@ net-print/cups
 net-proxy/dante
 net-proxy/sshuttle
 net-proxy/tinyproxy
-net-vpn/openconnect
 net-vpn/openvpn
 net-vpn/wireguard-tools
 net-wireless/iw

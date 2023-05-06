@@ -1,12 +1,12 @@
 */* pic threads smp opencv
-*/* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 svt-av1 xft xml xvid
+*/* X wayland aac alsa cairo egl ffmpeg flac fontconfig g3dvl glamor gles2 jpeg mp3 ogg opengl opus png webp svg theora tiff truetype vaapi vdpau vorbis vpx vulkan wavpack x264 x265 svt-av1 xft xml xvid webkit
 */* logrotate zsh-completion cups vim-syntax dbus elogind policykit udev zeroconf icu qml bluetooth
 */* -networkmanager -gstreamer -pm-utils -udisks -pulseaudio -kde -gnome
 */* lto pgo
 */* lzma zstd
 
 dev-qt/* multimedia gui network widgets
-dev-python/PyQt5 multimedia gui network widgets printsupport webkit declarative
+dev-python/PyQt5 multimedia gui network widgets printsupport declarative
 
 # protonmail bridge is shipped with biarny Qt built with pulseaudio glib dep.
 media-sound/pulseaudio -* glib
@@ -190,3 +190,5 @@ media-video/mkvtoolnix gui
 app-doc/doxygen dot
 
 x11-misc/polybar curl ipc mpd network
+
+dev-libs/sexp static-libs

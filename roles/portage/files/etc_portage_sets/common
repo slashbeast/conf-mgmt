@@ -169,6 +169,7 @@ sys-auth/nss-mdns
 sys-auth/oath-toolkit
 sys-block/nbd
 sys-block/parted
+sys-block/storcli
 sys-boot/grub
 sys-boot/lazykernel
 sys-boot/syslinux

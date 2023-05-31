@@ -48,6 +48,7 @@ media-libs/harfbuzz
 media-libs/libpng apng
 media-libs/libvpx postproc svc
 media-libs/mesa vulkan
+dev-libs/libclc spirv
 
 media-video/ffmpeg fdk openssl
 
@@ -192,3 +193,5 @@ app-doc/doxygen dot
 x11-misc/polybar curl ipc mpd network
 
 dev-libs/sexp static-libs
+
+sci-libs/opencascade -ffmpeg

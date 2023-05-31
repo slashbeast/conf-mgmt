@@ -24,6 +24,8 @@ map <silent> W :s/^\s\+//e<CR>:nohlsearch<CR>
 map <silent> S :s/^ \+//e<CR>:nohlsearch<CR>
 " Append tab to the begin of each selected line, useful when wrapping blocks of code.
 map <silent> T :s/^/\t/<CR>:nohlsearch<CR>
+" Disable bind to convert selected to lower case
+vnoremap u <Nop>
 
 " 4 spaces tabs.
 set tabstop=4

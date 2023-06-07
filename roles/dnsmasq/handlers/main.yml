@@ -1,5 +1,0 @@
-- name: restart dnsmasq
-  when: skip_handlers is not defined
-  service:
-    name: dnsmasq
-    state: restarted

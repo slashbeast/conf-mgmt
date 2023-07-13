@@ -1,7 +1,7 @@
 - name: Deprioritize reclaiming inodes cache at cost of page caches
   sysctl:
     name: vm.vfs_cache_pressure
-    value: "20"
+    value: "10"
 
 - name: Set dirty_bytes to 512M
   sysctl:

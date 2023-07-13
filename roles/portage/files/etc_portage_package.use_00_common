@@ -192,6 +192,8 @@ app-doc/doxygen dot
 
 x11-misc/polybar curl ipc mpd network
 
-dev-libs/sexp static-libs
+dev-libs/sexpp static-libs
 
 sci-libs/opencascade -ffmpeg
+
+net-libs/gnutls pkcs11 tools

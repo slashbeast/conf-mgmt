@@ -53,6 +53,31 @@ CYAN='\e[1;36m'
 NC='\e[0m'
 
 # Functions
+_zsh_history_vacuum() {
+    # zsh have tendency to randomly trash .zsh_history sometimes
+    # therefore cleaning it up on login shells might greatly reduce the chances zsh
+    # has to break it.
+
+    # Prone to race condition with new history entries loss if history file changed
+    # between the `cat` is executed and the final rename is called
+
+    # Run only on login shells,
+    if ! [[ -o login ]] || ! [[ -o interactive ]]; then
+        return 0
+    fi
+
+    local suffix="${RANDOM}-${$}"
+    local history_new="${HISTFILE}.new.${suffix}"
+    local history_tmp="${HISTFILE}.tmp.${suffix}"
+
+    # Strips duplicates while also taking care of small corruptions and otherwise binary data in .zsh_history.
+    cp -a --reflink=auto "${HISTFILE}" "${history_tmp}" && \
+    cat -v "${HISTFILE}" | tac | awk '!x[$0]++' | tac >"${history_new}" && \
+    mv "${history_new}" "${HISTFILE}" && \
+    fc -R && \
+    rm -f "${history_tmp}"
+}
+_zsh_history_vacuum
 
 # Fancy cd that can cd into parent directory, if trying to cd into file.
 # useful with ^F fuzzy searcher.
@@ -505,5 +530,3 @@ esac
 
 bindkey "^R" history-incremental-pattern-search-backward 
 bindkey "^S" history-incremental-pattern-search-forward
-
-if [ -f ~/.alert ]; then echo '>>> Check ~/.alert'; fi

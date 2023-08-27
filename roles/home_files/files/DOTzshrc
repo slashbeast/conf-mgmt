@@ -62,7 +62,7 @@ _zsh_history_vacuum() {
     # between the `cat` is executed and the final rename is called
 
     # Run only on login shells,
-    if ! [[ -o login ]] || ! [[ -o interactive ]]; then
+    if ! [[ -o login ]] || ! [[ -o interactive ]] || ! [[ -f "${HISTFILE}" ]]; then
         return 0
     fi
 
@@ -72,7 +72,7 @@ _zsh_history_vacuum() {
 
     # Strips duplicates while also taking care of small corruptions and otherwise binary data in .zsh_history.
     cp -a --reflink=auto "${HISTFILE}" "${history_tmp}" && \
-    cat -v "${HISTFILE}" | tac | awk '!x[$0]++' | tac >"${history_new}" && \
+    cat -v "${history_tmp}" | tac | awk '!x[$0]++' | tac >"${history_new}" && \
     mv "${history_new}" "${HISTFILE}" && \
     fc -R && \
     rm -f "${history_tmp}"

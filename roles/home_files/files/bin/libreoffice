@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Wrapper to force light theme for Liberoffice
+# the UI really is borderline unusable with dark themes.
+
+# NOTE: 
+#   This wrapper needs to be called out of $PATH to work as intended.
+
+export GTK_THEME='Adwaita' 
+
+script_path="$(readlink -f "$0")"
+base_name="${script_path##*/}"
+
+IFS=:
+for pathdir in ${PATH}; do
+    if [ -f "${pathdir}/${base_name}" ]; then
+        if [ -x "${pathdir}/${base_name}" ]; then
+            if [ "${pathdir}/${base_name}" != "${script_path}" ]; then
+                exec "${pathdir}/${base_name}" "$@"
+            fi
+        fi
+    fi
+done
+
+echo 'We were never meant to get here.'
+exit 1

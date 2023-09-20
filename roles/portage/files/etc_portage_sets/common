@@ -138,6 +138,7 @@ net-proxy/dante
 net-proxy/sshuttle
 net-proxy/tinyproxy
 net-vpn/openvpn
+net-vpn/tailscale
 net-vpn/wireguard-tools
 net-wireless/iw
 net-wireless/wireless-tools

@@ -1,0 +1,8 @@
+- name: tailscale
+  tags: [tailscale]
+  block:
+  - name: autostart tailscale on system startup
+    service:
+      name: tailscale
+      runlevel: default
+      enabled: true
